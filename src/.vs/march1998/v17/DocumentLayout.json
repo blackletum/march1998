@@ -1,0 +1,734 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\SourceCode\\March1998\\src\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\monstermaker.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\monstermaker.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\squeakgrenade.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\squeakgrenade.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\shotgun.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\shotgun.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\satchel.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\satchel.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\rpg.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\rpg.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\tripmine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\tripmine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\python.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\python.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\hornetgun.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\hornetgun.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\gauss.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\gauss.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\egon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\egon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\crossbow.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\crossbow.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\mp5.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\mp5.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\chumtoad.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\chumtoad.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\handgrenade.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\handgrenade.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\weapons.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\weapons.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2816F884-FA64-490A-BD24-B82DF942B2FE}|cl_dll\\cl_dll.vcxproj|C:\\SourceCode\\March1998\\src\\cl_dll\\hl\\hl_baseentity.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2816F884-FA64-490A-BD24-B82DF942B2FE}|cl_dll\\cl_dll.vcxproj|solutionrelative:cl_dll\\hl\\hl_baseentity.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\glock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\glock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\items.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\items.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\weapons.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\weapons.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\barney.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\barney.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\hgrunt.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\hgrunt.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\combat.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\combat.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\monsters.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\monsters.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\islave.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\islave.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02ABF765-D158-4C5D-8FE4-BAE8973EF24D}|mainui\\mainui.vcxproj|C:\\SourceCode\\March1998\\src\\mainui\\menu_main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{02ABF765-D158-4C5D-8FE4-BAE8973EF24D}|mainui\\mainui.vcxproj|solutionrelative:mainui\\menu_main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02ABF765-D158-4C5D-8FE4-BAE8973EF24D}|mainui\\mainui.vcxproj|C:\\SourceCode\\March1998\\src\\mainui\\menu_newgame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{02ABF765-D158-4C5D-8FE4-BAE8973EF24D}|mainui\\mainui.vcxproj|solutionrelative:mainui\\menu_newgame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\bullsquid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\bullsquid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\zombie.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\zombie.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\ggrenade.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\ggrenade.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\pm_shared\\pm_shared.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:pm_shared\\pm_shared.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08E7C852-6812-4C62-A6C4-2BA1411BF444}|engine\\engine.vcxproj|C:\\SourceCode\\March1998\\src\\engine\\client\\cl_tent.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{08E7C852-6812-4C62-A6C4-2BA1411BF444}|engine\\engine.vcxproj|solutionrelative:engine\\client\\cl_tent.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08E7C852-6812-4C62-A6C4-2BA1411BF444}|engine\\engine.vcxproj|C:\\SourceCode\\March1998\\src\\engine\\client\\cl_tent.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{08E7C852-6812-4C62-A6C4-2BA1411BF444}|engine\\engine.vcxproj|solutionrelative:engine\\client\\cl_tent.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\multiplay_gamerules.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\multiplay_gamerules.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2816F884-FA64-490A-BD24-B82DF942B2FE}|cl_dll\\cl_dll.vcxproj|C:\\SourceCode\\March1998\\src\\cl_dll\\hud.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2816F884-FA64-490A-BD24-B82DF942B2FE}|cl_dll\\cl_dll.vcxproj|solutionrelative:cl_dll\\hud.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\gamerules.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\gamerules.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08E7C852-6812-4C62-A6C4-2BA1411BF444}|engine\\engine.vcxproj|C:\\SourceCode\\March1998\\src\\engine\\client\\client.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{08E7C852-6812-4C62-A6C4-2BA1411BF444}|engine\\engine.vcxproj|solutionrelative:engine\\client\\client.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\cdll_dll.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\cdll_dll.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2816F884-FA64-490A-BD24-B82DF942B2FE}|cl_dll\\cl_dll.vcxproj|C:\\SourceCode\\March1998\\src\\cl_dll\\ammo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2816F884-FA64-490A-BD24-B82DF942B2FE}|cl_dll\\cl_dll.vcxproj|solutionrelative:cl_dll\\ammo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|C:\\SourceCode\\March1998\\src\\dlls\\client.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB91DD1D-FD72-4FD2-B309-AE2AA2C05422}|dlls\\hl.vcxproj|solutionrelative:dlls\\client.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "monstermaker.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\monstermaker.cpp",
+              "RelativeDocumentMoniker": "dlls\\monstermaker.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\monstermaker.cpp",
+              "RelativeToolTip": "dlls\\monstermaker.cpp",
+              "ViewState": "AgIAADsBAAAAAAAAAAAcwF0BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T19:24:26.422Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "squeakgrenade.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\squeakgrenade.cpp",
+              "RelativeDocumentMoniker": "dlls\\squeakgrenade.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\squeakgrenade.cpp",
+              "RelativeToolTip": "dlls\\squeakgrenade.cpp",
+              "ViewState": "AgIAANUBAAAAAAAAAAAAAJ8BAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T19:17:50.782Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "shotgun.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\shotgun.cpp",
+              "RelativeDocumentMoniker": "dlls\\shotgun.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\shotgun.cpp",
+              "RelativeToolTip": "dlls\\shotgun.cpp",
+              "ViewState": "AgIAAG0AAAAAAAAAAAAAAHoAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T19:17:28.834Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "satchel.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\satchel.cpp",
+              "RelativeDocumentMoniker": "dlls\\satchel.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\satchel.cpp",
+              "RelativeToolTip": "dlls\\satchel.cpp",
+              "ViewState": "AgIAANoAAAAAAAAAAAAAAOkAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T19:16:47.907Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "rpg.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\rpg.cpp",
+              "RelativeDocumentMoniker": "dlls\\rpg.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\rpg.cpp",
+              "RelativeToolTip": "dlls\\rpg.cpp",
+              "ViewState": "AgIAANEBAAAAAAAAAAAAAOIBAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T19:16:20.392Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "tripmine.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\tripmine.cpp",
+              "RelativeDocumentMoniker": "dlls\\tripmine.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\tripmine.cpp",
+              "RelativeToolTip": "dlls\\tripmine.cpp",
+              "ViewState": "AgIAAGcBAAAAAAAAAAAAAHMBAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T15:38:47.565Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "python.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\python.cpp",
+              "RelativeDocumentMoniker": "dlls\\python.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\python.cpp",
+              "RelativeToolTip": "dlls\\python.cpp",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAAAFEAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T19:16:03.723Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "hornetgun.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\hornetgun.cpp",
+              "RelativeDocumentMoniker": "dlls\\hornetgun.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\hornetgun.cpp",
+              "RelativeToolTip": "dlls\\hornetgun.cpp",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAAAGQAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T19:15:21.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "gauss.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\gauss.cpp",
+              "RelativeDocumentMoniker": "dlls\\gauss.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\gauss.cpp",
+              "RelativeToolTip": "dlls\\gauss.cpp",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAAAIcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T19:14:22.251Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "egon.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\egon.cpp",
+              "RelativeDocumentMoniker": "dlls\\egon.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\egon.cpp",
+              "RelativeToolTip": "dlls\\egon.cpp",
+              "ViewState": "AgIAAKQAAAAAAAAAAAAAALQAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T19:14:02.948Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "crossbow.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\crossbow.cpp",
+              "RelativeDocumentMoniker": "dlls\\crossbow.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\crossbow.cpp",
+              "RelativeToolTip": "dlls\\crossbow.cpp",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAAAGAAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T19:13:28.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "mp5.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\mp5.cpp",
+              "RelativeDocumentMoniker": "dlls\\mp5.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\mp5.cpp",
+              "RelativeToolTip": "dlls\\mp5.cpp",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAawIgAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T10:55:32.939Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "chumtoad.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\chumtoad.cpp",
+              "RelativeDocumentMoniker": "dlls\\chumtoad.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\chumtoad.cpp",
+              "RelativeToolTip": "dlls\\chumtoad.cpp",
+              "ViewState": "AgIAAP4CAAAAAAAAAAAAABEDAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T19:12:13.704Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "handgrenade.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\handgrenade.cpp",
+              "RelativeDocumentMoniker": "dlls\\handgrenade.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\handgrenade.cpp",
+              "RelativeToolTip": "dlls\\handgrenade.cpp",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAACwAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T10:16:59.889Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "weapons.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\weapons.cpp",
+              "RelativeDocumentMoniker": "dlls\\weapons.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\weapons.cpp",
+              "RelativeToolTip": "dlls\\weapons.cpp",
+              "ViewState": "AgIAAAQDAAAAAAAAAAAAABcDAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T19:08:59.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "items.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\items.cpp",
+              "RelativeDocumentMoniker": "dlls\\items.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\items.cpp",
+              "RelativeToolTip": "dlls\\items.cpp",
+              "ViewState": "AgIAABoCAAAAAAAAAAAAANcBAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T17:47:20.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "hgrunt.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\hgrunt.cpp",
+              "RelativeDocumentMoniker": "dlls\\hgrunt.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\hgrunt.cpp",
+              "RelativeToolTip": "dlls\\hgrunt.cpp",
+              "ViewState": "AgIAAEwKAAAAAAAAAAAAAFcKAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T16:56:57.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "monsters.h",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\monsters.h",
+              "RelativeDocumentMoniker": "dlls\\monsters.h",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\monsters.h",
+              "RelativeToolTip": "dlls\\monsters.h",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAAADsAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-28T16:09:30.773Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "islave.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\islave.cpp",
+              "RelativeDocumentMoniker": "dlls\\islave.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\islave.cpp",
+              "RelativeToolTip": "dlls\\islave.cpp",
+              "ViewState": "AgIAAJUAAAAAAAAAAAAAAJsAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T16:09:27.978Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "barney.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\barney.cpp",
+              "RelativeDocumentMoniker": "dlls\\barney.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\barney.cpp",
+              "RelativeToolTip": "dlls\\barney.cpp",
+              "ViewState": "AgIAAPYCAAAAAAAAAAAAAAkDAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T16:06:21.164Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "combat.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\combat.cpp",
+              "RelativeDocumentMoniker": "dlls\\combat.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\combat.cpp",
+              "RelativeToolTip": "dlls\\combat.cpp",
+              "ViewState": "AgIAAF4CAAAAAAAAAAAAAEUCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T16:05:43.765Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "menu_main.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\mainui\\menu_main.cpp",
+              "RelativeDocumentMoniker": "mainui\\menu_main.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\mainui\\menu_main.cpp",
+              "RelativeToolTip": "mainui\\menu_main.cpp",
+              "ViewState": "AgIAAPUBAAAAAAAAAAAAAAECAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T15:27:01.911Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "menu_newgame.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\mainui\\menu_newgame.cpp",
+              "RelativeDocumentMoniker": "mainui\\menu_newgame.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\mainui\\menu_newgame.cpp",
+              "RelativeToolTip": "mainui\\menu_newgame.cpp",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACMAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T15:26:47.496Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "weapons.h",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\weapons.h",
+              "RelativeDocumentMoniker": "dlls\\weapons.h",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\weapons.h",
+              "RelativeToolTip": "dlls\\weapons.h",
+              "ViewState": "AgIAADQAAAAAAAAAAAAAAEQAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-28T10:17:04.642Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "player.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\player.cpp",
+              "RelativeDocumentMoniker": "dlls\\player.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\player.cpp",
+              "RelativeToolTip": "dlls\\player.cpp",
+              "ViewState": "AgIAAKsAAAAAAAAAAAAAALcAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T09:36:17.486Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "glock.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\glock.cpp",
+              "RelativeDocumentMoniker": "dlls\\glock.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\glock.cpp",
+              "RelativeToolTip": "dlls\\glock.cpp",
+              "ViewState": "AgIAAGsAAAAAAAAAAAAAAH4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T09:30:09.616Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "hl_baseentity.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\cl_dll\\hl\\hl_baseentity.cpp",
+              "RelativeDocumentMoniker": "cl_dll\\hl\\hl_baseentity.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\cl_dll\\hl\\hl_baseentity.cpp",
+              "RelativeToolTip": "cl_dll\\hl\\hl_baseentity.cpp",
+              "ViewState": "AgIAAEYBAAAAAAAAAAAAAFIBAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T09:36:12.546Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "bullsquid.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\bullsquid.cpp",
+              "RelativeDocumentMoniker": "dlls\\bullsquid.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\bullsquid.cpp",
+              "RelativeToolTip": "dlls\\bullsquid.cpp",
+              "ViewState": "AgIAAJgCAAAAAAAAAAAAAGkCAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T11:20:33.178Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "zombie.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\zombie.cpp",
+              "RelativeDocumentMoniker": "dlls\\zombie.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\zombie.cpp",
+              "RelativeToolTip": "dlls\\zombie.cpp",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAADABAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T10:54:22.686Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "ggrenade.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\ggrenade.cpp",
+              "RelativeDocumentMoniker": "dlls\\ggrenade.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\ggrenade.cpp",
+              "RelativeToolTip": "dlls\\ggrenade.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T10:16:58.909Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "player.h",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\player.h",
+              "RelativeDocumentMoniker": "dlls\\player.h",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\player.h",
+              "RelativeToolTip": "dlls\\player.h",
+              "ViewState": "AgIAAOQAAAAAAAAAAAAAAPIAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-28T09:36:44.932Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "multiplay_gamerules.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\multiplay_gamerules.cpp",
+              "RelativeDocumentMoniker": "dlls\\multiplay_gamerules.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\multiplay_gamerules.cpp",
+              "RelativeToolTip": "dlls\\multiplay_gamerules.cpp",
+              "ViewState": "AgIAAGMEAAAAAAAAAAAAAGUEAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T09:36:15.289Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "hud.h",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\cl_dll\\hud.h",
+              "RelativeDocumentMoniker": "cl_dll\\hud.h",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\cl_dll\\hud.h",
+              "RelativeToolTip": "cl_dll\\hud.h",
+              "ViewState": "AgIAAH0AAAAAAAAAAAAAAH0AAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-28T09:36:14.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "cl_tent.c",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\engine\\client\\cl_tent.c",
+              "RelativeDocumentMoniker": "engine\\client\\cl_tent.c",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\engine\\client\\cl_tent.c",
+              "RelativeToolTip": "engine\\client\\cl_tent.c",
+              "ViewState": "AgIAABoLAAAAAAAAAAAawCcLAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-05-28T09:35:02.242Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "gamerules.h",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\gamerules.h",
+              "RelativeDocumentMoniker": "dlls\\gamerules.h",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\gamerules.h",
+              "RelativeToolTip": "dlls\\gamerules.h",
+              "ViewState": "AgIAAPsAAAAAAAAAAAAAAAcBAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-28T09:36:10.184Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "game.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\game.cpp",
+              "RelativeDocumentMoniker": "dlls\\game.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\game.cpp",
+              "RelativeToolTip": "dlls\\game.cpp",
+              "ViewState": "AgIAADgCAAAAAAAAAAAAAEQCAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T09:36:06.926Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "cl_tent.h",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\engine\\client\\cl_tent.h",
+              "RelativeDocumentMoniker": "engine\\client\\cl_tent.h",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\engine\\client\\cl_tent.h",
+              "RelativeToolTip": "engine\\client\\cl_tent.h",
+              "ViewState": "AgIAACAAAAAAAAAAAAAAACkAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-28T09:36:05.972Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "client.h",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\engine\\client\\client.h",
+              "RelativeDocumentMoniker": "engine\\client\\client.h",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\engine\\client\\client.h",
+              "RelativeToolTip": "engine\\client\\client.h",
+              "ViewState": "AgIAAJUAAAAAAAAAAAAAAJUAAABmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-28T09:35:00.916Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "cdll_dll.h",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\cdll_dll.h",
+              "RelativeDocumentMoniker": "dlls\\cdll_dll.h",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\cdll_dll.h",
+              "RelativeToolTip": "dlls\\cdll_dll.h",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAB4AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-28T09:34:59.494Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "ammo.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\cl_dll\\ammo.cpp",
+              "RelativeDocumentMoniker": "cl_dll\\ammo.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\cl_dll\\ammo.cpp",
+              "RelativeToolTip": "cl_dll\\ammo.cpp",
+              "ViewState": "AgIAAPYFAAAAAAAAAAAAAAIGAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T09:34:57.241Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "pm_shared.c",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\pm_shared\\pm_shared.c",
+              "RelativeDocumentMoniker": "pm_shared\\pm_shared.c",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\pm_shared\\pm_shared.c",
+              "RelativeToolTip": "pm_shared\\pm_shared.c",
+              "ViewState": "AgIAACUIAAAAAAAAAAAAACUIAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-05-28T09:34:49.505Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "client.cpp",
+              "DocumentMoniker": "C:\\SourceCode\\March1998\\src\\dlls\\client.cpp",
+              "RelativeDocumentMoniker": "dlls\\client.cpp",
+              "ToolTip": "C:\\SourceCode\\March1998\\src\\dlls\\client.cpp",
+              "RelativeToolTip": "dlls\\client.cpp",
+              "ViewState": "AgIAAPYCAAAAAAAAAAAAAAMDAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-28T09:29:59.084Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

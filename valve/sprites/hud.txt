@@ -1,0 +1,109 @@
+110
+
+selection		640 640hud3	0	180	170	45
+
+bucket1			640 640hud6	0	180	20	20
+bucket2			640 640hud6	20	180	20	20		
+bucket3			640 640hud6	40	180	20	20		
+bucket4			640 640hud6	60	180	20	20		
+bucket5			640 640hud6	80	180	20	20		
+bucket0			640 640hud6	100	180	20	20		
+
+dmg_bio			640 640hud2	170	128	64	64
+dmg_poison		640 640hud2	170	0	64	64
+dmg_chem		640 640hud2	170	0	64	64
+dmg_cold		640 640hud3	170	64	64	64
+dmg_drown		640 640hud2	170	64	64	64
+dmg_heat		640 640hud3	170	128	64	64
+dmg_gas			640 640hud3	170	0	64	64
+dmg_rad			640 640hud3	170 192	64	64
+dmg_shock		640 640hud2	170 192	64	64
+
+number_0		640 640hud1	0	225	20	24
+number_1		640 640hud1	24	225	20	24
+number_2		640 640hud1	48	225	20	24
+number_3		640 640hud1	72	225	20	24
+number_4		640 640hud1	96	225	20	24
+number_5		640 640hud1	120	225	20	24
+number_6		640 640hud1	144	225	20	24
+number_7		640 640hud1	168	225	20	24
+number_8		640 640hud1	192	225	20	24
+number_9		640 640hud1	216	225	20	24
+
+divider			640 640hud1	170	64	2	40
+
+cross			640 640hud1	170	144	32	32
+
+suit_full		640 640hud1	183	43	53	9
+suit_empty		640 640hud1	179	7	63	17
+
+train_back		640	640hud5 170	0	72	72
+train_stop		640	640hud5 170	72	72	72
+train_forward1	640	640hud5 170	144	72	72
+train_forward2	640	640hud6 170	0	72	72
+train_forward3	640	640hud6 170	72	72	72
+
+autoaim_c		640	crosshairs	96	0	24	24
+
+title_half		640 640hud4		0	226	256	30
+title_life		640 640hud5		0	226	220	30
+
+bnumber_0		640 640ghud1	14	132	28	40
+bnumber_1		640 640ghud1	42	132	28	40
+bnumber_2		640 640ghud1	70	132	28	40
+bnumber_3		640 640ghud1	98	132	28	40
+bnumber_4		640 640ghud1	126	132	28	40
+bnumber_5		640 640ghud1	154	132	28	40
+bnumber_6		640 640ghud1	182	132	28	40
+bnumber_7		640 640ghud1	210	132	28	40
+bnumber_8		640 640ghud1	238	132	28	40
+bnumber_9		640 640ghud1	266	132	28	40
+
+snumber_0		640 640ghud1	13	61	16	22
+snumber_1		640 640ghud1	29	61	16	22
+snumber_2		640 640ghud1	45	61	16	22
+snumber_3		640 640ghud1	61	61	16	22
+snumber_4		640 640ghud1	77	61	16	22
+snumber_5		640 640ghud1	93	61	16	22
+snumber_6		640 640ghud1	109	61	16	22
+snumber_7		640 640ghud1	125	61	16	22
+snumber_8		640 640ghud1	141	61	16	22
+snumber_9		640 640ghud1	157	61	16	22
+
+sslash			640 640ghud1	189	61	15	22
+
+battery			640 640ghud1	14	95	63	26
+powerz			640 640ghud1	87	100	54	16
+
+//============================================
+//INVENTORY HUD
+//============================================
+
+antidote_0		640 ant_0		0	0	48	48
+antidote_1		640 ant_1		0	0	48	48
+antidote_2		640 ant_2		0	0	48	48
+antidote_3		640 ant_3		0	0	48	48
+antidote_4		640 ant_4		0	0	48	48
+antidote_5		640 ant_5		0	0	48	48
+
+radiation_0		640 rad_0		0	0	48	48
+radiation_1		640 rad_1		0	0	48	48
+radiation_2		640 rad_2		0	0	48	48
+radiation_3		640 rad_3		0	0	48	48
+radiation_4		640 rad_4		0	0	48	48
+radiation_5		640 rad_5		0	0	48	48
+
+adrenaline_on	640 adr_on		0	0	48	48
+adrenaline_off	640 adr_off		0	0	48	48
+
+longjump_on		640 longj_on		0	0	48	48
+longjump_off	640 longj_off		0	0	48	48
+
+oxygen_on		640 oxy_on		0	0	48	48
+oxygen_off		640 oxy_off		0	0	48	48
+
+flash_on		640 flash_on		0	0	48	48
+flash_off		640 flash_off		0	0	48	48
+
+shield_on		640 shield_on		0	0	48	48
+shield_off		640 shield_off		0	0	48	48

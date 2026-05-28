@@ -1,0 +1,5 @@
+4
+weapon			320 w0	0	0	32	32
+weapon_s		320 w0	0	0	32	32
+weapon			640 w0	0	0	32	32
+weapon_s		640 w0	0	0	32	32

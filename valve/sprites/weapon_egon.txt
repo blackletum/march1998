@@ -1,0 +1,15 @@
+// 9mm handgun
+15
+
+weapon			320 w3	0	0	32	32
+weapon_s		320 w3	0	0	32	32
+weapon			640 w8	0	0	32	32
+weapon_s		640 w8	0	0	32	32
+
+ammo			320 320hud2	0	16	18	18
+crosshair		320 crosshairs	24	0	24	24
+autoaim			320 crosshairs	0	72	24	24
+
+ammo			640 640hud7	0	72	24	24
+crosshair		640 crosshairs	48	48	24	24
+autoaim			640 crosshairs	0	72	24	24

@@ -1,0 +1,6 @@
+6
+weapon			320 w5	0	0	32	32
+weapon_s		320 w5	0	0	32	32
+weapon			640 w5	0	0	32	32
+weapon_s		640 w5	0	0	32	32
+crosshair		640 crosshairs	0	0	24	24

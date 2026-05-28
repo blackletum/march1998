@@ -1,0 +1,150 @@
+﻿  cl_cmds.c
+  cl_custom.c
+  cl_debug.c
+  cl_demo.c
+  cl_events.c
+  cl_frame.c
+  cl_game.c
+  cl_gameui.c
+  cl_main.c
+C:\SourceCode\March1998\src\engine\client\cl_demo.c(905,23): warning C5287: операнды — это разные типы перечислений "qboolean" и "demo_mode"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\cl_demo.c(1062,23): warning C5287: операнды — это разные типы перечислений "qboolean" и "demo_mode"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\cl_gameui.c(984,2): warning C4113: "qboolean (__cdecl *)(const char *,qboolean)" отличается в списках параметров от "int (__cdecl *)(const char *,int)"
+C:\SourceCode\March1998\src\engine\client\cl_gameui.c(986,2): warning C4113: "qboolean (__cdecl *)(qboolean)" отличается в списках параметров от "int (__cdecl *)(int)"
+C:\SourceCode\March1998\src\engine\client\cl_gameui.c(1010,2): warning C4113: "void (__cdecl *)(const char *,const char *,qboolean)" отличается в списках параметров от "void (__cdecl *)(const char *,const char *,int)"
+C:\SourceCode\March1998\src\engine\client\cl_game.c(914,19): warning C4101: height: неиспользованная локальная переменная
+C:\SourceCode\March1998\src\engine\client\cl_game.c(914,12): warning C4101: width: неиспользованная локальная переменная
+C:\SourceCode\March1998\src\engine\client\cl_game.c(3630,2): warning C4113: "void (__cdecl *)(int)" отличается в списках параметров от "void (__cdecl *)(TRICULLSTYLE)"
+C:\SourceCode\March1998\src\engine\client\cl_game.c(3838,2): warning C4113: "void (__cdecl *)(int,qboolean)" отличается в списках параметров от "void (__cdecl *)(int,int)"
+  cl_netgraph.c
+  cl_parse.c
+  cl_pmove.c
+  cl_qparse.c
+  cl_remap.c
+  cl_scrn.c
+C:\SourceCode\March1998\src\engine\client\cl_frame.c(413,23): warning C5287: операнды — это разные типы перечислений "qboolean" и "demo_mode"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\cl_frame.c(498,23): warning C5287: операнды — это разные типы перечислений "qboolean" и "demo_mode"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\cl_frame.c(1014,25): warning C5287: операнды — это разные типы перечислений "qboolean" и "demo_mode"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\cl_frame.c(1035,25): warning C5287: операнды — это разные типы перечислений "qboolean" и "demo_mode"; используйте явное приведение для отключения этого предупреждения
+  cl_tent.c
+  cl_video.c
+C:\SourceCode\March1998\src\engine\client\cl_parse.c(192,23): warning C5287: операнды — это разные типы перечислений "qboolean" и "demo_mode"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\cl_main.c(158,23): warning C5287: операнды — это разные типы перечислений "qboolean" и "demo_mode"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\cl_main.c(2034,24): warning C5287: операнды — это разные типы перечислений "qboolean" и "demo_mode"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\cl_main.c(2079,23): warning C5287: операнды — это разные типы перечислений "qboolean" и "demo_mode"; используйте явное приведение для отключения этого предупреждения
+  cl_view.c
+C:\SourceCode\March1998\src\engine\client\cl_pmove.c(107,23): warning C5287: операнды — это разные типы перечислений "qboolean" и "demo_mode"; используйте явное приведение для отключения этого предупреждения
+  gl_alias.c
+  gl_backend.c
+  gl_beams.c
+  gl_cull.c
+  gl_decals.c
+C:\SourceCode\March1998\src\engine\client\cl_tent.c(2921,23): warning C5287: операнды — это разные типы перечислений "qboolean" и "demo_mode"; используйте явное приведение для отключения этого предупреждения
+  gl_downsample.c
+  gl_draw.c
+  gl_frustum.c
+C:\SourceCode\March1998\src\engine\client\gl_alias.c(1186,23): warning C5287: операнды — это разные типы перечислений "qboolean" и "demo_mode"; используйте явное приведение для отключения этого предупреждения
+  gl_image.c
+  gl_mirror.c
+  gl_refrag.c
+  gl_rlight.c
+  gl_rmain.c
+  gl_rmath.c
+  gl_rmisc.c
+  gl_rpart.c
+C:\SourceCode\March1998\src\engine\client\gl_image.c(1026,22): warning C5286: неявное преобразование из типа перечисления "texFlags_t" в тип перечисления "qboolean"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\gl_image.c(1065,22): warning C5286: неявное преобразование из типа перечисления "texFlags_t" в тип перечисления "qboolean"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\gl_rmain.c(1543,2): warning C4113: "int (__cdecl *)(const char *,int,int,const void *,texFlags_t)" отличается в списках параметров от "int (__cdecl *)(const char *,int,int,const void *,int)"
+C:\SourceCode\March1998\src\engine\client\gl_rmain.c(1545,2): warning C4113: "int (__cdecl *)(const char *,int,int,int,const void *,texFlags_t)" отличается в списках параметров от "int (__cdecl *)(const char *,int,int,int,const void *,int)"
+C:\SourceCode\March1998\src\engine\client\gl_rmain.c(1573,2): warning C4113: "void (__cdecl *)(const float *,const char *,int,int)" отличается в списках параметров от "void (__cdecl *)(const float *,const char *,qboolean,int)"
+  gl_rsurf.c
+  gl_sprite.c
+  gl_studio.c
+  gl_vidnt.c
+  gl_warp.c
+  s_backend.c
+  s_dsp.c
+  s_load.c
+C:\SourceCode\March1998\src\engine\client\gl_sprite.c(277,29): warning C5286: неявное преобразование из типа перечисления "frametype_t" в тип перечисления "spriteframetype_t"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\gl_sprite.c(524,39): warning C5287: операнды — это разные типы перечислений "spriteframetype_t" и "frametype_t"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\gl_sprite.c(570,34): warning C5287: операнды — это разные типы перечислений "spriteframetype_t" и "frametype_t"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\gl_sprite.c(574,113): warning C5287: операнды — это разные типы перечислений "spriteframetype_t" и "frametype_t"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\gl_sprite.c(619,39): warning C5287: операнды — это разные типы перечислений "spriteframetype_t" и "frametype_t"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\gl_sprite.c(652,39): warning C5287: операнды — это разные типы перечислений "spriteframetype_t" и "frametype_t"; используйте явное приведение для отключения этого предупреждения
+C:\SourceCode\March1998\src\engine\client\gl_sprite.c(660,113): warning C5287: операнды — это разные типы перечислений "spriteframetype_t" и "frametype_t"; используйте явное приведение для отключения этого предупреждения
+  s_main.c
+  s_mix.c
+  s_mouth.c
+  s_stream.c
+  s_utils.c
+  s_vox.c
+  vgui_draw.c
+  avikit.c
+  build.c
+  cfgscript.c
+  cmd.c
+  common.c
+  console.c
+  con_utils.c
+  crclib.c
+  crtlib.c
+  custom.c
+  cvar.c
+  filesystem.c
+  gamma.c
+  host.c
+  host_state.c
+  hpak.c
+  img_bmp.c
+  img_dds.c
+  img_main.c
+  img_quant.c
+  img_tga.c
+  img_utils.c
+  img_wad.c
+  infostring.c
+  input.c
+C:\SourceCode\March1998\src\engine\common\imagelib\img_main.c(277,32): warning C5286: неявное преобразование из типа перечисления "side_hint_t" в тип перечисления "image_hint_t"; используйте явное приведение для отключения этого предупреждения
+  keys.c
+  library.c
+  mathlib.c
+  matrixlib.c
+  model.c
+  mod_bmodel.c
+  mod_dbghulls.c
+  mod_studio.c
+  net_buffer.c
+  net_chan.c
+  net_encode.c
+  net_ws.c
+  pm_debug.c
+  pm_surface.c
+  pm_trace.c
+  snd_main.c
+  snd_mp3.c
+  snd_utils.c
+  snd_wav.c
+  sys_con.c
+  sys_win.c
+  titles.c
+  world.c
+  zone.c
+  sv_client.c
+  sv_cmds.c
+  sv_custom.c
+  sv_frame.c
+  sv_game.c
+  sv_init.c
+  sv_log.c
+  sv_main.c
+  sv_move.c
+  sv_phys.c
+  sv_pmove.c
+  sv_save.c
+  sv_world.c
+  vgui_clip.cpp
+  vgui_input.cpp
+  vgui_int.cpp
+  vgui_surf.cpp
+     Создается библиотека C:\SourceCode\March1998\src\build\engine\engine.lib и объект C:\SourceCode\March1998\src\build\engine\engine.exp
+  engine.vcxproj -> C:\SourceCode\March1998\engine.dll

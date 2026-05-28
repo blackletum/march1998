@@ -1,0 +1,25 @@
+//default gamemode stuff
+
+basedir		"valve"
+gamedir		"valve"
+
+title		"valve Game Engine"
+
+startmap		"tr1a0"
+trainmap		"tr1a0"
+
+dllpath		"bin"
+gamedll		"bin/server.dll"
+
+version		"1.0.0"
+icon		"game.ico"
+
+sp_entity		"info_player_start"
+mp_entity		"info_player_deathmatch"
+
+max_edicts		4096
+max_tempents	2048
+max_beams		512
+max_particles	32768
+
+gamemode "singleplayer_and_multiplayer"
