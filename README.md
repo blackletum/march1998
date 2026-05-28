@@ -1,6 +1,6 @@
 # March 1998
 
-half life 1 beta mod which take half life 1 march 1998 build, restore it, and enhance.
+Half-Life 1 beta mod which take half life 1 march 1998 build, restore it, and enhance.
 
 
 # Why this thing even exist?
@@ -9,7 +9,7 @@ This isn't an attempt at a full beta version, more like something like "Signal L
 And also just make a mod that's completely open to the public, so anyone can see the development process.
 
 # compiling 
-if you want compile it, you need visual studio 2022 with build tools v143
+If you want compile it, you need visual studio 2022 with build tools v143
 
 then:
 1. Open march1998.sln *(File -> Open -> Project/Solution)*
@@ -19,4 +19,5 @@ then:
 Reagan - silencer for glock.\
 Crazy rasputin monk - beta models.\
 Drooga/dermoker - models.\
-Thrill-dev - base for mod.
+Thrill-dev - base for mod.\
+Magic nipples - some code.
