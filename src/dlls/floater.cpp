@@ -888,7 +888,17 @@ void CBloater::Killed(entvars_t* pevAttacker, int iGib)
 		UTIL_BloodStream(pev->origin + Vector(0, 0, 48), UTIL_RandomBloodVector(), BloodColor(), RANDOM_LONG(80, 150));
 	}
 
-	RadiusDamage(pev->origin + Vector(0, 0, 24), pev, pev, 36, CLASS_NONE, DMG_ACID);
+	RadiusDamage(pev->origin + Vector(0, 0, 24), pev, pev, 15, CLASS_NONE, DMG_ACID);
+
+	MESSAGE_BEGIN(MSG_BROADCAST, SVC_TEMPENTITY);
+	WRITE_BYTE(TE_PARTICLEBURST);
+	WRITE_COORD(pev->origin.x);
+	WRITE_COORD(pev->origin.y);
+	WRITE_COORD(pev->origin.z);
+	WRITE_SHORT(50);
+	WRITE_BYTE((unsigned short)192);
+	WRITE_BYTE(5);
+	MESSAGE_END();
 
 	SetThink(&CSquadMonster::SUB_Remove);
 	pev->nextthink = gpGlobals->time;

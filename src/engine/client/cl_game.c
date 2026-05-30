@@ -916,11 +916,13 @@ void CL_DrawCrosshair( void )
 	if (cl.paused)
 		return;
 
+	/*
 	if (cl.local.health <= 0 || cl.viewentity != (cl.playernum + 1))
 		return;
 
 	if (!clgame.ds.pCrosshair || !cl_crosshair->value)
 		return;
+		*/
 
 		x = clgame.viewport[0] + (clgame.viewport[2] >> 1);
 		y = clgame.viewport[1] + (clgame.viewport[3] >> 1);

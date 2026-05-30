@@ -30,6 +30,7 @@ enum shotgun_e {
 	SHOTGUN_IDLE = 0,
 	SHOTGUN_FIRE,
 	SHOTGUN_FIRE2,
+	SHOTGUN_BIG,
 	SHOTGUN_RELOAD,
 	SHOTGUN_PUMP,
 	SHOTGUN_START_RELOAD,
@@ -182,8 +183,10 @@ void CShotgun::PrimaryAttack()
 	m_iClip--;
 	m_pPlayer->pev->effects = (int)(m_pPlayer->pev->effects) | EF_MUZZLEFLASH;
 
-	SendWeaponAnim( SHOTGUN_FIRE );
-
+	if (RANDOM_LONG(0, 1) == 0)
+		SendWeaponAnim( SHOTGUN_FIRE );
+	else
+		SendWeaponAnim( SHOTGUN_FIRE2 );
 	// player "shoot" animation
 	m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
 
@@ -256,7 +259,7 @@ void CShotgun::SecondaryAttack( void )
 
 	m_pPlayer->pev->effects = (int)(m_pPlayer->pev->effects) | EF_MUZZLEFLASH;
 
-	SendWeaponAnim( SHOTGUN_FIRE2 );
+	SendWeaponAnim( SHOTGUN_BIG );
 
 	// player "shoot" animation
 	m_pPlayer->SetAnimation( PLAYER_ATTACK1 );

@@ -538,7 +538,7 @@ qboolean SCR_LoadVariableWidthFont( const char *fontname )
 	if( buffer && length >= sizeof( qfont_t ))
 	{
 		src = (qfont_t *)buffer;
-		cls.creditsFont.charHeight = clgame.scrInfo.iCharHeight = src->rowheight;
+		cls.creditsFont.charHeight = clgame.scrInfo.iCharHeight = 35;
 		cls.creditsFont.type = FONT_VARIABLE;
 
 		// build rectangles

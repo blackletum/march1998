@@ -790,7 +790,7 @@ void ClientPrecache( void )
 	PRECACHE_SOUND("common/wpn_moveselect.wav");
 	PRECACHE_SOUND("common/wpn_select.wav");
 	PRECACHE_SOUND("common/wpn_denyselect.wav");
-
+	PRECACHE_SOUND("Common/TALK.WAV");
 
 	// geiger sounds
 

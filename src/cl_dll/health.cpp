@@ -204,8 +204,6 @@ int CHudHealth::Draw(float flTime)
 
 		x = gHUD.DrawBHudNumber(x, y, DHN_3DIGITS | DHN_DRAWZERO, m_iHealth, r, g, b);
 
-
-	return DrawPain(flTime);
 	return 1;
 }
 

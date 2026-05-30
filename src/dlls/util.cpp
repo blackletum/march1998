@@ -785,6 +785,8 @@ void UTIL_HudMessage( CBaseEntity *pEntity, const hudtextparms_t &textparms, con
 	if ( !pEntity || !pEntity->IsNetClient() )
 		return;
 
+	EMIT_SOUND(ENT(pEntity->edict()), CHAN_STATIC, "Common/TALK.WAV", 1.0, ATTN_NORM);
+
 	MESSAGE_BEGIN( MSG_ONE, SVC_TEMPENTITY, NULL, pEntity->edict() );
 		WRITE_BYTE( TE_TEXTMESSAGE );
 		WRITE_BYTE( textparms.channel & 0xFF );

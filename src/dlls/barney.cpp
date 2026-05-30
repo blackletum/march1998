@@ -1038,6 +1038,8 @@ void CDeadBarney::Spawn()
 
 	pev->solid = SOLID_BBOX;
 
+	SetBodygroup(1, 0);
+
 	pev->movetype = MOVETYPE_TOSS;// so he'll fall to ground
 
 	pev->frame = 0;

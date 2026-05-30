@@ -209,7 +209,6 @@ void CGameEnd::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useT
 	g_pGameRules->EndMultiplayerGame();
 }
 
-
 //
 // CGameText / game_text	-- NON-Localized HUD Message (use env_message to display a titles.txt message)
 //	Flag: All players					SF_ENVTEXT_ALLPLAYERS
@@ -321,6 +320,8 @@ void CGameText::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 {
 	if ( !CanFireForActivator( pActivator ) )
 		return;
+
+	EMIT_SOUND(ENT(pActivator->edict()), CHAN_STATIC, "Common/TALK.WAV", 1.0, ATTN_NORM);
 
 	if ( MessageToAll() )
 	{

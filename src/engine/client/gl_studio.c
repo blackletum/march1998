@@ -1693,26 +1693,6 @@ void R_StudioDynamicLight( cl_entity_t *ent, alight_t *plight )
 		}
 	}
 
-	if (FBitSet(ent->curstate.effects, EF_MUZZLEFLASH))
-	{
-		light.r = 200;
-		light.g = 180;
-		light.b = 50;
-		
-			dlight_t* el = CL_AllocElight(0);
-
-			VectorCopy(ent->attachment[0], el->origin);
-			el->die = cl.time + 0.05f;
-			el->color.r = 200;
-			el->color.g = 180;
-			el->color.b = 50;
-			el->decay = 320;
-			el->radius = 24;
-		
-
-		ClearBits(ent->curstate.effects, EF_MUZZLEFLASH);
-	}
-
 	if(( light.r + light.g + light.b ) < 16 ) // TESTTEST
 	{
 		colorVec	gcolor;
@@ -1820,6 +1800,20 @@ void R_StudioDynamicLight( cl_entity_t *ent, alight_t *plight )
 	}
 	else VectorSet( plight->color, 1.0f, 1.0f, 1.0f );
 
+	if (FBitSet(ent->curstate.effects, EF_MUZZLEFLASH))
+	{
+		VectorSet(lightDir, 0.0f, 0.0f, -1.0f);
+
+		plight->shadelight = 255;
+		plight->ambientlight = plight->shadelight;
+
+		plight->color[0] = 1.0f;
+		plight->color[1] = 1.0f;
+		plight->color[2] = 0.65f;
+
+		ClearBits(ent->curstate.effects, EF_MUZZLEFLASH);
+	}
+
 	if( plight->ambientlight > 128 )
 		plight->ambientlight = 128;
 
@@ -1835,12 +1829,6 @@ void R_StudioDynamicLight( cl_entity_t *ent, alight_t *plight )
 			plight->plightvec[0] = -RI.vup[0];
 			plight->plightvec[1] = -RI.vup[1];
 			plight->plightvec[2] = -RI.vup[2];//-1;
-		}
-		else
-		{
-			plight->plightvec[0] = 0;
-			plight->plightvec[1] = 0;
-			plight->plightvec[2] = -1.3;
 		}
 
 }

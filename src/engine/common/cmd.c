@@ -232,9 +232,6 @@ void Cbuf_ExecStuffCmds( void )
 	char	build[MAX_CMD_LINE]; // this is for all commandline options combined (and is bounds checked)
 	int	i, j, l = 0;
 
-	// no reason to run the commandline arguments twice
-	if( !host.stuffcmds_pending )
-		return;
 	build[0] = 0;
 
 	for( i = 0; i < host.argc; i++ )
