@@ -20,4 +20,5 @@ Reagan - silencer for glock.\
 Crazy rasputin monk - beta models.\
 Drooga/dermoker - models.\
 Thrill-dev - base for mod.\
-Magic nipples - some code.
+Magic nipples - xash3d 2019 fork.\
+Blooresque - zombie models (thank ya).
