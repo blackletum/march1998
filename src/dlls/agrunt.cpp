@@ -1,6 +1,6 @@
 /***
 *
-*	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
+*	Copyright (c) 1996-2002, Valve LLC. All rights reserved.
 *
 *	This product contains software technology licensed from Id
 *	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
@@ -25,6 +25,9 @@
 #include	"weapons.h"
 #include	"soundent.h"
 #include	"hornet.h"
+#include	"decals.h"
+
+#define		LASER_SPEED 700
 
 //=========================================================
 // monster-specific schedule types
@@ -44,6 +47,8 @@ enum
 	TASK_AGRUNT_GET_PATH_TO_ENEMY_CORPSE,
 };
 
+int iAgruntMuzzleFlash;
+
 //=========================================================
 // Monster's Anim Events Go Here
 //=========================================================
@@ -62,7 +67,58 @@ enum
 #define		AGRUNT_AE_LEFT_PUNCH ( 12 )
 #define		AGRUNT_AE_RIGHT_PUNCH ( 13 )
 
+class CAgruntLaser : public CBaseAnimating
+{
+public:
+	void Spawn(void);
 
+	static void Shoot(entvars_t* pevOwner, Vector vecStart, Vector vecVelocity);
+	void Touch(CBaseEntity* pOther);
+};
+
+LINK_ENTITY_TO_CLASS(laser, CAgruntLaser);
+
+void CAgruntLaser::Spawn(void)
+{
+	SET_MODEL(ENT(pev), "models/laser.mdl");
+	UTIL_SetSize(pev, Vector(0, 0, 0), Vector(0, 0, 0));
+
+	pev->movetype = MOVETYPE_FLY;
+	pev->solid = SOLID_BBOX;
+}
+
+void CAgruntLaser::Shoot(entvars_t* pevOwner, Vector vecStart, Vector vecVelocity)
+{
+	CAgruntLaser* pLaser = GetClassPtr((CAgruntLaser*)NULL);
+	pLaser->Spawn();
+
+	UTIL_SetOrigin(pLaser->pev, vecStart);
+	pLaser->pev->velocity = vecVelocity;
+	pLaser->pev->owner = ENT(pevOwner);
+	pLaser->pev->angles = UTIL_VecToAngles(vecVelocity);
+}
+
+void CAgruntLaser::Touch(CBaseEntity* pOther)
+{
+
+	TraceResult tr;
+	if (!pOther->pev->takedamage)
+	{
+		// make a scorch on the wall & sparks
+		UTIL_TraceLine(pev->origin, pev->origin + pev->velocity * 10, dont_ignore_monsters, ENT(pev), &tr);
+		UTIL_DecalTrace(&tr, DECAL_SMALLSCORCH1);
+		UTIL_Sparks(pev->origin);
+	}
+	else
+	{
+		pOther->TakeDamage(pev, pev, gSkillData.slaveDmgZap, DMG_ENERGYBEAM);
+	}
+
+	UTIL_EmitAmbientSound(ENT(pev), pev->origin, "weapons/electro4.wav", 0.3, ATTN_NORM, 0, RANDOM_LONG(90, 99));
+
+	SetThink(&CAgruntLaser::SUB_Remove);
+	pev->nextthink = gpGlobals->time;
+}
 
 #define		AGRUNT_MELEE_DIST	100
 
@@ -96,7 +152,6 @@ public:
 	int IRelationship(CBaseEntity* pTarget);
 	void StopTalking(void);
 	BOOL ShouldSpeak(void);
-	BOOL HasAGruntGibs( void ) { return TRUE; }
 	CUSTOM_SCHEDULES;
 
 	virtual int		Save(CSave& save);
@@ -113,6 +168,10 @@ public:
 
 	BOOL	m_fCanHornetAttack;
 	float	m_flNextHornetAttackCheck;
+
+	int AgruntClass = 0;
+
+	int AgruntRandom = (RANDOM_LONG(0, 1));
 
 	float m_flNextPainTime;
 
@@ -227,7 +286,7 @@ void CAGrunt::TraceAttack(entvars_t* pevAttacker, float flDamage, Vector vecDir,
 		// hit armor
 		if (pev->dmgtime != gpGlobals->time || (RANDOM_LONG(0, 10) < 1))
 		{
-			//	UTIL_Ricochet( ptr->vecEndPos, RANDOM_FLOAT( 1, 2) );
+			UTIL_Ricochet(ptr->vecEndPos, RANDOM_FLOAT(1, 2));
 			pev->dmgtime = gpGlobals->time;
 		}
 
@@ -432,51 +491,74 @@ void CAGrunt::HandleAnimEvent(MonsterEvent_t* pEvent)
 		Vector vecArmPos, vecArmDir;
 		Vector vecDirToEnemy;
 		Vector angDir;
+		if (AgruntRandom == 0)
+		{
+			if (HasConditions(bits_COND_SEE_ENEMY))
+			{
+				vecDirToEnemy = ((m_vecEnemyLKP)-pev->origin);
+				angDir = UTIL_VecToAngles(vecDirToEnemy);
+				vecDirToEnemy = vecDirToEnemy.Normalize();
+			}
+			else
+			{
+				angDir = pev->angles;
+				UTIL_MakeAimVectors(angDir);
+				vecDirToEnemy = gpGlobals->v_forward;
+			}
 
-		if (HasConditions(bits_COND_SEE_ENEMY))
-		{
-			vecDirToEnemy = ((m_vecEnemyLKP)-pev->origin);
-			angDir = UTIL_VecToAngles(vecDirToEnemy);
-			vecDirToEnemy = vecDirToEnemy.Normalize();
+			pev->effects = EF_MUZZLEFLASH;
+
+			// make angles +-180
+			if (angDir.x > 180)
+			{
+				angDir.x = angDir.x - 360;
+			}
+
+			SetBlending(0, angDir.x);
+			SetBodygroup(1, 1);
+			GetAttachment(0, vecArmPos, vecArmDir);
+
+			vecArmPos = vecArmPos + vecDirToEnemy * 32;
+
+			CBaseEntity* pHornet = CBaseEntity::Create("hornet", vecArmPos, UTIL_VecToAngles(vecDirToEnemy), edict());
+			UTIL_MakeVectors(pHornet->pev->angles);
+			pHornet->pev->velocity = gpGlobals->v_forward * 300;
+
+
+
+			switch (RANDOM_LONG(0, 2))
+			{
+			case 0:	EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "agrunt/ag_fire1.wav", 1.0, ATTN_NORM, 0, 100);	break;
+			case 1:	EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "agrunt/ag_fire2.wav", 1.0, ATTN_NORM, 0, 100);	break;
+			case 2:	EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "agrunt/ag_fire3.wav", 1.0, ATTN_NORM, 0, 100);	break;
+			}
 		}
-		else
+		else if (AgruntRandom == 1)
 		{
-			angDir = pev->angles;
-			UTIL_MakeAimVectors(angDir);
+			Vector vecArmPos, vecArmDir;
+			Vector vecDirToEnemy;
+
+			UTIL_MakeVectors(pev->angles);
+
 			vecDirToEnemy = gpGlobals->v_forward;
-		}
 
-		pev->effects = EF_MUZZLEFLASH;
+			GetAttachment(0, vecArmPos, vecArmDir);
+			vecArmPos = vecArmPos + vecDirToEnemy * 32;
 
-		// make angles +-180
-		if (angDir.x > 180)
-		{
-			angDir.x = angDir.x - 360;
-		}
+			SetBodygroup(1, 0);
 
-		SetBlending(0, angDir.x);
-		GetAttachment(0, vecArmPos, vecArmDir);
+			vecArmDir = ((m_hEnemy->pev->origin + m_hEnemy->pev->view_ofs) - vecArmPos).Normalize();
 
-		vecArmPos = vecArmPos + vecDirToEnemy * 32;
+			//the best which I could pick up
+			vecArmDir.x += RANDOM_FLOAT(-0.05, 0.05);
+			vecArmDir.y += RANDOM_FLOAT(-0.05, 0.05);
+			vecArmDir.z += RANDOM_FLOAT(-0.07, -0.02);
 
-		CBaseEntity* pHornet = CBaseEntity::Create("hornet", vecArmPos, UTIL_VecToAngles(vecDirToEnemy), edict());
-		UTIL_MakeVectors(pHornet->pev->angles);
-		pHornet->pev->velocity = gpGlobals->v_forward * 300;
+			pev->effects = EF_MUZZLEFLASH;
 
-
-
-		switch (RANDOM_LONG(0, 2))
-		{
-		case 0:	EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "agrunt/ag_fire1.wav", 1.0, ATTN_NORM, 0, 100);	break;
-		case 1:	EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "agrunt/ag_fire2.wav", 1.0, ATTN_NORM, 0, 100);	break;
-		case 2:	EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "agrunt/ag_fire3.wav", 1.0, ATTN_NORM, 0, 100);	break;
-		}
-
-		CBaseMonster* pHornetMonster = pHornet->MyMonsterPointer();
-
-		if (pHornetMonster)
-		{
-			pHornetMonster->m_hEnemy = m_hEnemy;
+			EMIT_SOUND( ENT(pev), CHAN_WEAPON, "debris/beamstart4.wav", 1, ATTN_NORM );
+			CAgruntLaser::Shoot(pev, vecArmPos, vecArmDir * 900);
+			UTIL_MakeVectors(pev->angles);
 		}
 	}
 	break;
@@ -588,6 +670,10 @@ void CAGrunt::Spawn()
 
 	m_flNextSpeakTime = m_flNextWordTime = gpGlobals->time + 10 + RANDOM_LONG(0, 10);
 
+	if (AgruntRandom == 1)
+	{
+		pev->skin = 1;
+	}
 
 	MonsterInit();
 }
@@ -600,6 +686,7 @@ void CAGrunt::Precache()
 	int i;
 
 	PRECACHE_MODEL("models/agrunt.mdl");
+	PRECACHE_MODEL("models/laser.mdl");
 
 	for (i = 0; i < ARRAYSIZE(pAttackHitSounds); i++)
 		PRECACHE_SOUND((char*)pAttackHitSounds[i]);
@@ -622,8 +709,9 @@ void CAGrunt::Precache()
 	for (i = 0; i < ARRAYSIZE(pAlertSounds); i++)
 		PRECACHE_SOUND((char*)pAlertSounds[i]);
 
-
-	PRECACHE_SOUND("hassault/hw_shoot1.wav");
+	PRECACHE_SOUND("agrunt/laser2.wav");
+	PRECACHE_SOUND("agrunt/lasfly.wav");
+	PRECACHE_SOUND("agrunt/lashit.wav");
 
 	UTIL_PrecacheOther("hornet");
 }
@@ -1176,4 +1264,3 @@ Schedule_t* CAGrunt::GetScheduleOfType(int Type)
 
 	return CSquadMonster::GetScheduleOfType(Type);
 }
-

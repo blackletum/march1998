@@ -108,6 +108,11 @@ public:
 	static const char* pAttackSounds[];
 	static const char* pDeathSounds[];
 	static const char* pBiteSounds[];
+
+	int RandomHeadcrab = (RANDOM_LONG(0, 1));
+	float HeadcrabDefault = 0;
+	float HeadcrabPoison = 1;
+	int HeadcrabDamage;
 };
 LINK_ENTITY_TO_CLASS(monster_headcrab, CHeadCrab);
 
@@ -294,6 +299,11 @@ void CHeadCrab::Spawn()
 	SET_MODEL(ENT(pev), "models/headcrab.mdl");
 	UTIL_SetSize(pev, Vector(-12, -12, 0), Vector(12, 12, 24));
 
+	if (RandomHeadcrab == 1)
+		pev->body = HeadcrabPoison;
+	else
+		pev->body = HeadcrabDefault;
+
 	pev->solid = SOLID_SLIDEBOX;
 	pev->movetype = MOVETYPE_STEP;
 	m_bloodColor = BLOOD_COLOR_GREEN;
@@ -369,22 +379,29 @@ void CHeadCrab::LeapTouch(CBaseEntity* pOther)
 	{
 		EMIT_SOUND_DYN(edict(), CHAN_WEAPON, RANDOM_SOUND_ARRAY(pBiteSounds), GetSoundVolue(), ATTN_IDLE, 0, GetVoicePitch());
 
+		Vector bloodvec = pev->origin;
+		bloodvec.z += 5;
 
-		if (g_iSkillLevel == SKILL_HARD && pOther->IsPlayer() && !(pOther->pev->flags & FL_GODMODE))								// only one tap player cuz there is no god
-		{
-			CBasePlayer* pPlayer = (CBasePlayer*)Instance(pOther->edict());
-			//	pOther->TakeDamage( pev, pev, pOther->pev->health*2, DMG_SLASH | DMG_NEVERGIB );		// one tap like in the alpha
-			pOther->pev->health = 0;
-			pOther->Killed(pev, GIB_NEVER);	// this will work better
-		}
+		UTIL_BloodStream(bloodvec, UTIL_RandomBloodVector(), pOther->BloodColor(), RANDOM_LONG(100, 175));
+		UTIL_Blood(pev->origin, UTIL_RandomBloodVector(), pOther->BloodColor(), RANDOM_LONG(25, 35));
+
+		if (pOther->IsPlayer() && RandomHeadcrab != 1 && g_iSkillLevel == SKILL_HARD)
+			pOther->TakeDamage(pev, pev, pOther->pev->health + 5, DMG_SLASH);
+		else if (RandomHeadcrab == 1)
+			pOther->TakeDamage(pev, pev, GetDamageAmount(), DMG_POISON);
 		else
 			pOther->TakeDamage(pev, pev, GetDamageAmount(), DMG_SLASH);
 
-		for (int i = 0; i < 4; i++)
-		{
-			UTIL_BloodStream(pev->origin, UTIL_RandomBloodVector(), pOther->BloodColor(), RANDOM_LONG(80, 150));
-		}
+		ClearBits(pOther->pev->flags, FL_ONGROUND); //????
+
+		UTIL_SetOrigin(pOther->pev, pOther->pev->origin + Vector(0, 0, 1));// take him off ground so engine doesn't instantly reset onground 
+		UTIL_MakeVectors(pev->angles);
+
+		pOther->pev->velocity = pOther->pev->velocity + gpGlobals->v_forward * 330;
+		pOther->pev->velocity = pOther->pev->velocity + gpGlobals->v_up * 128;
+	
 	}
+
 
 	SetTouch(NULL);
 }

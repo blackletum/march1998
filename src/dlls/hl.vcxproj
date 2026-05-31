@@ -243,7 +243,6 @@
     <ClCompile Include="snapbug.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="soundent.cpp" />
-    <ClCompile Include="Robo.cpp" />
     <ClCompile Include="spectator.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="squadmonster.cpp" />

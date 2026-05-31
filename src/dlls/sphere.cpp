@@ -33,7 +33,6 @@ LINK_ENTITY_TO_CLASS( xenlaser, CXenLaser );
 void CXenLaser :: Spawn( void )
 {
 	SET_MODEL(ENT(pev), "models/laser.mdl");
-//	UTIL_SetSize(pev, Vector( -1, -1, -1 ), Vector( 1, 1, 1 )  ); // slightly bigger than point size
 	UTIL_SetSize(pev, Vector(0, 0, 0), Vector(0, 0, 0));
 
 	pev->movetype = MOVETYPE_FLY;

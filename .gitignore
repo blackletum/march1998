@@ -80,9 +80,11 @@
 # Ignore these folders
 *.vs
 .vs/
+*J.A.C.K
 
 # Ignore code bullshit
 *.tlog
 *.sbr
 *.pdb
 *.bsc
+/J.A.C.K

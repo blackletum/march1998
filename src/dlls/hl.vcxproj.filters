@@ -342,9 +342,6 @@
     <ClCompile Include="controlsphere.cpp">
       <Filter>Source Files\Monsters</Filter>
     </ClCompile>
-    <ClCompile Include="Robo.cpp">
-      <Filter>Source Files\Monsters</Filter>
-    </ClCompile>
     <ClCompile Include="snapbug.cpp">
       <Filter>Source Files\Monsters</Filter>
     </ClCompile>
