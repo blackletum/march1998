@@ -54,6 +54,14 @@ public:
 	float wobbo;
 	int anim;
 
+	// Random zombies
+	int RandomZombies = (RANDOM_LONG(0, 3));
+	float ZombieDefault = 0;
+	float ZombieBarney = 1;
+	float ZombieWorker = 2;
+	float ZombiePoison = 3;
+	int ZombieDamage;
+
 	static const char *pAttackSounds[];
 	static const char *pIdleSounds[];
 	static const char *pAlertSounds[];
@@ -78,7 +86,6 @@ public:
 			return BLOOD_COLOR_RED;
 		}
 	}
-
 };
 
 LINK_ENTITY_TO_CLASS( monster_zombie, CZombie );
@@ -211,8 +218,11 @@ void CZombie :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case ZOMBIE_AE_ATTACK_RIGHT:
 		{
 			// do stuff for this event.
-	//		ALERT( at_console, "Slash right!\n" );
-			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.zombieDmgOneSlash, DMG_SLASH );
+			if (RandomZombies == 3)
+				ZombieDamage = DMG_POISON;
+			else
+				ZombieDamage = DMG_SLASH;
+			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.zombieDmgOneSlash, ZombieDamage);
 			if ( pHurt )
 			{
 				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
@@ -235,8 +245,11 @@ void CZombie :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case ZOMBIE_AE_ATTACK_LEFT:
 		{
 			// do stuff for this event.
-	//		ALERT( at_console, "Slash left!\n" );
-			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.zombieDmgOneSlash, DMG_SLASH );
+			if (RandomZombies == 3)
+				ZombieDamage = DMG_POISON;
+			else
+				ZombieDamage = DMG_SLASH;
+			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.zombieDmgOneSlash, ZombieDamage);
 			if ( pHurt )
 			{
 				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
@@ -258,7 +271,11 @@ void CZombie :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case ZOMBIE_AE_ATTACK_BOTH:
 		{
 			// do stuff for this event.
-			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.zombieDmgBothSlash, DMG_SLASH );
+			if (RandomZombies == 3)
+				ZombieDamage = DMG_POISON;
+			else
+				ZombieDamage = DMG_SLASH;
+			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.zombieDmgBothSlash, ZombieDamage);
 			if ( pHurt )
 			{
 				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
@@ -292,11 +309,12 @@ void CZombie :: Spawn()
 	SET_MODEL(ENT(pev), "models/zombie.mdl");
 	UTIL_SetSize( pev, VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
 
-	switch (RANDOM_LONG(0, 2))
+	switch (RandomZombies)
 	{
-		case 0: pev->body = 0; break;
-		case 1: pev->body = 1; break;
-		case 2: pev->body = 2; break;
+		case 0: pev->body = ZombieDefault; break;
+		case 1: pev->body = ZombieBarney; break;
+		case 2: pev->body = ZombieWorker; break;
+		case 3: pev->body = ZombiePoison; break;
 	}
 
 	wobbo = 0;
@@ -351,12 +369,7 @@ int CZombie::IgnoreConditions ( void )
 	int iIgnore = CBaseMonster::IgnoreConditions();
 
 	if ((m_Activity == ACT_MELEE_ATTACK1) || (m_Activity == ACT_MELEE_ATTACK1))
-	{
-#if 0
-		if (pev->health < 20)
-			iIgnore |= (bits_COND_LIGHT_DAMAGE|bits_COND_HEAVY_DAMAGE);
-		else
-#endif			
+	{		
 		if (m_flNextFlinch >= gpGlobals->time)
 			iIgnore |= (bits_COND_LIGHT_DAMAGE|bits_COND_HEAVY_DAMAGE);
 	}

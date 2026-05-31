@@ -1252,7 +1252,8 @@ void CDeadScientist::Spawn()
 		ALERT(at_console, "Dead scientist with bad pose\n");
 	}
 
-	pev->skin = 2; // use bloody skin -- UNDONE: Turn this back on when we have a bloody skin again!
+	//P1llowguy - removed it for editor
+	//pev->skin = 2; // use bloody skin -- UNDONE: Turn this back on when we have a bloody skin again!
 	MonsterInitDead();
 
 	if (pev->sequence == LookupSequence("corpsefloat1") || pev->sequence == LookupSequence("corpsefloat2") ||

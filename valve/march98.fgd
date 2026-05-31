@@ -2310,6 +2310,12 @@
 		7 : "Float1"
 		8 : "Float2"
 	]
+	skin(Choices) : "Skin" : 2 =
+	[
+		0 : "Clean"
+		1 : "Dirty"
+		2 : "Bloody"
+	]
 	sequence(Choices) : "Animation Sequence (editor)" : 37 =
 	[
 		34 : "lying_on_back"
