@@ -545,8 +545,6 @@ void CAGrunt::HandleAnimEvent(MonsterEvent_t* pEvent)
 			GetAttachment(0, vecArmPos, vecArmDir);
 			vecArmPos = vecArmPos + vecDirToEnemy * 32;
 
-			SetBodygroup(1, 0);
-
 			vecArmDir = ((m_hEnemy->pev->origin + m_hEnemy->pev->view_ofs) - vecArmPos).Normalize();
 
 			//the best which I could pick up
