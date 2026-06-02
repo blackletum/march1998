@@ -486,7 +486,6 @@ int CSqueak::AddToPlayer(CBasePlayer* pPlayer)
 
 BOOL CSqueak::Deploy()
 {
-	CVAR_SET_FLOAT("cl_viewmodel_fov", 91);
 	// play hunt sound
 	float flRndSound = RANDOM_FLOAT(0, 1);
 

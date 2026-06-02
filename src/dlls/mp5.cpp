@@ -29,6 +29,7 @@
 
 enum mp5_e
 {
+	MP5_LONGIDLE = 0,
 	MP5_IDLE1,
 	MP5_LAUNCH,
 	MP5_RELOAD,
@@ -36,7 +37,7 @@ enum mp5_e
 	MP5_FIRE1,
 	MP5_FIRE2,
 	MP5_FIRE3,
-	MP5_HOLSTER, //TODO: holster anims?
+	MP5_HOLSTER,
 };
 
 
@@ -90,7 +91,7 @@ void CMP5::Spawn()
 
 void CMP5::Precache(void)
 {
-	PRECACHE_MODEL("models/v_9mmAR.mdl");
+	PRECACHE_MODEL("models/v_mp5.mdl");
 	PRECACHE_MODEL("models/w_9mmAR.mdl");
 	PRECACHE_MODEL("models/p_9mmAR.mdl");
 
@@ -143,7 +144,7 @@ int CMP5::AddToPlayer(CBasePlayer* pPlayer)
 
 BOOL CMP5::Deploy()
 {
-	return DefaultDeploy("models/v_9mmAR.mdl", "models/p_9mmAR.mdl", MP5_DEPLOY, "mp5");
+	return DefaultDeploy("models/v_mp5.mdl", "models/p_9mmAR.mdl", MP5_DEPLOY, "mp5");
 }
 
 void CMP5::Holster()
@@ -261,18 +262,33 @@ void CMP5::SecondaryAttack(void)
 
 void CMP5::Reload(void)
 {
-	DefaultReload(MP5_MAX_CLIP, MP5_RELOAD, 2.5);
+	DefaultReload(MP5_MAX_CLIP, MP5_RELOAD, 1.5);
 }
 
 
 void CMP5::WeaponIdle(void)
 {
+	ResetEmptySound();
+
 	m_pPlayer->GetAutoaimVector(AUTOAIM_5DEGREES);
 
 	if (m_flTimeWeaponIdle > gpGlobals->time)
 		return;
 
-	SendWeaponAnim(MP5_IDLE1);
+	int iAnim;
+	switch (RANDOM_LONG(0, 1))
+	{
+	case 0:
+		iAnim = MP5_LONGIDLE;
+		break;
+
+	default:
+	case 1:
+		iAnim = MP5_IDLE1;
+		break;
+	}
+
+	SendWeaponAnim(iAnim);
 
 	m_flTimeWeaponIdle = gpGlobals->time + RANDOM_FLOAT(10, 15);// how long till we do this again.
 }

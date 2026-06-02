@@ -166,7 +166,6 @@ int CGauss::GetItemInfo(ItemInfo* p)
 
 BOOL CGauss::Deploy()
 {
-	CVAR_SET_FLOAT("cl_viewmodel_fov", 91);
 	return DefaultDeploy("models/v_gauss.mdl", "models/p_gauss.mdl", GAUSS_DRAW, "gauss");
 }
 

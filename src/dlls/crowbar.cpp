@@ -41,6 +41,7 @@ public:
 	BOOL Deploy(void);
 	void Holster(void);
 	int m_iSwing;
+	void WeaponIdle(void);
 	TraceResult m_trHit;
 };
 LINK_ENTITY_TO_CLASS(weapon_crowbar, CCrowbar);
@@ -56,7 +57,9 @@ enum gauss_e {
 	CROWBAR_ATTACK2MISS,
 	CROWBAR_ATTACK2HIT,
 	CROWBAR_ATTACK3MISS,
-	CROWBAR_ATTACK3HIT
+	CROWBAR_ATTACK3HIT,
+	CROWBAR_IDLE2,
+	CROWBAR_IDLE3,
 };
 
 
@@ -323,9 +326,36 @@ int CCrowbar::Swing(int fFirst)
 		// delay the decal a bit
 		m_trHit = tr;
 		SetThink(&CCrowbar::Smack);
-		pev->nextthink = gpGlobals->time + 0.2;
+		pev->nextthink = gpGlobals->time + 0.1;
 
 		m_pPlayer->m_iWeaponVolume = flVol * CROWBAR_WALLHIT_VOLUME;
 	}
 	return fDidHit;
+}
+
+void CCrowbar::WeaponIdle(void)
+{
+	if (m_flTimeWeaponIdle > UTIL_WeaponTimeBase())
+		return;
+
+	int iAnim;
+
+	switch (RANDOM_LONG(0, 2))
+	{
+	case 0:
+		iAnim = CROWBAR_IDLE;
+		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + (11.0 / 22.0) + m_pPlayer->random_seed;
+		break;
+	default:
+	case 1:
+		iAnim = CROWBAR_IDLE2;
+		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + (14.0 / 22.0) + m_pPlayer->random_seed;
+		break;
+	case 2:
+		iAnim = CROWBAR_IDLE3;
+		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + (19.0 / 24.0) + m_pPlayer->random_seed;
+		break;
+	}
+
+	SendWeaponAnim(iAnim);
 }

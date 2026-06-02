@@ -51,6 +51,8 @@ convar_t	*gl_msaa;
 
 convar_t	*window_xpos;
 convar_t	*window_ypos;
+convar_t	*window_cheight;
+convar_t	*window_cwidth;
 convar_t	*r_speeds;
 convar_t	*r_fullbright;
 convar_t	*r_norefresh;
@@ -117,7 +119,7 @@ typedef struct vidmode_s
 
 vidmode_t vidmode[] =
 {
-//{ "320 x 240",		320,	240,	false	},
+{ "Custom Resolution",		-1,	-1,	true	},
 { "640 x 480",		640,	480,	false	},
 { "800 x 600",		800,	600,	false	},
 { "960 x 720",		960,	720,	false	},
@@ -1028,9 +1030,28 @@ void R_SaveVideoMode( int vid_mode )
 {
 	int	mode = bound( 0, vid_mode, num_vidmodes ); // check range
 
-	glState.width = vidmode[mode].width;
-	glState.height = vidmode[mode].height;
-	glState.wideScreen = vidmode[mode].wideScreen;
+	if (vidmode[mode].width == -1 && vidmode[mode].height == -1)
+	{
+		glState.width = window_cwidth->value;
+		glState.height = window_cheight->value;
+	}
+	else
+	{
+		glState.width = vidmode[mode].width;
+		glState.height = vidmode[mode].height;
+	}
+
+	if (vidmode[mode].width == -1) //small crap fix for custom resolutions being widescreen or not
+	{
+		if (glState.width / glState.height <= 1.4)
+			glState.wideScreen = false;
+		else
+			glState.wideScreen = true;
+	}
+	else
+	{
+		glState.wideScreen = vidmode[mode].wideScreen;
+	}
 	Cvar_FullSet( "width", va( "%i", glState.width ), FCVAR_READ_ONLY );
 	Cvar_FullSet( "height", va( "%i", glState.height ), FCVAR_READ_ONLY );
 	Cvar_SetValue( "vid_mode", mode ); // merge if it out of bounds
@@ -1626,8 +1647,10 @@ void GL_InitCommands( void )
 
 	gammaboost = Cvar_Get("gammaboost", "1", FCVAR_ARCHIVE, "boost palette");
 
-	window_xpos = Cvar_Get( "_window_xpos", "-1", FCVAR_RENDERINFO, "window position by horizontal" );
-	window_ypos = Cvar_Get( "_window_ypos", "-1", FCVAR_RENDERINFO, "window position by vertical" );
+	window_xpos = Cvar_Get("_window_xpos", "-1", FCVAR_RENDERINFO, "horizontal window position");
+	window_ypos = Cvar_Get("_window_ypos", "-1", FCVAR_RENDERINFO, "vertical window position");
+	window_cwidth = Cvar_Get("custom_width", "640", FCVAR_RENDERINFO | FCVAR_VIDRESTART, "custom window width");
+	window_cheight = Cvar_Get("custom_height", "480", FCVAR_RENDERINFO | FCVAR_VIDRESTART, "custom window height");
 
 	gl_extensions = Cvar_Get( "gl_allow_extensions", "1", FCVAR_GLCONFIG, "allow gl_extensions" );			
 	gl_wgl_msaa_samples = Cvar_Get( "gl_wgl_msaa_samples", "4", FCVAR_GLCONFIG, "enable multisample anti-aliasing" );

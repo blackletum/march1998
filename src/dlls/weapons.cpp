@@ -982,7 +982,7 @@ BOOL CBasePlayerWeapon :: DefaultDeploy( char *szViewModel, char *szWeaponModel,
 
 	m_pPlayer->m_flNextAttack = gpGlobals->time + 0.5;
 
-	if (szViewModel == "models/v_9mmAR.mdl")
+	if (szViewModel == "models/v_mp5.mdl")
 		m_flTimeWeaponIdle = gpGlobals->time + 5.5;
 	else
 		m_flTimeWeaponIdle = gpGlobals->time + 1.0;

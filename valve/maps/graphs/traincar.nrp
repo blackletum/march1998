@@ -1682,6 +1682,7 @@ Node #  75:
   36  36
   62  62
   63  63
+  64  64
   71  71
   73  73
   74  74
@@ -2178,7 +2179,7 @@ Node # 120:
  119 119
 ----------------------------------------------------------------------------
 
-1082 Total Initial Connections -   32 Maximum connections for a single node.
+1083 Total Initial Connections -   32 Maximum connections for a single node.
 ----------------------------------------------------------------------------
 
 
@@ -3091,6 +3092,8 @@ NODE_SMALL_HULL step 96
 Rejected Node  73 - Unreachable by Any Hull
 NODE_SMALL_HULL step 96
 Rejected Node  71 - Unreachable by Any Hull
+NODE_SMALL_HULL step 112
+Rejected Node  64 - Unreachable by Any Hull
 NODE_SMALL_HULL step 112
 Rejected Node  63 - Unreachable by Any Hull
 NODE_SMALL_HULL step 112

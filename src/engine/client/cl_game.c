@@ -501,7 +501,7 @@ static void SPR_DrawGeneric( int frame, float x, float y, float width, float hei
 		if( rc.bottom <= 0 || rc.bottom > height ) rc.bottom = height;
 
 		// calc user-defined rectangle
-		if (Cvar_VariableInteger("hud_scale")) //magic nipples - slightly clip the boundaries on the rects so you don't see clipping from scaling.
+		if (Cvar_VariableInteger("hud_scale") && (glState.width >= 640)) //magic nipples - slightly clip the boundaries on the rects so you don't see clipping from scaling.
 		{
 			s1 = ((float)rc.left + 0.33) / width;
 			t1 = ((float)rc.top + 0.33) / height;
@@ -588,16 +588,10 @@ void CL_DrawCenterPrint( void )
 		line[lineLength] = 0;
 
 		float scale;
-		if (Cvar_VariableInteger("hud_scale"))
-		{
-			if (glState.height < 700)
-				scale = 1;
-			else if (glState.height < 1000)
-				scale = 0.75;
-			else
-				scale = 0.5;
-		}
-		else { scale = 1; }
+		if (Cvar_VariableInteger("hud_scale") && (glState.width >= 640))
+			scale = fabs(6400000 / glState.height) * 0.0001;
+		else
+			scale = 1;
 
 		x = CL_AdjustXPos( -1, width, clgame.centerPrint.totalWidth ) * scale;
 
@@ -1646,8 +1640,9 @@ static int pfnGetScreenInfo(SCREENINFO* pscrinfo)
 	clgame.scrInfo.iSize = sizeof(clgame.scrInfo);
 	clgame.scrInfo.iFlags = SCRINFO_SCREENFLASH;
 
-	if (Cvar_VariableInteger("hud_scale"))
+	if (Cvar_VariableInteger("hud_scale") && (glState.width >= 640))
 	{
+		float xscale = fabs(6400000 / glState.height) * 0.0001;
 		// virtual screen space 640x480
 		clgame.scrInfo.iWidth = 640;
 		clgame.scrInfo.iHeight = 480;

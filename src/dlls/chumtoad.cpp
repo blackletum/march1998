@@ -791,7 +791,6 @@ BOOL CChubGrenade::Deploy()
 	m_pPlayer->m_iWeaponVolume = QUIET_GUN_VOLUME;
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.0;
 
-	CVAR_SET_FLOAT("cl_viewmodel_fov", 91);
 	return DefaultDeploy("models/v_chub.mdl", "models/p_squeak.mdl", CHUB_UP, "chub");
 }
 

@@ -1,10 +1,8 @@
 $modelname "headcrab.mdl"
-$scale 1.0
 $cd .
 $cdtexture ./maps_8bit
 $externaltextures
 
-$scale 1.0
 $gamma 2.2
 $bbox -12 -12 0 12 12 24
 $eyeposition 0 0 20
