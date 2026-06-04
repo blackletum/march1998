@@ -3727,8 +3727,6 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 			GiveNamedItem("weapon_357");
 			GiveNamedItem("ammo_357");
 			GiveNamedItem("weapon_crossbow");
-			this->m_fHasCrossbowScope = TRUE;
-			this->m_fHasSilencer = TRUE;
 			GiveNamedItem("ammo_crossbow");
 			GiveNamedItem("weapon_chub");
 			GiveNamedItem("weapon_egon");
@@ -3739,6 +3737,10 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 			GiveNamedItem("weapon_satchel");
 			GiveNamedItem("weapon_snark");
 			GiveNamedItem( "weapon_hornetgun" );
+			GiveNamedItem( "weapon_minigun" );
+
+			this->m_fHasCrossbowScope = TRUE;
+			this->m_fHasSilencer = TRUE;
 #endif
 		gEvilImpulse101 = FALSE;
 		break;

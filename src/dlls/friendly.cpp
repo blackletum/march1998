@@ -484,9 +484,9 @@ void CFriendly::HandleAnimEvent(MonsterEvent_t* pEvent)
 
 		if (pHurt)
 		{
-			//pHurt->pev->punchangle.z = -15;
-			//pHurt->pev->punchangle.x = -45;
-			//pHurt->pev->velocity = pHurt->pev->velocity - gpGlobals->v_forward * 100;
+			pHurt->pev->punchangle.z = -15;
+			pHurt->pev->punchangle.x = -45;
+			pHurt->pev->velocity = pHurt->pev->velocity - gpGlobals->v_forward * 100;
 			pHurt->pev->velocity = g_vecZero;
 
 			// Play a random attack hit sound

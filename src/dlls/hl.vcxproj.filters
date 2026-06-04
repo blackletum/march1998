@@ -375,6 +375,9 @@
     <ClCompile Include="sphere.cpp">
       <Filter>Source Files\Monsters</Filter>
     </ClCompile>
+    <ClCompile Include="minigun.cpp">
+      <Filter>Source Files\Weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="activitymap.h">

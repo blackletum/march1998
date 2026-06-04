@@ -215,6 +215,7 @@
     <ClCompile Include="leech.cpp" />
     <ClCompile Include="lights.cpp" />
     <ClCompile Include="maprules.cpp" />
+    <ClCompile Include="minigun.cpp" />
     <ClCompile Include="monstermaker.cpp" />
     <ClCompile Include="monsters.cpp" />
     <ClCompile Include="monsterstate.cpp" />

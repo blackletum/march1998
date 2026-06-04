@@ -647,7 +647,6 @@ void CRpg::UpdateSpot(void)
 
 		ALERT( at_console, "%f\n", a );
 		*/
-
 		UTIL_SetOrigin(m_pSpot->pev, tr.vecEndPos);
 	}
 }
@@ -679,6 +678,8 @@ class CRpgAmmo : public CBasePlayerAmmo
 		{
 			iGive = AMMO_RPGCLIP_GIVE;
 		}
+
+		EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/9mmclip1.wav", 1, ATTN_NORM);
 
 		if (pOther->GiveAmmo(iGive, "rockets", ROCKET_MAX_CARRY) != -1)
 		{

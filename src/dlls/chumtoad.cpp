@@ -17,9 +17,7 @@
 
 #define		CHUB_CROAK_RANGE		384
 
-#define		CHUB_EYE_OPEN			0
-#define		CHUB_EYE_SEMI			1
-#define		CHUB_EYE_CLOSED			2
+
 
 // Chub Toad monster begins here
 
@@ -54,6 +52,7 @@ public:
 	void EXPORT MonsterThink ( void );
 	void EXPORT WaterDeathThink ( void );
 	void Swim( void );
+	int RandomChub = RANDOM_FLOAT(0, 4);
 
 	CUSTOM_SCHEDULES;
 
@@ -229,6 +228,18 @@ void CChub :: Spawn (void)
 	m_flFieldOfView		= VIEW_FIELD_FULL;
 	m_MonsterState		= MONSTERSTATE_NONE;
 
+	if (RandomChub == 0)
+		pev->skin = 0;
+	else if (RandomChub == 1)
+		pev->skin = 1;
+	else if (RandomChub == 2)
+		pev->skin = 2;
+	else if (RandomChub == 3)
+		pev->skin = 3;
+	else if (RandomChub == 4)
+		pev->skin = 4;
+
+
 	MonsterInit();
 
 //	SetThink (&CChub::AmphibiousThink);
@@ -311,7 +322,6 @@ void CChub :: StartTask ( Task_t *pTask )
 		{
 			ALERT( at_console, "Chub: Playing dead!\n" );
 			m_fPlayingDead = TRUE;
-			pev->skin = CHUB_EYE_CLOSED;
 			m_IdealActivity = ACT_FEAR_DISPLAY;
 			break;
 		}
@@ -366,7 +376,6 @@ void CChub :: RunTask ( Task_t *pTask )
 		{
 			if ( m_fSequenceFinished || pev->frame >= 255 )
 			{	
-				pev->skin = CHUB_EYE_CLOSED;
 				SetUse(NULL);
 				CBaseMonster :: RunTask( pTask );
 			}
@@ -602,20 +611,6 @@ void CChub :: Swim ( void )
 
 void CChub :: MonsterThink ( void )
 {
-	if (m_flBlink < gpGlobals->time && (!m_fPlayingDead || m_fInWater))
-	{
-		if ( pev->skin < CHUB_EYE_CLOSED )
-		{
-			pev->skin++;
-			m_flBlink = gpGlobals->time + 0.15;
-		}
-		else
-		{
-			pev->skin = CHUB_EYE_OPEN;
-			m_flBlink = gpGlobals->time + RANDOM_FLOAT(2,5);
-		}
-	}
-
 	if ( m_fInWater )
 	{
 		if ( pev->health <= 0 )
@@ -668,9 +663,6 @@ void CChub :: MonsterThink ( void )
 
 void CChub :: WaterDeathThink( void )
 {
-	if ( pev->skin < CHUB_EYE_CLOSED )
-		pev->skin++;
-
 	if ( pev->waterlevel == 3 )
 	{
 		pev->movetype = MOVETYPE_FLY;
@@ -703,6 +695,8 @@ public:
 	void WeaponIdle(void);
 
 	void ItemPostFrame(void);
+
+	int RandomChub = RANDOM_FLOAT(0, 4);
 
 	int		m_fChubJustThrown;
 	float	m_flAttackDelay;
@@ -790,6 +784,10 @@ BOOL CChubGrenade::Deploy()
 {
 	m_pPlayer->m_iWeaponVolume = QUIET_GUN_VOLUME;
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.0;
+
+	pev->skin = RandomChub;
+
+	ALERT(at_console, "RandomChub = %d\n", RandomChub);
 
 	return DefaultDeploy("models/v_chub.mdl", "models/p_squeak.mdl", CHUB_UP, "chub");
 }

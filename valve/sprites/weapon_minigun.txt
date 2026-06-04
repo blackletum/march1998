@@ -1,0 +1,9 @@
+9
+weapon			640 w16			0	0	32	32
+weapon_s			640 w16			0	0	32	32
+e3weapon		640 e3_wepsprites	0	675	170	45
+e3weapon_s		640 e3_wepsprites	180	675	170	45
+crosshair		640 crosshairs	48	48	24	24
+autoaim			640 crosshairs	0	72	24	24
+ammo			640 640hud7	0	72	24	24
+ammo2			640 640hud7	48	72	24	24
