@@ -120,6 +120,7 @@ TYPEDESCRIPTION	CBasePlayer::m_playerSaveData[] =
 	DEFINE_FIELD(CBasePlayer, m_flNextRevive, FIELD_TIME),
 	DEFINE_FIELD(CBasePlayer, m_fHasCrossbowScope, FIELD_INTEGER),
 	DEFINE_FIELD(CBasePlayer, m_fHasSilencer, FIELD_INTEGER),
+	DEFINE_FIELD(CBasePlayer, m_iLongJumpBattery, FIELD_INTEGER),
 
 	DEFINE_FIELD( CBasePlayer, m_pTank, FIELD_EHANDLE ),
 	DEFINE_FIELD( CBasePlayer, m_iHideHUD, FIELD_INTEGER ),
@@ -202,7 +203,7 @@ int gmsgPunchAngle = 0;
 // INVENTORY
 int gmsgAntidote = 0;
 int gmsgRadiation = 0;
-int gmsgLongjump = 0;
+int gmsgLongJumpBat = 0;
 int gmsgOxygen = 0;
 int gmsgAdrenaline = 0;
 
@@ -260,7 +261,7 @@ void LinkUserMessages( void )
 	//INVENTORY
 	gmsgAntidote = REG_USER_MSG("AntidoteV", -1);
 	gmsgRadiation = REG_USER_MSG("RadiationV", -1);
-	gmsgLongjump = REG_USER_MSG("LongjumpV", -1);
+	gmsgLongJumpBat = REG_USER_MSG("LonJumBat", 2);
 	gmsgOxygen = REG_USER_MSG("OxygenV", -1);
 	gmsgFlashlight = REG_USER_MSG("FlashlightV", 2);
 	gmsgAdrenaline = REG_USER_MSG("AdrenalineV", -1);
@@ -514,6 +515,12 @@ int CBasePlayer :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, 
 			pev->armorvalue -= flArmor;
 
 		flDamage = flNew;
+	}
+
+	if (pev->armorvalue <= 0)
+	{
+		if (g_iSkillLevel == SKILL_HARD)
+			FlashlightTurnOff();
 	}
 
 	if (flDamage > 0 && bitsDamageType & DMG_DROWN && pev->health - flDamage <= 0)
@@ -1698,14 +1705,27 @@ void CBasePlayer::Jump()
 
 	// ClearBits(pev->flags, FL_ONGROUND);		// don't stairwalk
 	
-	SetAnimation( PLAYER_JUMP );
+	SetAnimation(PLAYER_JUMP);
 
-	if ( m_fLongJump &&
+	if (m_fLongJump &&
 		(pev->button & IN_DUCK) &&
-		( pev->flDuckTime > 0 ) &&
-		pev->velocity.Length() > 50 )
+		(pev->flDuckTime > 0) &&
+		pev->velocity.Length() > 50 && m_iLongJumpBattery)
 	{
-		SetAnimation( PLAYER_SUPERJUMP );
+		m_flLongJumpTime = 2 + gpGlobals->time;
+		SetAnimation(PLAYER_SUPERJUMP);
+		m_iLongJumpBattery--;
+		m_flLastSuperJump = gpGlobals->time;
+
+		// play longjump 'servo' sound
+		if (RANDOM_LONG(0, 1))
+		{
+			EMIT_SOUND(ENT(pev), CHAN_ITEM, "player/pl_pain2.wav", 1, ATTN_NORM);
+		}
+		else
+		{
+			EMIT_SOUND(ENT(pev), CHAN_ITEM, "player/pl_pain4.wav", 1, ATTN_NORM);
+		}
 	}
 
 	// If you're standing on a conveyor, add it's velocity to yours (for momentum)
@@ -2040,8 +2060,11 @@ void CBasePlayer::PreThink(void)
 	} else if (m_iTrain & TRAIN_ACTIVE)
 		m_iTrain = TRAIN_NEW; // turn off train
 
-	if (pev->button & IN_JUMP)
+	if (pev->button & IN_JUMP && IsAlive())
 	{
+		if (!m_iLongJumpBattery && gpGlobals->time != m_flLastSuperJump)
+			g_engfuncs.pfnSetPhysicsKeyValue(edict(), "slj", "0");
+
 		// If on a ladder, jump off the ladder
 		// else Jump
 		Jump();
@@ -2998,7 +3021,6 @@ void CBasePlayer::Spawn( void )
 
 	g_engfuncs.pfnSetPhysicsKeyValue( edict(), "slj", "0" );
 	g_engfuncs.pfnSetPhysicsKeyValue( edict(), "hl", "1" );
-	CheckBHop();	// jay - bhop cvar
 
 	pev->fov = m_iFOV				= 0;// init field of view.
 	m_iClientFOV		= -1; // make sure fov reset is sent
@@ -3018,6 +3040,9 @@ void CBasePlayer::Spawn( void )
 
 	m_iFlashBattery = 99;
 	m_flFlashLightTime = 1; // force first message
+
+	m_flLongJumpTime = 1;
+	m_iLongJumpBattery = -1;
 
 // dont let uninitialized value here hurt the player
 	m_flFallVelocity = 0;
@@ -3174,14 +3199,18 @@ int CBasePlayer::Restore( CRestore &restore )
 
 	g_engfuncs.pfnSetPhysicsKeyValue( edict(), "hl", "1" );
 
-	if ( m_fLongJump )
+	if ( m_fLongJump && m_iLongJumpBattery )
 	{
+		ALERT( at_aiconsole, "YOUR BATTERY SIR\n" );
 		g_engfuncs.pfnSetPhysicsKeyValue( edict(), "slj", "1" );
 	}
+	else g_engfuncs.pfnSetPhysicsKeyValue( edict(), "slj", "0" );
+
+	if ( m_fParalyzed )
+		g_engfuncs.pfnSetClientMaxspeed(edict(), 180 );
 	else
-	{
-		g_engfuncs.pfnSetPhysicsKeyValue( edict(), "slj", "0" );
-	}
+		g_engfuncs.pfnSetClientMaxspeed(edict(), 0 );
+
 
 	RenewItems();
 
@@ -3638,7 +3667,11 @@ void CBasePlayer::ImpulseCommands( )
 		{
 			FlashlightTurnOff();
 		}
-        else 
+        else if ( pev->armorvalue > 0 )
+		{
+			FlashlightTurnOn();
+		}
+		else if (g_iSkillLevel != SKILL_HARD)
 		{
 			FlashlightTurnOn();
 		}
@@ -4245,12 +4278,15 @@ void CBasePlayer :: UpdateClientData( void )
 	//update oxygen
 	MESSAGE_BEGIN(MSG_ONE, gmsgOxygen, NULL, pev);
 	WRITE_BYTE(m_rgItems[ITEM_OXYGEN]);
+	WRITE_SHORT(m_fOxygen);
 	MESSAGE_END();
 
-	//update longjump
-	MESSAGE_BEGIN(MSG_ONE, gmsgLongjump, NULL, pev);
-	WRITE_BYTE(m_rgItems[ITEM_LONGJUMP]);
-	MESSAGE_END();
+	if (gmsgLongJumpBat)
+	{
+		MESSAGE_BEGIN(MSG_ONE, gmsgLongJumpBat, NULL, pev);
+		WRITE_SHORT(m_iLongJumpBattery);
+		MESSAGE_END();
+	}
 
 	//update radiation
 	MESSAGE_BEGIN(MSG_ONE, gmsgRadiation, NULL, pev);
@@ -4268,35 +4304,39 @@ void CBasePlayer :: UpdateClientData( void )
 	MESSAGE_END();
 
 	// Update Flashlight
+	// Magic Nipples - armor flashlight
 	if ((m_flFlashLightTime) && (m_flFlashLightTime <= gpGlobals->time))
 	{
 		if (FlashlightIsOn())
 		{
-			if (m_iFlashBattery)
+			if (pev->armorvalue)
 			{
 				m_flFlashLightTime = FLASH_DRAIN_TIME + gpGlobals->time;
-				m_iFlashBattery--;
-				
-				if (!m_iFlashBattery)
+
+				if (g_iSkillLevel == SKILL_HARD)
+					pev->armorvalue--;
+
+				if (pev->armorvalue <= 0)
 					FlashlightTurnOff();
 			}
 		}
-		else
-		{
-			if (m_iFlashBattery < 100)
-			{
-				m_flFlashLightTime = FLASH_CHARGE_TIME + gpGlobals->time;
-				m_iFlashBattery++;
-			}
-			else
-				m_flFlashLightTime = 0;
-		}
-
-		MESSAGE_BEGIN( MSG_ONE, gmsgFlashBattery, NULL, pev );
-		WRITE_BYTE(m_iFlashBattery);
-		MESSAGE_END();
 	}
 
+	// Update Longjump
+	if (m_fLongJump && m_flLongJumpTime <= gpGlobals->time)
+	{
+		if (m_iLongJumpBattery == 0)
+		{
+			g_engfuncs.pfnSetPhysicsKeyValue(edict(), "slj", "1");
+			SetSuitUpdate("!HEV_E5", FALSE, SUIT_NEXT_IN_1MIN);
+		}
+
+		if (m_iLongJumpBattery < 5)
+		{
+			m_flLongJumpTime = 1 + gpGlobals->time;
+			m_iLongJumpBattery++;
+		}
+	}
 
 	if (m_iTrain & TRAIN_NEW)
 	{

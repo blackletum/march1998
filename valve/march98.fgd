@@ -1791,6 +1791,14 @@
 	pattern(string) : "Custom Appearance" : : "Use a string of letters to provide a custom light style. The property allows you to enter a string of letters from a to z, representing brightness. If you entered 'abcdefghihgfedcba' then the light would go from bright to dim and back again and then repeat. Complicating things, to use this feature, you must name the light. However, if you then use a trigger to activate it, then it will behave as a normal light."
 ]
 
+@PointClass base(Targetname, Angles, ZHLT_point) iconsprite("sprites/light_env.spr") flags(Light) = light_environment : "This entity makes a map's sky emit light. The only practical way of lighting outdoor maps." : "http://twhl.info/wiki.php?id=146"
+[
+	pitch(integer) : "Pitch" : 0 : "A negative number will give downward pitch (which is normally what you want)."
+	_light(color255) : "Brightness" : "255 255 255 200" : "First three integer numbers are the color (RGB). The fourth number is the brightness."
+	_diffuse_light(color255) : "Ambient Light Colour" : "" : "Sets the colour of the sun's ambient light."
+	_spread(integer) : "Sun Spread" : "" : "Set how diffuse sunlight is, 2 and 5 are a good start."
+]
+
 @SolidClass base(Door) = momentary_door : "Momentary/Continuous door" 
 [
 	spawnflags(flags) =
@@ -2875,5 +2883,53 @@
 		43: "Security Card"
 		44: "Battery"
 		45: "Suit"
+	]
+]
+
+//
+// ENV_MODEL
+//
+@PointClass base(Parenting, Targetname, Angles, RenderFields) studio() = env_model : "prop model with sequences" 
+[
+	model(studio) : "Model name"
+	skin(integer) : "Skin" : 0
+	body(integer) : "Body" : 0
+	scale(string) : "Scale (1.0 = normal size)"
+	
+	sequence(integer) : "Animation Sequence (editor)" : : "Sequence to display in Jackhammer. This does not affect gameplay."
+	
+	m_iszSequence_On(string) : "Sequence when on"
+	m_iAction_On(choices) : "Behaviour when on" : 0 =
+	[
+		0: "Freeze when sequence ends"
+		1: "Loop"
+		2: "Change state when sequence ends"
+	]
+
+	m_iszSequence_Off(string) : "Sequence when off"
+	m_iAction_Off(choices) : "Behaviour when off" : 0 =
+	[
+		0: "Freeze when sequence ends"
+		1: "Loop"
+		2: "Change state when sequence ends"
+	]
+	
+	zhlt_studioshadow(choices) : "Model casts shadows" : 1 =
+	[
+		0: "Off"
+		1: "On"
+	]
+	zhlt_shadowmode(choices) : "Shadow quality" : 2 =
+	[
+		0: "Low"
+		1: "Medium"
+		2: "High"
+	]
+	
+	spawnflags(flags) =
+	[
+		1: "Initially off" : 0
+		2: "Solid" : 0
+		4: "Ignore r_shadows" : 1
 	]
 ]

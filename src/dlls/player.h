@@ -101,6 +101,10 @@ public:
 	float				m_flFlashLightTime;	// Time until next battery draw/Recharge
 	int					m_iFlashBattery;		// Flashlight Battery Draw
 
+	float				m_flLongJumpTime;
+	int					m_iLongJumpBattery;
+	float				m_flLastSuperJump;
+
 	int					m_afButtonLast;
 	int					m_afButtonPressed;
 	int					m_afButtonReleased;

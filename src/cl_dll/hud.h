@@ -120,7 +120,7 @@ public:
 	// INVENTORY
 	int MsgFunc_AntidoteV(const char* pszName, int iSize, void* pbuf);
 	int MsgFunc_RadiationV(const char* pszName, int iSize, void* pbuf);
-	int MsgFunc_LongjumpV(const char* pszName, int iSize, void* pbuf);
+	int MsgFunc_LonJumBat(const char* pszName, int iSize, void* pbuf);
 	int MsgFunc_OxygenV(const char* pszName, int iSize, void* pbuf);
 	int MsgFunc_AdrenalineV(const char* pszName, int iSize, void* pbuf);
 	int MsgFunc_FlashlightV(const char* pszName, int iSize, void* pbuf);
@@ -141,12 +141,13 @@ public:
 	void _cdecl UserCmd_PrevWeapon( void );
 
 	//inventory
-	int m_iAntidote;
-	int m_iRadiation;
-	int m_iLongjump;
-	int m_iOxygen;
-	int m_flashOn;
-	int m_iAdrenaline;
+	int m_iAntidote; //does we have antidote syringe
+	int m_iRadiation; //does we have radiation syringe
+	int m_fOxygen; // how much oxygen we have?
+	int m_iOxygen; // does we have airtank? 
+	int m_flashOn; // does flashlight is activated?
+	int m_iAdrenaline; //does we have adrenaline
+	int m_iLongJumpBat; //how much we have long jump battery?
 
 private:
 	float m_fFade;
@@ -155,9 +156,28 @@ private:
 	int	m_HUD_bucket0;
 	int m_HUD_selection;
 
+	HLSPRITE m_hSprite1;
+	HLSPRITE m_hSprite2;
+	HLSPRITE m_hSprite3;
+	HLSPRITE m_hSprite4;
+	HLSPRITE m_hSprite5;
+	HLSPRITE m_hSprite6;
+	HLSPRITE m_hSprite7;
+	HLSPRITE m_hSprite8;
+	HLSPRITE m_hSprite9;
+	HLSPRITE m_hSprite10;
 
 	wrect_t* m_prc1;
 	wrect_t* m_prc2;
+	wrect_t* m_prc3;
+	wrect_t* m_prc4;
+	wrect_t* m_prc5;
+	wrect_t* m_prc6;
+	wrect_t* m_prc7;
+	wrect_t* m_prc8;
+	wrect_t* m_prc9;
+	wrect_t* m_prc10;
+
 	int m_iHeight;
 	int m_iWidth;
 };

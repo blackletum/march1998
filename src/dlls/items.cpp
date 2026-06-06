@@ -344,7 +344,6 @@ class CItemLongJump : public CItem
 	void Precache(void)
 	{
 		PRECACHE_MODEL("models/w_longjump.mdl");
-		PRECACHE_SOUND("items/power_jump.wav"); //magic nipples - longjump sound
 	}
 	BOOL MyTouch(CBasePlayer* pPlayer)
 	{
@@ -359,9 +358,12 @@ class CItemLongJump : public CItem
 
 			g_engfuncs.pfnSetPhysicsKeyValue(pPlayer->edict(), "slj", "1");
 
-			pPlayer->m_rgItems[ITEM_LONGJUMP]++;
+			MESSAGE_BEGIN(MSG_ONE, gmsgItemPickup, NULL, pPlayer->pev);
+			WRITE_STRING(STRING(pev->classname));
+			MESSAGE_END();
 
 			EMIT_SOUND_SUIT(pPlayer->edict(), "!HEV_A1");	// Play the longjump sound UNDONE: Kelly? correct sound?
+			pPlayer->m_iLongJumpBattery = 5;
 			return TRUE;
 		}
 		return FALSE;
@@ -389,7 +391,14 @@ class CItemAntidote : public CItem
 
 	BOOL MyTouch(CBasePlayer* pPlayer)
 	{
-		if (pPlayer->m_rgItems[ITEM_ANTIDOTE] >= 5)
+
+		if (g_iSkillLevel == SKILL_EASY && pPlayer->m_rgItems[ITEM_ANTIDOTE] >= 5)
+			return FALSE;
+
+		if (g_iSkillLevel == SKILL_MEDIUM && pPlayer->m_rgItems[ITEM_ANTIDOTE] >= 3)
+			return FALSE;
+
+		if (g_iSkillLevel == SKILL_HARD && pPlayer->m_rgItems[ITEM_ANTIDOTE] >= 1)
 			return FALSE;
 
 		pPlayer->m_rgItems[ITEM_ANTIDOTE]++;
@@ -424,7 +433,13 @@ class CItemRadiation : public CItem
 
 	BOOL MyTouch(CBasePlayer* pPlayer)
 	{
-		if (pPlayer->m_rgItems[ITEM_RADIATION] >= 5)
+		if (g_iSkillLevel == SKILL_EASY && pPlayer->m_rgItems[ITEM_RADIATION] >= 5)
+			return FALSE;
+
+		if (g_iSkillLevel == SKILL_MEDIUM && pPlayer->m_rgItems[ITEM_RADIATION] >= 3)
+			return FALSE;
+
+		if (g_iSkillLevel == SKILL_HARD && pPlayer->m_rgItems[ITEM_RADIATION] >= 1)
 			return FALSE;
 
 		pPlayer->m_rgItems[ITEM_RADIATION]++;

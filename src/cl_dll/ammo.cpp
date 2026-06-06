@@ -243,10 +243,10 @@ DECLARE_MESSAGE(m_Ammo, ItemPickup);
 //inventory
 DECLARE_MESSAGE(m_Ammo, AntidoteV);
 DECLARE_MESSAGE(m_Ammo, RadiationV);
-DECLARE_MESSAGE(m_Ammo, LongjumpV);
 DECLARE_MESSAGE(m_Ammo, OxygenV);
 DECLARE_MESSAGE(m_Ammo, FlashlightV);
 DECLARE_MESSAGE(m_Ammo, AdrenalineV);
+DECLARE_MESSAGE(m_Ammo, LonJumBat);
 
 DECLARE_COMMAND(m_Ammo, Slot1);
 DECLARE_COMMAND(m_Ammo, Slot2);
@@ -283,7 +283,7 @@ int CHudAmmo::Init(void)
 	//inventory
 	HOOK_MESSAGE(AntidoteV);
 	HOOK_MESSAGE(RadiationV);
-	HOOK_MESSAGE(LongjumpV);
+	HOOK_MESSAGE(LonJumBat);
 	HOOK_MESSAGE(OxygenV);
 	HOOK_MESSAGE(FlashlightV);
 	HOOK_MESSAGE(AdrenalineV);
@@ -320,7 +320,7 @@ void CHudAmmo::Reset(void)
 	//inventory
 	m_iAntidote = 0;
 	m_iRadiation = 0;
-	m_iLongjump = 0;
+	m_iLongJumpBat = 0;
 	m_iOxygen = 0;
 	m_flashOn = 0;
 	m_iAdrenaline = 0;
@@ -347,8 +347,19 @@ int CHudAmmo::VidInit(void)
 	m_iWidth = m_prc2->right - m_prc2->left;
 	m_iHeight = m_prc2->top - m_prc2->bottom;
 
+	int HUD_airtank = gHUD.GetSpriteIndex("oxygen_off");
+	int HUD_spring = gHUD.GetSpriteIndex("longjump_off");
+
+	int HUD_airtank_full = gHUD.GetSpriteIndex("oxygen_on");
+	int HUD_spring_full = gHUD.GetSpriteIndex("longjump_on");
+
 	m_HUD_bucket0 = gHUD.GetSpriteIndex( "bucket1" );
 	m_HUD_selection = gHUD.GetSpriteIndex( "selection" );
+
+	m_hSprite4 = gHUD.GetSprite(HUD_spring);
+	m_hSprite3 = gHUD.GetSprite(HUD_airtank);
+	m_hSprite8 = gHUD.GetSprite(HUD_airtank_full);
+	m_hSprite9 = gHUD.GetSprite(HUD_spring_full);
 
 	ghsprBuckets = gHUD.GetSprite(m_HUD_bucket0);
 	giBucketWidth = gHUD.GetSpriteRect(m_HUD_bucket0).right - gHUD.GetSpriteRect(m_HUD_bucket0).left;
@@ -545,17 +556,12 @@ int CHudAmmo::MsgFunc_RadiationV(const char* pszName, int iSize, void* pbuf)
 	return 1;
 }
 
-int CHudAmmo::MsgFunc_LongjumpV(const char* pszName, int iSize, void* pbuf)
+int CHudAmmo::MsgFunc_LonJumBat(const char* pszName, int iSize, void* pbuf)
 {
 	BEGIN_READ(pbuf, iSize);
+	int x = READ_SHORT();
 
-	int x = READ_BYTE();
-
-	if (x != m_iLongjump)
-	{
-		m_fFade = FADE_TIME;
-		m_iLongjump = x;
-	}
+	m_iLongJumpBat = x;
 
 	return 1;
 }
@@ -579,6 +585,7 @@ int CHudAmmo::MsgFunc_OxygenV(const char* pszName, int iSize, void* pbuf)
 	{
 		m_fFade = FADE_TIME;
 		m_iOxygen = x;
+		m_fOxygen = x;
 	}
 
 	return 1;
@@ -1171,16 +1178,16 @@ int CHudAmmo::DrawWList(float flTime)
 
 		x = x2 = gHUD.m_scrinfo.iWidth * 0.5; //!!!
 
-		/*int i_UseSlots = 0;
+		int i_UseSlots = 0;
 		for (i = 0; i < MAX_WEAPON_SLOTS; i++)
 		{
-			WEAPON* p = gWR.GetFirstPos(i);
+			WEAPON* p = gWR.GetFirstPos(i, 0);
 
 			p = gWR.GetWeaponSlot(i, 0);
 
 			if (p)
 				i_UseSlots += 1;
-		}*/
+		}
 		//gEngfuncs.Con_Printf("Usable Slots: %i\n", i_UseSlots);
 
 
@@ -1415,6 +1422,7 @@ int CHudAmmo::DrawWList(float flTime)
 int CHudAmmo::DrawInventory(float flTime) //magic nipples - INVENTORY
 {
 	int r, g, b, a, y, x;
+	int apparatusIconWidth = 60;
 
 	if (!gpActiveSel)
 	{
@@ -1434,25 +1442,65 @@ int CHudAmmo::DrawInventory(float flTime) //magic nipples - INVENTORY
 	y = ((ScreenHeight / ScreenHeight) - (m_iHeight * .2));
 	if (m_iOxygen == 1)
 	{
-		SPR_Set(gHUD.GetSprite(gHUD.GetSpriteIndex("oxygen_on")), r, g, b);
+		SPR_Set(m_hSprite8, r, g, b);
 		SPR_DrawAdditive(0, x, y, m_prc2);
 	}
 	else
 	{
-		SPR_Set(gHUD.GetSprite(gHUD.GetSpriteIndex("oxygen_off")), r, g, b);
+		SPR_Set(m_hSprite3, r, g, b);
 		SPR_DrawAdditive(0, x, y, m_prc2);
 	}
 
+	//p1llowguy - Make the airtank icow show how much oxygen is left in it.
+	/*
+	if (m_fOxygen < 15)
+	{
+		SPR_Set(m_hSprite3, r, g, b);
+		SPR_DrawAdditive(0, x, y, m_prc2);
+		if (m_fOxygen > 0)
+		{
+			int iOffset = 60 - (5 * m_fOxygen);
+			wrect_t rc;
+			rc = *m_prc2;
+			rc.top += iOffset;
+			//gEngfuncs.pfnConsolePrint( "Airtank offset\n" );
+			SPR_Set(m_hSprite8, r, g, b);
+			SPR_DrawAdditive(0, x, y + iOffset, &rc);
+		}
+
+		y += apparatusIconWidth + 8;
+	}
+	*/
 	// LONGJUMP
 	y = ((ScreenHeight / ScreenHeight) - (m_iHeight * 1.35));
-	if (m_iLongjump == 1)
+
+	if ((m_iLongJumpBat < 5 && m_iLongJumpBat > -1))
 	{
-		SPR_Set(gHUD.GetSprite(gHUD.GetSpriteIndex("longjump_on")), r, g, b);
+		SPR_Set(m_hSprite4, r, g, b);
+		SPR_DrawAdditive(0, x, y, m_prc2);
+		if (m_iLongJumpBat > 0)
+		{
+			int iOffset = 50 - (12 * m_iLongJumpBat);
+			wrect_t rc;
+			rc = *m_prc2;
+			rc.top += iOffset;
+			SPR_Set(m_hSprite9, r, g, b);
+			SPR_DrawAdditive(0, x, y + iOffset, &rc);
+		}
+
+		y += apparatusIconWidth + 8;
+	}
+	/*
+	//P1llowguy - for some reason, when the longjump battery is full, the icon disappears, so I just made this code
+	*/
+	else if (m_iLongJumpBat > -1)
+	{
+		SPR_Set(m_hSprite9, r, g, b);
 		SPR_DrawAdditive(0, x, y, m_prc2);
 	}
 	else
 	{
-		SPR_Set(gHUD.GetSprite(gHUD.GetSpriteIndex("longjump_off")), r, g, b);
+		SPR_Set(m_hSprite4, r, g, b);
 		SPR_DrawAdditive(0, x, y, m_prc2);
 	}
 

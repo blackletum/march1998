@@ -48,9 +48,11 @@ enum
 #define	BARNEY_BODY_GUNDRAWN		1
 #define BARNEY_BODY_GUNGONE			2
 
-#define BARNEY_MODEL				2
+#define BARNEY_TYPE					1
+
 #define BARNEY_DEFAULT				0
-#define BARNEY_ALPHA				1
+#define BARNEY_INDEEP				1
+#define BARNEY_ALPHA				2
 
 #define SF_BARNEY_TRAITOR			1024
 
@@ -99,6 +101,8 @@ public:
 	float	m_painTime;
 	float	m_checkAttackTime;
 	BOOL	m_lastAttackCheck;
+
+	int RandomBarneyType = (RANDOM_LONG(0, 2));
 
 	int m_cClipSize;
 
@@ -549,8 +553,16 @@ void CBarney::Spawn()
 
 	SetBodygroup(0, BARNEY_BODY_GUNHOLSTERED); // gun in holster
 
-	if (FBitSet(pev->spawnflags, SF_BARNEY_TRAITOR))
-		SetBodygroup(1, 1);
+	switch (RandomBarneyType)
+	{
+		case 0: SetBodygroup(1, 0); break;
+		case 1: SetBodygroup(1, 1); break;
+		case 2: SetBodygroup(1, 2); break;
+	}
+
+	//p1llowguy - I think that alpha barney should be as random type
+	//if (FBitSet(pev->spawnflags, SF_BARNEY_TRAITOR))
+		//SetBodygroup(BARNEY_TYPE, BARNEY_ALPHA);
 
 	m_fGunDrawn = FALSE;
 
@@ -983,6 +995,7 @@ public:
 	void KeyValue(KeyValueData* pkvd);
 
 	int	m_iPose;// which sequence to display	-- temporary, don't need to save
+	int	RandomBarneyType = RANDOM_FLOAT(0, 2);
 	static char* m_szPoses[3];
 };
 
@@ -1031,14 +1044,18 @@ void CDeadBarney::Spawn()
 	// Corpses have less health
 	pev->health = 8;//gSkillData.barneyHealth;
 
-	//	MonsterInitDead();
+	MonsterInitDead();
 
 	InitBoneControllers();
 
-
 	pev->solid = SOLID_BBOX;
 
-	SetBodygroup(1, 0);
+	switch (RandomBarneyType)
+	{
+		case 0: SetBodygroup(1, 0); break;
+		case 1: SetBodygroup(1, 1); break;
+		case 2: SetBodygroup(1, 2); break;
+	}
 
 	pev->movetype = MOVETYPE_TOSS;// so he'll fall to ground
 
@@ -1059,7 +1076,6 @@ void CDeadBarney::Spawn()
 
 	//	SetThink( &CBaseMonster::CorpseFallThink );
 	pev->nextthink = gpGlobals->time + 0.5;
-
 	if (pev->spawnflags & SF_MONSTER_NOT_SOLID)
 		pev->solid = SOLID_NOT;
 }

@@ -784,8 +784,7 @@ BOOL CChubGrenade::Deploy()
 {
 	m_pPlayer->m_iWeaponVolume = QUIET_GUN_VOLUME;
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.0;
-
-	pev->skin = RandomChub;
+	
 
 	ALERT(at_console, "RandomChub = %d\n", RandomChub);
 
