@@ -1067,6 +1067,8 @@ void CDeadBarney::Spawn()
 	pev->max_health = pev->health;
 	pev->deadflag = DEAD_DEAD;
 
+	pev->skin = 2; // use bloody skin
+
 	UTIL_SetSize(pev, g_vecZero, g_vecZero);
 	UTIL_SetOrigin(pev, pev->origin);
 	BecomeDead();

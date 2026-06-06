@@ -39,8 +39,11 @@ studio "barney_alpha"
 studio "barney_indeep"
 }
 
-
-
+$texturegroup skinfamilies 
+{
+  { "BARN_Back1.bmp" "BARN_Chest1.bmp"}
+  { "BARN_Back2.bmp" "BARN_Chest2.bmp"}
+}
 
 // 2 bone controller(s)
 $controller 0 "Bip01 Head" XR -60.000000 60.000000
