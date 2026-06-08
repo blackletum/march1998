@@ -726,6 +726,7 @@ enum
 	kRenderFxExplode,			// Scale up really big!
 	kRenderFxGlowShell,			// Glowing Shell
 	kRenderFxClampMinScale,		// Keep this sprite from getting very small (SPRITES only!)
+	kRenderFxEntInPVS,			//G-Cont - this style for entity, which draw always
 };
 
 typedef int		func_t;

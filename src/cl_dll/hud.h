@@ -559,7 +559,10 @@ private:
 //-----------------------------------------------------
 //
 
-
+//LRC - for the moment, skymode has only two settings
+#define SKY_OFF 0
+#define SKY_ON  1
+#define SKY_ON_DRAWING  2
 
 class CHud
 {
@@ -588,7 +591,8 @@ public:
 	int		m_iRes;
 	cvar_t  *m_pCvarStealMouse;
 	cvar_t	*m_pCvarDraw;
-
+	Vector	m_vecSkyPos; //LRC
+	int		m_iSkyMode;  //LRC
 	Vector PunchAngle;
 
 	int m_iFontHeight;
@@ -597,7 +601,8 @@ public:
 	int DrawHudStringReverse( int xpos, int ypos, int iMinX, char *szString, int r, int g, int b );
 	int DrawHudNumberString( int xpos, int ypos, int iMinX, int iNumber, int r, int g, int b );
 	int GetNumWidth(int iNumber, int iFlags);
-
+	int viewEntityIndex; // for trigger_viewset
+	int viewFlags;
 	int DrawBHudNumber(int x, int y, int iFlags, int iNumber, int r, int g, int b);
 	int DrawSHudNumber(int x, int y, int iFlags, int iNumber, int r, int g, int b);
 
@@ -657,6 +662,22 @@ public:
 	int _cdecl MsgFunc_SetFOV(const char *pszName,  int iSize, void *pbuf);
 	int  _cdecl MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf );
 	int _cdecl MsgFunc_PunchAngle(const char* pszName, int iSize, void* pbuf);
+
+	// ENVIROMENT
+	void _cdecl MsgFunc_SetSky(const char* pszName, int iSize, void* pbuf);		//LRC
+	void _cdecl MsgFunc_SetFog(const char* pszName, int iSize, void* pbuf);
+	int  _cdecl MsgFunc_RainData(const char* pszName, int iSize, void* pbuf);
+
+	vec3_t FogColor;
+	int g_fFadeDuration; //negative = fading out
+	float g_fStartDist;
+	float g_fFinalValue;
+	float g_ftargetValue;
+	float g_iStartValue;
+
+	qboolean g_fskybox;
+	cvar_t* RainInfo;
+	cvar_t* RainSplash;
 
 	// Screen information
 	SCREENINFO	m_scrinfo;

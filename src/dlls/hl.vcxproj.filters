@@ -378,6 +378,12 @@
     <ClCompile Include="minigun.cpp">
       <Filter>Source Files\Weapons</Filter>
     </ClCompile>
+    <ClCompile Include="env_fog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="activitymap.h">
@@ -516,6 +522,9 @@
       <Filter>Header Files\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="xbowbolt.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rain.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

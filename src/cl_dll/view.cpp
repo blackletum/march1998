@@ -382,6 +382,50 @@ void V_CalcGunAngle ( struct ref_params_s *pparams )
 	VectorCopy( viewent->angles, viewent->latched.prevangles );
 }
 
+//==========================
+// V_CalcViewModelLag //Magic Nipples - weapon lag
+//==========================
+float m_flWeaponLag = 0.3f;
+
+void V_CalcViewModelLag(ref_params_t* pparams, vec3_t& origin, vec3_t& angles, vec3_t original_angles)
+{
+	static vec3_t m_vecLastFacing;
+	vec3_t vOriginalOrigin = origin;
+	vec3_t vOriginalAngles = angles;
+
+	// Calculate our drift
+	vec3_t    forward, right, up;
+	AngleVectors(angles, forward, right, up);
+
+	//if ( pparams->frametime != 0.0f )// not in paused
+   // {
+	Vector vDifference;
+
+	vDifference = forward - m_vecLastFacing;
+
+	float flSpeed = 5.0f;
+
+	// If we start to lag too far behind, we'll increase the "catch up" speed.
+	// Solves the problem with fast cl_yawspeed, m_yaw or joysticks rotating quickly.
+	// The old code would slam lastfacing with origin causing the viewmodel to pop to a new position
+	float flDiff = vDifference.Length();
+	if ((flDiff > m_flWeaponLag) && (m_flWeaponLag > 0.0f))
+	{
+		float flScale = flDiff / m_flWeaponLag;
+		flSpeed *= flScale;
+	}
+
+	// FIXME:  Needs to be predictable?
+	m_vecLastFacing = m_vecLastFacing + vDifference * (flSpeed * pparams->frametime);
+	// Make sure it doesn't grow out of control!!!
+	m_vecLastFacing = m_vecLastFacing.Normalize();
+
+	if (CVAR_GET_FLOAT("cl_weaponsway") != 0)
+	{
+		origin = origin + (vDifference * -1.0f) * 5.0f;
+	}
+}
+
 /*
 ==============
 V_AddIdle
@@ -481,6 +525,8 @@ typedef struct
 	int CurrentAngle;
 } viewinterp_t;
 
+extern void RenderFog(void);
+
 /*
 ==================
 V_CalcRefdef
@@ -501,6 +547,43 @@ void V_CalcNormalRefdef ( struct ref_params_s *pparams )
 	vec3_t camAngles, camForward, camRight, camUp;
 	cl_entity_t *pwater;
 
+	static struct model_s* savedviewmodel;
+
+	//LRC - if this is the second pass through, then we've just drawn the sky, and now we're setting up the normal view.
+	if (pparams->nextView == 1)
+	{
+		view = gEngfuncs.GetViewModel();
+		view->model = savedviewmodel;
+		pparams->viewangles[0] = v_angles.x;
+		pparams->viewangles[1] = v_angles.y;
+		pparams->viewangles[2] = v_angles.z;
+		pparams->vieworg[0] = v_origin.x;
+		pparams->vieworg[1] = v_origin.y;
+		pparams->vieworg[2] = v_origin.z;
+		pparams->nextView = 0;
+
+		if (gHUD.viewFlags & 1)
+		{
+			cl_entity_t* viewentity;
+			viewentity = gEngfuncs.GetEntityByIndex(pparams->viewentity);
+
+			if (viewentity)
+			{
+				pparams->vieworg[0] = viewentity->origin[0];
+				pparams->vieworg[1] = viewentity->origin[1];
+				pparams->vieworg[2] = viewentity->origin[2];
+				
+				if (gHUD.viewFlags & 4) pparams->viewangles[0] = -viewentity->angles[0];
+				else			pparams->viewangles[0] = viewentity->angles[0];
+				pparams->viewangles[1] = viewentity->angles[1];
+				pparams->viewangles[2] = viewentity->angles[2];
+				pparams->crosshairangle[PITCH] = 100; //FIXME: disable crosshair other methods
+			}
+		}
+		else pparams->crosshairangle[PITCH] = 0;
+		return;
+	}
+
 	V_DriftPitch ( pparams );
 
 	if ( gEngfuncs.IsSpectateOnly() )
@@ -516,6 +599,13 @@ void V_CalcNormalRefdef ( struct ref_params_s *pparams )
 	// view is the weapon model (only visible from inside body )
 	view = gEngfuncs.GetViewModel();
 
+	//LRC - don't show weapon models when we're drawing the sky.
+	if (gHUD.m_iSkyMode == SKY_ON)
+	{
+		savedviewmodel = view->model;
+		view->model = NULL;
+	}
+
 	// transform the view offset by the model's matrix to get the offset from
 	// model origin for the view
 	bob = V_CalcBob ( pparams );
@@ -524,6 +614,8 @@ void V_CalcNormalRefdef ( struct ref_params_s *pparams )
 	VectorCopy ( pparams->simorg, pparams->vieworg );
 	pparams->vieworg[2] += ( bob );
 	VectorAdd( pparams->vieworg, pparams->viewheight, pparams->vieworg );
+
+	Vector    lastAngles = view->angles; //Magic Nipples - weapon lag
 
 	VectorCopy ( pparams->cl_viewangles, pparams->viewangles );
 
@@ -670,6 +762,8 @@ void V_CalcNormalRefdef ( struct ref_params_s *pparams )
 	// gun a very nice 'shifting' effect when the player looks up/down. If there is a problem
 	// with view model distortion, this may be a cause. (SJB). 
 	view->origin[2] -= 1;
+
+	V_CalcViewModelLag(pparams, view->origin, view->angles, lastAngles); //Magic Nipples - weapon lagg
 
 	// fudge position around to keep amount of weapon visible
 	// roughly equal with different FOV
@@ -836,6 +930,55 @@ void V_CalcNormalRefdef ( struct ref_params_s *pparams )
 	lasttime = pparams->time;
 
 	v_origin = pparams->vieworg;
+
+	//LRC 1.8 - no fog in the env_sky
+	if (gHUD.m_iSkyMode != SKY_ON_DRAWING)
+	{
+		RenderFog();
+	}
+
+	if (gHUD.viewFlags & 1 && gHUD.m_iSkyMode == SKY_OFF) // custom view active (trigger_viewset)
+	{
+		cl_entity_t* viewentity;
+		viewentity = gEngfuncs.GetEntityByIndex(pparams->viewentity);
+
+		if (viewentity)
+		{
+			
+			pparams->vieworg[0] = viewentity->origin[0];
+			pparams->vieworg[1] = viewentity->origin[1];
+			pparams->vieworg[2] = viewentity->origin[2];
+		
+			if (gHUD.viewFlags & 4) pparams->viewangles[0] = -viewentity->angles[0];
+			else		    pparams->viewangles[0] = viewentity->angles[0];
+			pparams->viewangles[1] = viewentity->angles[1];
+			pparams->viewangles[2] = viewentity->angles[2];
+			pparams->crosshairangle[PITCH] = 100; //FIXME: disable crosshair other methods
+		}
+	}
+	else	pparams->crosshairangle[PITCH] = 0; // test
+
+	// LRC - override the view position if we're drawing a sky, rather than the player's view
+	if (gHUD.m_iSkyMode == SKY_ON && pparams->nextView == 0)
+	{
+		pparams->vieworg[0] = gHUD.m_vecSkyPos.x;
+		pparams->vieworg[1] = gHUD.m_vecSkyPos.y;
+		pparams->vieworg[2] = gHUD.m_vecSkyPos.z;
+
+		if (gHUD.viewFlags & 1)
+		{
+			cl_entity_t* viewentity;
+			viewentity = gEngfuncs.GetEntityByIndex(pparams->viewentity);
+			if (viewentity)
+			{
+				if (gHUD.viewFlags & 4) pparams->viewangles[0] = -viewentity->angles[0];
+				else		    pparams->viewangles[0] = viewentity->angles[0];
+				pparams->viewangles[1] = viewentity->angles[1];
+				pparams->viewangles[2] = viewentity->angles[2];
+			}
+		}
+		pparams->nextView = 1;
+	}
 }
 
 void V_SmoothInterpolateAngles( float * startAngle, float * endAngle, float * finalAngle, float degreesPerSec )

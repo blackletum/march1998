@@ -1103,6 +1103,11 @@ int CStudioModelRenderer::StudioDrawModel( int flags )
 	IEngineStudio.GetViewInfo( m_vRenderOrigin, m_vUp, m_vRight, m_vNormal );
 	IEngineStudio.GetAliasScale( &m_fSoftwareXScale, &m_fSoftwareYScale );
 
+	if (gHUD.m_iSkyMode == SKY_ON_DRAWING && m_pCurrentEntity->curstate.renderfx != kRenderFxEntInPVS)
+	{
+		return 0;
+	}
+
 	if (m_pCurrentEntity->curstate.renderfx == kRenderFxDeadPlayer)
 	{
 		entity_state_t deadplayer;

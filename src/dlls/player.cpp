@@ -35,6 +35,7 @@
 #include "gamerules.h"
 #include "game.h"
 #include "hltv.h"
+#include "rain.h"
 
 // #define DUCKFIX
 
@@ -126,6 +127,22 @@ TYPEDESCRIPTION	CBasePlayer::m_playerSaveData[] =
 	DEFINE_FIELD( CBasePlayer, m_iHideHUD, FIELD_INTEGER ),
 	DEFINE_FIELD( CBasePlayer, m_iFOV, FIELD_INTEGER ),
 	DEFINE_FIELD( CBasePlayer, m_pNextItem, FIELD_CLASSPTR ),
+
+	//RAIN.CPP
+	DEFINE_FIELD(CBasePlayer, Rain_dripsPerSecond, FIELD_INTEGER),
+	DEFINE_FIELD(CBasePlayer, Rain_windX, FIELD_FLOAT),
+	DEFINE_FIELD(CBasePlayer, Rain_windY, FIELD_FLOAT),
+	DEFINE_FIELD(CBasePlayer, Rain_randX, FIELD_FLOAT),
+	DEFINE_FIELD(CBasePlayer, Rain_randY, FIELD_FLOAT),
+
+	DEFINE_FIELD(CBasePlayer, Rain_ideal_dripsPerSecond, FIELD_INTEGER),
+	DEFINE_FIELD(CBasePlayer, Rain_ideal_windX, FIELD_FLOAT),
+	DEFINE_FIELD(CBasePlayer, Rain_ideal_windY, FIELD_FLOAT),
+	DEFINE_FIELD(CBasePlayer, Rain_ideal_randX, FIELD_FLOAT),
+	DEFINE_FIELD(CBasePlayer, Rain_ideal_randY, FIELD_FLOAT),
+
+	DEFINE_FIELD(CBasePlayer, Rain_endFade, FIELD_TIME),
+	DEFINE_FIELD(CBasePlayer, Rain_nextFadeUpdate, FIELD_TIME),
 	
 	//DEFINE_FIELD( CBasePlayer, m_fDeadTime, FIELD_FLOAT ), // only used in multiplayer games
 	//DEFINE_FIELD( CBasePlayer, m_fGameHUDInitialized, FIELD_INTEGER ), // only used in multiplayer games
@@ -207,6 +224,11 @@ int gmsgLongJumpBat = 0;
 int gmsgOxygen = 0;
 int gmsgAdrenaline = 0;
 
+// Enviroment
+int gmsgSetSky = 0;		//LRC
+int gmsgSetFog = 0;
+int gmsgRainData = 0;
+
 //timebased variables
 float oxyBreathTime = 0; //how long between each breath in airtank
 int oxyBubbleTime = 0; //used to keep bubbles from going cray when activated
@@ -266,6 +288,10 @@ void LinkUserMessages( void )
 	gmsgFlashlight = REG_USER_MSG("FlashlightV", 2);
 	gmsgAdrenaline = REG_USER_MSG("AdrenalineV", -1);
 
+	// ENVIROMENT
+	gmsgSetSky = REG_USER_MSG("SetSky", 7);	//LRC
+	gmsgSetFog = REG_USER_MSG("SetFog", -1);
+	gmsgRainData = REG_USER_MSG("RainData", -1);
 }
 
 LINK_ENTITY_TO_CLASS( player, CBasePlayer );
@@ -3136,6 +3162,9 @@ void CBasePlayer :: Precache( void )
 
 	if ( gInitHUD )
 		m_fInitHUD = TRUE;
+
+	//RAIN.CPP
+	Rain_needsUpdate = 1;
 }
 
 
@@ -4185,6 +4214,27 @@ void CBasePlayer :: UpdateClientData( void )
 			}
 		}
 
+		//g-cont. found env sky and send message all players
+		CBaseEntity* pSky = UTIL_FindEntityByClassname(NULL, "env_sky");
+		if (!FNullEnt(pSky))
+		{
+			MESSAGE_BEGIN(MSG_ONE, gmsgSetSky, NULL, pev);
+			WRITE_BYTE(1); // mode
+			WRITE_COORD(pSky->pev->origin.x); // view position
+			WRITE_COORD(pSky->pev->origin.y);
+			WRITE_COORD(pSky->pev->origin.z);
+			MESSAGE_END();
+
+			//g-cont. found all skyents
+			edict_t* pent = UTIL_EntitiesInPVS(pSky->edict());
+			while (!FNullEnt(pent))
+			{
+				//Msg("%s is Sky Entity\n", STRING(pent->v.classname ));
+				SetBits(pent->v.flags, FL_IMMUNE_WATER);//hack
+				pent = pent->v.chain;
+			}
+		}
+
 		FireTargets( "game_playerspawn", this, this, USE_TOGGLE, 0 );
 
 		InitStatusBar();
@@ -4274,6 +4324,116 @@ void CBasePlayer :: UpdateClientData( void )
 		// Clear off non-time-based damage indicators
 		m_bitsDamageType &= DMG_TIMEBASED;
 	}
+
+	if (Rain_endFade > 0) // calculate and update rain fading
+	{
+		if (gpGlobals->time < Rain_endFade)
+		{ // we're in fading process
+			if (Rain_nextFadeUpdate <= gpGlobals->time)
+			{
+				int secondsLeft = Rain_endFade - gpGlobals->time + 1;
+
+				Rain_dripsPerSecond += (Rain_ideal_dripsPerSecond - Rain_dripsPerSecond) / secondsLeft;
+				Rain_windX += (Rain_ideal_windX - Rain_windX) / (float)secondsLeft;
+				Rain_windY += (Rain_ideal_windY - Rain_windY) / (float)secondsLeft;
+				Rain_randX += (Rain_ideal_randX - Rain_randX) / (float)secondsLeft;
+				Rain_randY += (Rain_ideal_randY - Rain_randY) / (float)secondsLeft;
+
+				Rain_nextFadeUpdate = gpGlobals->time + 1; // update once per second
+				Rain_needsUpdate = 1;
+
+				//ALERT(at_console, "Rain fading: curdrips: %i, idealdrips %i\n", Rain_dripsPerSecond, Rain_ideal_dripsPerSecond);
+			}
+		}
+		else
+		{ // finish fading process
+			Rain_nextFadeUpdate = 0;
+			Rain_endFade = 0;
+
+			Rain_dripsPerSecond = Rain_ideal_dripsPerSecond;
+			Rain_windX = Rain_ideal_windX;
+			Rain_windY = Rain_ideal_windY;
+			Rain_randX = Rain_ideal_randX;
+			Rain_randY = Rain_ideal_randY;
+			Rain_needsUpdate = 1;
+
+			//ALERT(at_console, "Rain fading finished at %i drips\n", Rain_dripsPerSecond);
+		}
+	}
+
+	if (Rain_needsUpdate) // send rain message
+	{
+		//search for rain_settings entity
+		edict_t* pFind;
+		pFind = FIND_ENTITY_BY_CLASSNAME(NULL, "env_weather");
+		if (!FNullEnt(pFind))
+		{
+			// rain allowed on this map
+			CBaseEntity* pEnt = CBaseEntity::Instance(pFind);
+			CEnvWeather* pRainSettings = (CEnvWeather*)pEnt;
+
+			float raindistance = pRainSettings->Rain_Distance;
+			float rainheight = pRainSettings->pev->origin[2];
+			int rainmode = pRainSettings->Rain_Mode;
+
+			// search for constant rain_modifies
+			pFind = FIND_ENTITY_BY_CLASSNAME(NULL, "env_weather");
+			while (!FNullEnt(pFind))
+			{
+				if (pFind->v.spawnflags & 1)
+				{
+					// copy settings to player's data and clear fading
+					CBaseEntity* pEnt = CBaseEntity::Instance(pFind);
+					CEnvWeather* pRainModify = (CEnvWeather*)pEnt;
+
+					Rain_dripsPerSecond = pRainModify->Rain_Drips;
+					Rain_windX = pRainModify->Rain_windX;
+					Rain_windY = pRainModify->Rain_windY;
+					Rain_randX = pRainModify->Rain_randX;
+					Rain_randY = pRainModify->Rain_randY;
+
+					Rain_endFade = 0;
+					break;
+				}
+				pFind = FIND_ENTITY_BY_CLASSNAME(pFind, "env_weather");
+			}
+
+			MESSAGE_BEGIN(MSG_ONE, gmsgRainData, NULL, pev);
+			WRITE_SHORT(Rain_dripsPerSecond);
+			WRITE_COORD(raindistance);
+			WRITE_COORD(Rain_windX);
+			WRITE_COORD(Rain_windY);
+			WRITE_COORD(Rain_randX);
+			WRITE_COORD(Rain_randY);
+			WRITE_SHORT(rainmode);
+			WRITE_COORD(rainheight);
+			MESSAGE_END();
+
+			/*if (Rain_dripsPerSecond)
+				ALERT(at_console, "Sending enabling rain message\n");
+			else
+				ALERT(at_console, "Sending disabling rain message\n");*/
+		}
+		else
+		{ // no rain on this map
+			Rain_dripsPerSecond = 0;
+			Rain_windX = 0;
+			Rain_windY = 0;
+			Rain_randX = 0;
+			Rain_randY = 0;
+			Rain_ideal_dripsPerSecond = 0;
+			Rain_ideal_windX = 0;
+			Rain_ideal_windY = 0;
+			Rain_ideal_randX = 0;
+			Rain_ideal_randY = 0;
+			Rain_endFade = 0;
+			Rain_nextFadeUpdate = 0;
+
+			//ALERT(at_console, "Clearing rain data\n");
+		}
+		Rain_needsUpdate = 0;
+	}
+
 
 	//update oxygen
 	MESSAGE_BEGIN(MSG_ONE, gmsgOxygen, NULL, pev);

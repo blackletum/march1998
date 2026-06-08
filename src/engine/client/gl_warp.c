@@ -396,6 +396,8 @@ void R_DrawSkyBox( void )
 	if( RI.fogEnabled )
 		pglFogf( GL_FOG_DENSITY, RI.fogDensity * 0.5f );
 
+	GL_AdjustFogColor(0.5);
+
 	pglDisable( GL_BLEND );
 	pglDisable( GL_ALPHA_TEST );
 	pglTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
@@ -423,6 +425,7 @@ void R_DrawSkyBox( void )
 	if( RI.fogEnabled )
 		pglFogf( GL_FOG_DENSITY, RI.fogDensity );
 
+	GL_ResetFogColor();
 	R_LoadIdentity();
 }
 
@@ -797,7 +800,8 @@ void EmitWaterPolys( msurface_t *warp, qboolean reverse )
 	else waveHeight = RI.currententity->curstate.scale;
 
 	// reset fog color for nonlightmapped water
-	//GL_ResetFogColor();
+	GL_ResetFogColor();
+	GL_AdjustFogColor(0.5);
 
 	//MAGIC NIPPLES - func_water fix!!
 	gl_texture_t* tex = R_GetTexture(warp->texinfo->texture->gl_texturenum);
@@ -814,12 +818,6 @@ void EmitWaterPolys( msurface_t *warp, qboolean reverse )
 		RI.fogEnabled = true;
 		RI.fogSkybox = true;
 	}
-
-	pglFogi(GL_FOG_MODE, GL_EXP);
-	pglFogfv(GL_FOG_COLOR, RI.fogColor);
-	pglFogf(GL_FOG_START, RI.fogStart);
-	pglFogf(GL_FOG_END, RI.fogEnd);
-	pglHint(GL_FOG_HINT, GL_NICEST);
 
 	if( FBitSet( warp->flags, SURF_DRAWTURB_QUADS ))
 		pglBegin( GL_QUADS );

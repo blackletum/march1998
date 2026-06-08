@@ -1556,11 +1556,21 @@ void R_StudioSetupChrome( float *pchrome, int bone, vec3_t normal )
 
 	// calc s coord
 	n = DotProduct( normal, g_studio.chromeright[bone] );
-	pchrome[0] = (n + 1.0f) * -32.0f; //magic nipples - negated this value to flip the chrome to be accurate to goldsrc
+	if (Cvar_VariableInteger("r_src_chrome") == 0) {
+		pchrome[0] = (n + 1.0f) * -32.0f;
+	}
+	else {
+		pchrome[0] = (n + 1.0f) * -128.0f;
+	}
 
 	// calc t coord
 	n = DotProduct( normal, g_studio.chromeup[bone] );
-	pchrome[1] = (n + 1.0f) * 32.0f;
+	if (Cvar_VariableInteger("r_src_chrome") == 0) {
+		pchrome[1] = (n + 1.0f) * 32.0f;
+	}
+	else {
+		pchrome[1] = (n + 1.0f) * 128.0f;
+	}
 }
 
 /*
@@ -2493,6 +2503,8 @@ static void R_StudioDrawPoints( void )
 		s = 1.0f / (float)ptexture[pskinref[pmesh->skinref]].width;
 		t = 1.0f / (float)ptexture[pskinref[pmesh->skinref]].height;
 
+		GL_AdjustFogColor(0.5);
+	
 		if( FBitSet( g_nFaceFlags, STUDIO_NF_MASKED ))
 		{
 			pglEnable( GL_ALPHA_TEST );
@@ -2535,6 +2547,8 @@ static void R_StudioDrawPoints( void )
 
 		r_stats.c_studio_polys += pmesh->numtris;
 		tr.blend = oldblend;
+
+		GL_ResetFogColor();
 	}
 }
 
@@ -3034,7 +3048,12 @@ R_StudioSetChromeOrigin
 */
 void R_StudioSetChromeOrigin( void )
 {
-	VectorCopy( RI.vieworg, g_studio.chrome_origin );
+	if (Cvar_VariableInteger("r_src_chrome") == 0) {
+		VectorCopy(RI.vieworg, g_studio.chrome_origin);
+	}
+	else {
+		VectorCopy(RI.viewangles, g_studio.chrome_origin);
+	}
 }
 
 /*

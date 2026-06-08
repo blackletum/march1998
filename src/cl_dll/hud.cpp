@@ -26,7 +26,7 @@
 #include "hud_servers.h"
 #include "vgui_int.h"
 #include "vgui_TeamFortressViewport.h"
-
+#include "rain.h"
 #include "demo.h"
 #include "demo_api.h"
 #include "vgui_scorepanel.h"
@@ -100,6 +100,12 @@ int __MsgFunc_ResetHUD(const char *pszName, int iSize, void *pbuf)
 int __MsgFunc_InitHUD(const char *pszName, int iSize, void *pbuf)
 {
 	gHUD.MsgFunc_InitHUD( pszName, iSize, pbuf );
+	return 1;
+}
+
+int __MsgFunc_SetSky(const char* pszName, int iSize, void* pbuf)
+{
+	gHUD.MsgFunc_SetSky(pszName, iSize, pbuf);
 	return 1;
 }
 
@@ -280,6 +286,17 @@ int CHud::MsgFunc_PunchAngle(const char* pszName, int iSize, void* pbuf)
 
 	return 1;
 }
+
+int __MsgFunc_SetFog(const char* pszName, int iSize, void* pbuf)
+{
+	gHUD.MsgFunc_SetFog(pszName, iSize, pbuf);
+	return 1;
+}
+
+int __MsgFunc_RainData(const char* pszName, int iSize, void* pbuf)
+{
+	return gHUD.MsgFunc_RainData(pszName, iSize, pbuf);
+}
  
 // This is called every time the DLL is loaded
 void CHud :: Init( void )
@@ -291,6 +308,7 @@ void CHud :: Init( void )
 	HOOK_MESSAGE( ViewMode );
 	HOOK_MESSAGE( SetFOV );
 	HOOK_MESSAGE( Concuss );
+	HOOK_MESSAGE( SetSky ); //LRC
 
 	// TFFree CommandMenu
 	HOOK_COMMAND( "+commandmenu", OpenCommandMenu );
@@ -313,7 +331,9 @@ void CHud :: Init( void )
 
 	HOOK_MESSAGE( Spectator );
 	HOOK_MESSAGE( AllowSpec );
-	HOOK_MESSAGE(PunchAngle);
+	HOOK_MESSAGE( PunchAngle );
+	HOOK_MESSAGE( SetFog );
+	HOOK_MESSAGE( RainData );
 
 	// VGUI Menus
 	HOOK_MESSAGE( VGUIMenu );
@@ -330,6 +350,8 @@ void CHud :: Init( void )
 	m_pCvarStealMouse = CVAR_CREATE( "hud_capturemouse", "1", FCVAR_ARCHIVE );
 	m_pCvarDraw = CVAR_CREATE( "hud_draw", "1", FCVAR_ARCHIVE );
 	cl_lw = gEngfuncs.pfnGetCvarPointer( "cl_lw" );
+	RainInfo = gEngfuncs.pfnRegisterVariable("cl_raininfo", "0", 0);
+	RainSplash = gEngfuncs.pfnRegisterVariable("cl_rainsplash", "1", FCVAR_ARCHIVE);
 
 	m_pSpriteList = NULL;
 
@@ -366,6 +388,8 @@ void CHud :: Init( void )
 	GetClientVoiceMgr()->Init(&g_VoiceStatusHelper, (vgui::Panel**)&gViewPort);
 
 	m_Menu.Init();
+
+	InitRain();
 	
 	ServersInit();
 
@@ -379,6 +403,8 @@ CHud :: ~CHud()
 	delete [] m_rgHLSPRITEs;
 	delete [] m_rgrcRects;
 	delete [] m_rgszSpriteNames;
+
+	ResetRain();
 
 	if ( m_pHudList )
 	{
@@ -416,6 +442,8 @@ void CHud :: VidInit( void )
 	int j;
 	m_scrinfo.iSize = sizeof(m_scrinfo);
 	GetScreenInfo(&m_scrinfo);
+
+	ResetRain();
 
 	// ----------
 	// Load Sprites
@@ -539,6 +567,10 @@ void CHud :: VidInit( void )
 	m_StatusIcons.VidInit();
 
 	GetClientVoiceMgr()->VidInit();
+
+	//reset fog on initial start.
+	gHUD.g_ftargetValue = gHUD.g_iStartValue = 30000;
+	gHUD.g_fFadeDuration = 0;
 }
 
 int CHud::MsgFunc_Logo(const char *pszName,  int iSize, void *pbuf)

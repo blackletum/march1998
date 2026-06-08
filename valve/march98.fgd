@@ -2933,3 +2933,49 @@
 		4: "Ignore r_shadows" : 1
 	]
 ]
+
+//
+// ENV_FOG
+//
+@PointClass base(Targetname) size(-8 -8 -8, 8 8 8) = env_fog : "Client Fog"
+[
+    startdist(integer) : "Start Distance" : 1
+    enddist(integer) : "End Distance" : 500
+    rendercolor(color255) : "Fog Color (R G B)" : "0 0 0"
+    fadein(integer): "fade in speed" : 0
+	fadeout(integer): "fade out speed" : 0
+    spawnflags(flags) =
+    [
+       1 : "Start on" : 0
+	   2 : "Skybox fog" : 0
+    ]
+]
+
+//
+// Weather
+//
+
+@PointClass size(-8 -8 -8, 8 8 8) iconsprite("sprites/env.spr") = env_weather : "Weather on map"
+[
+	m_flDistance(integer) : "Rain distance" : 1000 
+	m_iMode(choices) : "Weather type" : 0 = 
+	[ 
+		0: "Rain" 
+		1: "Snow"
+		2: "Dust"
+	] 
+	m_flTime(integer) : "Fading time" : 0 
+	m_iDripsPerSecond(integer) : "Drips per second" : 800 
+	m_flWindX(integer) : "Wind X" : 0 
+	m_flWindY(integer) : "Wind Y" : 0 
+	m_flRandX(integer) : "Rand X" : 0 
+	m_flRandY(integer) : "Rand Y" : 0 
+]
+
+//
+// 3D Sky
+//
+
+@PointClass base(Targetname) iconsprite("sprites/env.spr") = env_sky : "Unreal-Tournament style sky view"
+[
+]

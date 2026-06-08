@@ -2355,3 +2355,8 @@ void CItemSoda::CanTouch ( CBaseEntity *pOther )
 	SetThink ( &CBaseEntity::SUB_Remove );
 	pev->nextthink = gpGlobals->time;
 }
+
+//=========================================================
+// LRC - env_sky, an unreal tournament-style sky effect
+//=========================================================
+LINK_ENTITY_TO_CLASS(env_sky, CPointEntity);

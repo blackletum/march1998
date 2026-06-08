@@ -64,6 +64,7 @@ convar_t	*cl_cmdrate;
 convar_t	*cl_interp;
 convar_t	*cl_dlmax;
 convar_t	*cl_lw;
+convar_t	*cl_weaponsway;
 
 //
 // userinfo
@@ -2632,6 +2633,8 @@ void CL_InitLocal( void )
 	Cvar_Get( "cl_background", "0", FCVAR_READ_ONLY, "indicate what background map is running" );
 	cl_showevents = Cvar_Get( "cl_showevents", "0", FCVAR_ARCHIVE, "show events playback" );
 	Cvar_Get( "lastdemo", "", FCVAR_ARCHIVE, "last played demo" );
+	cl_weaponsway = Cvar_Get("cl_weaponsway", "1", FCVAR_ARCHIVE, "hl2 like weapon sway");
+	Cvar_Get("r_src_chrome", "0", FCVAR_ARCHIVE, "chrome like in half-life: source and the likes");
 
 	// these two added to shut up CS 1.5 about 'unknown' commands
 	Cvar_Get( "lightgamma", "1", FCVAR_ARCHIVE, "ambient lighting level (legacy, unused)" );

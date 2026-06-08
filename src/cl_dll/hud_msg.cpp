@@ -20,6 +20,7 @@
 #include "cl_util.h"
 #include "parsemsg.h"
 #include "r_efx.h"
+#include "rain.h"
 
 #define MAX_CLIENTS 32
 
@@ -60,6 +61,9 @@ void CHud :: MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
 	// prepare all hud data
 	HUDLIST *pList = m_pHudList;
 
+	m_iSkyMode = SKY_OFF; //LRC
+
+
 	while (pList)
 	{
 		if ( pList->p )
@@ -68,6 +72,17 @@ void CHud :: MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
 	}
 }
 
+//LRC
+void CHud::MsgFunc_SetSky(const char* pszName, int iSize, void* pbuf)
+{
+	//	CONPRINT("MSG:SetSky");
+	BEGIN_READ(pbuf, iSize);
+
+	m_iSkyMode = READ_BYTE();
+	m_vecSkyPos.x = READ_COORD();
+	m_vecSkyPos.y = READ_COORD();
+	m_vecSkyPos.z = READ_COORD();
+}
 
 int CHud :: MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf )
 {
@@ -110,5 +125,37 @@ int CHud :: MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf )
 		this->m_StatusIcons.EnableIcon("dmg_concuss",255,160,0);
 	else
 		this->m_StatusIcons.DisableIcon("dmg_concuss");
+	return 1;
+}
+
+void CHud::MsgFunc_SetFog(const char* pszName, int iSize, void* pbuf)
+{
+	BEGIN_READ(pbuf, iSize);
+	gHUD.FogColor.x = READ_BYTE();
+	gHUD.FogColor.y = READ_BYTE();
+	gHUD.FogColor.z = READ_BYTE();
+	gHUD.g_fFadeDuration = READ_BYTE();
+	gHUD.g_fStartDist = READ_SHORT();
+
+	if (gHUD.g_fFadeDuration > 0)
+		gHUD.g_ftargetValue = READ_SHORT();
+	else
+		gHUD.g_fFinalValue = gHUD.g_iStartValue = READ_SHORT();
+
+	gHUD.g_fskybox = READ_BYTE();
+}
+
+extern rain_properties Rain;
+int CHud::MsgFunc_RainData(const char* pszName, int iSize, void* pbuf)
+{
+	BEGIN_READ(pbuf, iSize);
+	Rain.dripsPerSecond = READ_SHORT();
+	Rain.distFromPlayer = READ_COORD();
+	Rain.windX = READ_COORD();
+	Rain.windY = READ_COORD();
+	Rain.randX = READ_COORD();
+	Rain.randY = READ_COORD();
+	Rain.weatherMode = READ_SHORT();
+	Rain.globalHeight = READ_COORD();
 	return 1;
 }

@@ -326,6 +326,22 @@ public:
 	
 	float m_flNextChatTime;
 	float m_flNextConcussTime;
+
+	// ENVIROMENT
+	
+	//RAIN.CPP
+	int	Rain_dripsPerSecond;
+	float	Rain_windX, Rain_windY;
+	float	Rain_randX, Rain_randY;
+
+	int	Rain_ideal_dripsPerSecond;
+	float	Rain_ideal_windX, Rain_ideal_windY;
+	float	Rain_ideal_randX, Rain_ideal_randY;
+
+	float	Rain_endFade; // 0 means off
+	float	Rain_nextFadeUpdate;
+
+	int	Rain_needsUpdate;
 	
 	void CheckBHop( void );	// jay - bhop cvar
 };

@@ -283,7 +283,7 @@ static void R_Clear( int bitMask )
 
 	if( CL_IsDevOverviewMode( ))
 		pglClearColor( 0.0f, 1.0f, 0.0f, 1.0f ); // green background (Valve rules)
-	else pglClearColor( 0.5f, 0.5f, 0.5f, 1.0f );
+	else pglClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
 
 	bits = GL_DEPTH_BUFFER_BIT;
 
@@ -892,14 +892,18 @@ void R_DrawEntitiesOnList( void )
 	GL_CheckForErrors();
 
 	if( !RI.onlyClientDraw )
-          {
+    {
 		CL_DrawBeams( false );
 	}
 
 	GL_CheckForErrors();
 
-	if( RI.drawWorld )
+	if (RI.drawWorld)
+	{
+		GL_AdjustFogColor(0.5);
 		clgame.dllFuncs.pfnDrawNormalTriangles();
+		GL_ResetFogColor();
+	}
 
 	GL_CheckForErrors();
 
@@ -943,7 +947,9 @@ void R_DrawEntitiesOnList( void )
 	if( RI.drawWorld )
 	{
 		pglTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		GL_AdjustFogColor(0.0);
 		clgame.dllFuncs.pfnDrawTransparentTriangles ();
+		GL_ResetFogColor();
 	}
 
 	GL_CheckForErrors();
