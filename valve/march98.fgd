@@ -1756,17 +1756,17 @@
 // lights
 //
 
-@PointClass iconsprite("sprites/light.spr") base(Target, Targetname, Light_point) flags(Light) = light : "Invisible lightsource." : "http://twhl.info/wiki.php?id=148"
+@PointClass iconsprite("sprites/light.spr") base(Target, Targetname, Light, ZHLT_point) flags(Light) = light : "Invisible lightsource." : "http://twhl.info/wiki.php?id=148"
 [
 	spawnflags(Flags) = [ 1 : "Initially dark" : 0 : "If this is enabled, the entity will need to be triggered to work." ]
 ]
 
-@PointClass iconsprite("sprites/light.spr") base(Targetname, Target, Angles_point) flags(Light, Angle) = light_spot : "The light_spot entity allows you to create direct beams of light (like from a, err, spotlight)." : "http://twhl.info/wiki.php?id=147" 
+@PointClass base(Targetname, Target, Angles, ZHLT_point) flags(Light, Angle) iconsprite("sprites/light_spot.spr") = light_spot : "The light_spot entity allows you to create direct beams of light (like from a, err, spotlight)." : "http://twhl.info/wiki.php?id=147" 
 [
 	_cone(integer) : "Inner (bright) angle" : 30 : "The angle of the cone formed around the directional axis. The area inside this cone will contain the brightest light."
 	_cone2(integer) : "Outer (fading) angle" : 45 : "As above, although the area inside this cone will fade increasingly towards the outer edges."
 	pitch(integer) : "Pitch" : -90 : "The pitch of the light (-90 is straight down, 90 is straight up)."
-	_light(color255) : "Brightness" : "255 255 128 200" : "First three integer numbers are the color (RGB). The fourth number is the brightness."
+	_light(color255) : "Brightness" : "255 255 255 200" : "First three integer numbers are the color (RGB). The fourth number is the brightness."
 	_sky(Choices) : "Is Sky" : 0 : "If Yes, the spot_light will affect the sky brushes, rather than project any light itself." = 
 	[ 
 		0 : "No"
@@ -1787,6 +1787,8 @@
 		8 : "Candle C"
 		4 : "Fast strobe"
 		9 : "Slow strobe"
+		12: "Underwater mutation"
+		13: "Maxbright"
 	]
 	pattern(string) : "Custom Appearance" : : "Use a string of letters to provide a custom light style. The property allows you to enter a string of letters from a to z, representing brightness. If you entered 'abcdefghihgfedcba' then the light would go from bright to dim and back again and then repeat. Complicating things, to use this feature, you must name the light. However, if you then use a trigger to activate it, then it will behave as a normal light."
 ]
@@ -1798,7 +1800,6 @@
 	_diffuse_light(color255) : "Ambient Light Colour" : "" : "Sets the colour of the sun's ambient light."
 	_spread(integer) : "Sun Spread" : "" : "Set how diffuse sunlight is, 2 and 5 are a good start."
 ]
-
 @SolidClass base(Door) = momentary_door : "Momentary/Continuous door" 
 [
 	spawnflags(flags) =
