@@ -169,10 +169,6 @@ public:
 	BOOL	m_fCanHornetAttack;
 	float	m_flNextHornetAttackCheck;
 
-	int AgruntClass = 0;
-
-	int AgruntRandom = (RANDOM_LONG(0, 1));
-
 	float m_flNextPainTime;
 
 	// three hacky fields for speech stuff. These don't really need to be saved.
@@ -491,8 +487,34 @@ void CAGrunt::HandleAnimEvent(MonsterEvent_t* pEvent)
 		Vector vecArmPos, vecArmDir;
 		Vector vecDirToEnemy;
 		Vector angDir;
-		if (AgruntRandom == 0)
+		if (pev->skin == 1)
 		{
+			Vector vecArmPos, vecArmDir;
+			Vector vecDirToEnemy;
+
+			UTIL_MakeVectors(pev->angles);
+
+			vecDirToEnemy = gpGlobals->v_forward;
+
+			GetAttachment(0, vecArmPos, vecArmDir);
+			vecArmPos = vecArmPos + vecDirToEnemy * 32;
+
+			vecArmDir = ((m_hEnemy->pev->origin + m_hEnemy->pev->view_ofs) - vecArmPos).Normalize();
+
+			//the best which I could pick up
+			vecArmDir.x += RANDOM_FLOAT(-0.05, 0.05);
+			vecArmDir.y += RANDOM_FLOAT(-0.05, 0.05);
+			vecArmDir.z += RANDOM_FLOAT(-0.07, -0.02);
+
+			pev->effects = EF_MUZZLEFLASH;
+
+			EMIT_SOUND(ENT(pev), CHAN_WEAPON, "debris/beamstart4.wav", 1, ATTN_NORM);
+			CAgruntLaser::Shoot(pev, vecArmPos, vecArmDir * 900);
+			UTIL_MakeVectors(pev->angles);
+		}
+		else 
+		{
+
 			if (HasConditions(bits_COND_SEE_ENEMY))
 			{
 				vecDirToEnemy = ((m_vecEnemyLKP)-pev->origin);
@@ -532,31 +554,6 @@ void CAGrunt::HandleAnimEvent(MonsterEvent_t* pEvent)
 			case 1:	EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "agrunt/ag_fire2.wav", 1.0, ATTN_NORM, 0, 100);	break;
 			case 2:	EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "agrunt/ag_fire3.wav", 1.0, ATTN_NORM, 0, 100);	break;
 			}
-		}
-		else if (AgruntRandom == 1)
-		{
-			Vector vecArmPos, vecArmDir;
-			Vector vecDirToEnemy;
-
-			UTIL_MakeVectors(pev->angles);
-
-			vecDirToEnemy = gpGlobals->v_forward;
-
-			GetAttachment(0, vecArmPos, vecArmDir);
-			vecArmPos = vecArmPos + vecDirToEnemy * 32;
-
-			vecArmDir = ((m_hEnemy->pev->origin + m_hEnemy->pev->view_ofs) - vecArmPos).Normalize();
-
-			//the best which I could pick up
-			vecArmDir.x += RANDOM_FLOAT(-0.05, 0.05);
-			vecArmDir.y += RANDOM_FLOAT(-0.05, 0.05);
-			vecArmDir.z += RANDOM_FLOAT(-0.07, -0.02);
-
-			pev->effects = EF_MUZZLEFLASH;
-
-			EMIT_SOUND( ENT(pev), CHAN_WEAPON, "debris/beamstart4.wav", 1, ATTN_NORM );
-			CAgruntLaser::Shoot(pev, vecArmPos, vecArmDir * 900);
-			UTIL_MakeVectors(pev->angles);
 		}
 	}
 	break;
@@ -668,10 +665,7 @@ void CAGrunt::Spawn()
 
 	m_flNextSpeakTime = m_flNextWordTime = gpGlobals->time + 10 + RANDOM_LONG(0, 10);
 
-	if (AgruntRandom == 1)
-	{
-		pev->skin = 1;
-	}
+	pev->skin = RANDOM_LONG(0, 1);
 
 	MonsterInit();
 }

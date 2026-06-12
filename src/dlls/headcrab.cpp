@@ -109,9 +109,7 @@ public:
 	static const char* pDeathSounds[];
 	static const char* pBiteSounds[];
 
-	int RandomHeadcrab = (RANDOM_LONG(0, 1));
-	float HeadcrabDefault = 0;
-	float HeadcrabPoison = 1;
+	int RandomHeadcrab = RANDOM_LONG(0, 1);
 	int HeadcrabDamage;
 };
 LINK_ENTITY_TO_CLASS(monster_headcrab, CHeadCrab);
@@ -300,9 +298,9 @@ void CHeadCrab::Spawn()
 	UTIL_SetSize(pev, Vector(-12, -12, 0), Vector(12, 12, 24));
 
 	if (RandomHeadcrab == 1)
-		pev->body = HeadcrabPoison;
+		pev->body = 1;
 	else
-		pev->body = HeadcrabDefault;
+		pev->body = 0;
 
 	pev->solid = SOLID_SLIDEBOX;
 	pev->movetype = MOVETYPE_STEP;
@@ -385,9 +383,9 @@ void CHeadCrab::LeapTouch(CBaseEntity* pOther)
 		UTIL_BloodStream(bloodvec, UTIL_RandomBloodVector(), pOther->BloodColor(), RANDOM_LONG(100, 175));
 		UTIL_Blood(pev->origin, UTIL_RandomBloodVector(), pOther->BloodColor(), RANDOM_LONG(25, 35));
 
-		if (pOther->IsPlayer() && RandomHeadcrab != 1 && g_iSkillLevel == SKILL_HARD)
+		if (pOther->IsPlayer() && pev->body != 1 && g_iSkillLevel == SKILL_HARD)
 			pOther->TakeDamage(pev, pev, pOther->pev->health + 5, DMG_SLASH);
-		else if (RandomHeadcrab == 1)
+		else if (pev->body == 1)
 			pOther->TakeDamage(pev, pev, GetDamageAmount(), DMG_POISON);
 		else
 			pOther->TakeDamage(pev, pev, GetDamageAmount(), DMG_SLASH);

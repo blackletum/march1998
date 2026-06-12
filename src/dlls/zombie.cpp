@@ -55,11 +55,6 @@ public:
 	int anim;
 
 	// Random zombies
-	int RandomZombies = (RANDOM_LONG(0, 3));
-	float ZombieDefault = 0;
-	float ZombieBarney = 1;
-	float ZombieWorker = 2;
-	float ZombiePoison = 3;
 	int ZombieDamage;
 
 	static const char *pAttackSounds[];
@@ -218,7 +213,7 @@ void CZombie :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case ZOMBIE_AE_ATTACK_RIGHT:
 		{
 			// do stuff for this event.
-			if (RandomZombies == 3)
+			if (pev->body == 3)
 				ZombieDamage = DMG_POISON;
 			else
 				ZombieDamage = DMG_SLASH;
@@ -245,7 +240,7 @@ void CZombie :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case ZOMBIE_AE_ATTACK_LEFT:
 		{
 			// do stuff for this event.
-			if (RandomZombies == 3)
+			if (pev->body == 3)
 				ZombieDamage = DMG_POISON;
 			else
 				ZombieDamage = DMG_SLASH;
@@ -271,7 +266,7 @@ void CZombie :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case ZOMBIE_AE_ATTACK_BOTH:
 		{
 			// do stuff for this event.
-			if (RandomZombies == 3)
+			if (pev->body == 3)
 				ZombieDamage = DMG_POISON;
 			else
 				ZombieDamage = DMG_SLASH;
@@ -309,13 +304,7 @@ void CZombie :: Spawn()
 	SET_MODEL(ENT(pev), "models/zombie.mdl");
 	UTIL_SetSize( pev, VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
 
-	switch (RandomZombies)
-	{
-		case 0: pev->body = ZombieDefault; break;
-		case 1: pev->body = ZombieBarney; break;
-		case 2: pev->body = ZombieWorker; break;
-		case 3: pev->body = ZombiePoison; break;
-	}
+	pev->body = RANDOM_LONG(0, 3);// pick random zombie
 
 	wobbo = 0;
 	anim = -1;
