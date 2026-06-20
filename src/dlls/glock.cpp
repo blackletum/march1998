@@ -28,8 +28,10 @@ enum glock_e {
 	GLOCK_RELOAD_NOT_EMPTY,
 	GLOCK_DRAW,
 	GLOCK_HOLSTER,
-	GLOCK_ADD_SILENCER,
-	GLOCK_REMOVE_SILENCER
+	GLOCK_ADD_SILENCER1,
+	GLOCK_ADD_SILENCER2,
+	GLOCK_REMOVE_SILENCER1,
+	GLOCK_REMOVE_SILENCER2,
 };
 
 class CGlock : public CBasePlayerWeapon
@@ -49,6 +51,7 @@ public:
 	void Reload(void);
 	void WeaponIdle(void);
 	int m_iShell;
+	int m_iSilencerIs;
 };
 LINK_ENTITY_TO_CLASS(weapon_glock, CGlock);
 LINK_ENTITY_TO_CLASS(weapon_9mmhandgun, CGlock);
@@ -70,7 +73,7 @@ void CGlock::Spawn()
 
 void CGlock::Precache(void)
 {
-	PRECACHE_MODEL("models/v_9mmhandgun.mdl");
+	PRECACHE_MODEL("models/v_glock.mdl");
 	PRECACHE_MODEL("models/w_9mmhandgun.mdl");
 	PRECACHE_MODEL("models/p_9mmhandgun.mdl");
 
@@ -79,10 +82,15 @@ void CGlock::Precache(void)
 	PRECACHE_SOUND("items/9mmclip1.wav");
 	PRECACHE_SOUND("items/9mmclip2.wav");
 
-	PRECACHE_SOUND("weapons/pl_gun1.wav");//silenced handgun
-	PRECACHE_SOUND("weapons/pl_gun2.wav");//silenced handgun
-	PRECACHE_SOUND("weapons/pl_gun3.wav");//handgun
-	PRECACHE_SOUND("weapons/glock_silencer.wav");//handgun
+	PRECACHE_SOUND("weapons/pl_sgun1.wav");//silenced handgun
+	PRECACHE_SOUND("weapons/pl_sgun2.wav");//silenced handgun
+
+	PRECACHE_SOUND("weapons/pl_nsgun1.wav");//non silenced handgun
+	PRECACHE_SOUND("weapons/pl_nsgun2.wav");//non silenced handgun
+	PRECACHE_SOUND("weapons/pl_nsgun3.wav");//non silenced handgun
+
+	PRECACHE_SOUND("weapons/glock_silencer_on.wav");//handgun
+	PRECACHE_SOUND("weapons/glock_silencer_off.wav");//handgun
 }
 
 int CGlock::GetItemInfo(ItemInfo* p)
@@ -104,7 +112,7 @@ int CGlock::GetItemInfo(ItemInfo* p)
 
 BOOL CGlock::Deploy()
 {
-	return DefaultDeploy("models/v_9mmhandgun.mdl", "models/p_9mmhandgun.mdl", GLOCK_DRAW, "onehanded");
+	return DefaultDeploy("models/v_glock.mdl", "models/p_9mmhandgun.mdl", GLOCK_DRAW, "onehanded");
 }
 
 void CGlock::Holster()
@@ -133,22 +141,28 @@ void CGlock::SecondaryAttack(void)
 	{
 		if (pev->body == 0)
 		{
+			SendWeaponAnim(GLOCK_ADD_SILENCER1);
 			pev->body = 1;
-			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/glock_silencer.wav", RANDOM_FLOAT(0.9, 1.0), ATTN_NORM);
-			m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 3.4;
-			m_flTimeWeaponIdle = gpGlobals->time + 3.4;
-			m_flNextSecondaryAttack = m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 3.4;
-			SendWeaponAnim(GLOCK_ADD_SILENCER);
+			m_iSilencerIs = 1;
+			m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
+			m_flTimeWeaponIdle = gpGlobals->time + 0.5;
+			m_flNextSecondaryAttack = m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 3.2;
+			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/glock_silencer_on.wav", RANDOM_FLOAT(0.9, 1.0), ATTN_NORM);
 		}
 		else
 		{
-			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/glock_silencer.wav", RANDOM_FLOAT(0.9, 1.0), ATTN_NORM);
-			m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 3.4;
-			m_flTimeWeaponIdle = gpGlobals->time + 3.4;
-			m_flNextSecondaryAttack = m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 3.4;
-			SendWeaponAnim(GLOCK_REMOVE_SILENCER);
+			SendWeaponAnim(GLOCK_REMOVE_SILENCER1);
 			pev->body = 0;
+			m_iSilencerIs = 2;
+			m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 2.7;
+			m_flTimeWeaponIdle = gpGlobals->time + 2.7;
+			m_flNextSecondaryAttack = m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 3.2;
+			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/glock_silencer_off.wav", RANDOM_FLOAT(0.9, 1.0), ATTN_NORM);
 		}
+	}
+	else
+	{
+		GlockFire(0.1, 0.2, FALSE); // p1llowguy - if we don't have silencer, then we will shoot fast
 	}
 	
 }
@@ -196,14 +210,13 @@ void CGlock::GlockFire(float flSpread, float flCycleTime, BOOL fUseAutoAim)
 	{
 		m_pPlayer->m_iWeaponVolume = QUIET_GUN_VOLUME;
 		m_pPlayer->m_iWeaponFlash = DIM_GUN_FLASH;
-
 		switch (RANDOM_LONG(0, 1))
 		{
 		case 0:
-			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/pl_gun1.wav", RANDOM_FLOAT(0.9, 1.0), ATTN_NORM);
+			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/pl_sgun1.wav", RANDOM_FLOAT(0.9, 1.0), ATTN_NORM);
 			break;
 		case 1:
-			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/pl_gun2.wav", RANDOM_FLOAT(0.9, 1.0), ATTN_NORM);
+			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/pl_sgun2.wav", RANDOM_FLOAT(0.9, 1.0), ATTN_NORM);
 			break;
 		}
 	}
@@ -212,8 +225,21 @@ void CGlock::GlockFire(float flSpread, float flCycleTime, BOOL fUseAutoAim)
 		// non-silenced
 		m_pPlayer->m_iWeaponVolume = NORMAL_GUN_VOLUME;
 		m_pPlayer->m_iWeaponFlash = NORMAL_GUN_FLASH;
-		EMIT_SOUND_DYN(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/pl_gun3.wav", RANDOM_FLOAT(0.92, 1.0), ATTN_NORM, 0, 98 + RANDOM_LONG(0, 3));
+		switch (RANDOM_LONG(0, 2))
+		{
+		case 0:
+			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/pl_nsgun1.wav", RANDOM_FLOAT(0.9, 1.0), ATTN_NORM);
+			break;
+		case 1:
+			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/pl_nsgun2.wav", RANDOM_FLOAT(0.9, 1.0), ATTN_NORM);
+			break;
+		case 2:
+			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/pl_nsgun3.wav", RANDOM_FLOAT(0.9, 1.0), ATTN_NORM);
+			break;
+		}
+		Vector vecSorc = pev->origin + m_pPlayer->pev->view_ofs + gpGlobals->v_up * -14 + gpGlobals->v_forward * 57 + gpGlobals->v_right * 6;
 	}
+
 
 	Vector vecSrc = m_pPlayer->GetGunPosition();
 	Vector vecAiming;
@@ -265,6 +291,22 @@ void CGlock::WeaponIdle(void)
 
 	if (m_flTimeWeaponIdle > gpGlobals->time)
 		return;
+
+	if (m_iSilencerIs == 1)
+	{
+		SendWeaponAnim(GLOCK_ADD_SILENCER2);
+		m_iSilencerIs = 0; //silencer added
+		m_flTimeWeaponIdle = gpGlobals->time + 3.0;
+		m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 2.7;
+		return;
+	}
+	if (m_iSilencerIs == 2)
+	{
+		SendWeaponAnim(GLOCK_REMOVE_SILENCER2);
+		m_iSilencerIs = 0; //silencer removed
+		m_flTimeWeaponIdle = gpGlobals->time + 1.2;
+		return;
+	}
 
 	// only idle if the slid isn't back
 	if (m_iClip != 0)

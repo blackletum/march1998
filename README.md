@@ -16,7 +16,6 @@ then:
 2. Compile/Build it *(Build -> Build Solution)*.
 
 # Credits:
-Reagan - silencer for glock.\
 Crazy rasputin monk - beta models.\
 Drooga/dermoker - models.\
 Thrill-dev - base for mod.\

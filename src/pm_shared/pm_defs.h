@@ -113,7 +113,6 @@ typedef struct playermove_s
 	float		flNextPunchTime; //magic nipples - jittery punch
 	float		flTimeLadderPunch;
 	int			leftright;
-	qboolean	bindeep;
 
 	float		flFallVelocity;
 	vec3_t		punchangle;

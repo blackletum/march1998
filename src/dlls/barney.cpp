@@ -1081,3 +1081,177 @@ void CDeadBarney::Spawn()
 	if (pev->spawnflags & SF_MONSTER_NOT_SOLID)
 		pev->solid = SOLID_NOT;
 }
+
+//=========================================================
+// Monster's Anim Events Go Here
+//=========================================================
+#define	CNSTRCT_AE_ATTACK_RIGHT		0x05
+
+class CConstruction : public CBarney
+{
+public:
+	void Spawn(void);
+	void Precache(void);
+	Schedule_t* GetSchedule(void);
+	void HandleAnimEvent(MonsterEvent_t* pEvent);
+};
+LINK_ENTITY_TO_CLASS(monster_construction, CConstruction);
+
+//=========================================================
+// Spawn
+//=========================================================
+void CConstruction::Spawn()
+{
+	Precache();
+	SET_MODEL(ENT(pev), "models/construction.mdl");
+
+
+	UTIL_SetSize(pev, VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX);
+
+	pev->solid = SOLID_SLIDEBOX;
+	pev->movetype = MOVETYPE_STEP;
+	m_bloodColor = BLOOD_COLOR_RED;
+	pev->health = gSkillData.barneyHealth;
+	pev->view_ofs = Vector(0, 0, 50);// position of the eyes relative to monster's origin.
+	m_flFieldOfView = VIEW_FIELD_WIDE; // NOTE: we need a wide field of view so npc will notice player and say hello
+	m_MonsterState = MONSTERSTATE_NONE;
+	m_voicePitch = 103;
+
+	pev->body = 0; // gun in holster
+	m_fGunDrawn = FALSE;
+
+	m_afCapability = bits_CAP_HEAR | bits_CAP_TURN_HEAD | bits_CAP_DOORS_GROUP | bits_CAP_MELEE_ATTACK1 | bits_CAP_MELEE_ATTACK2;
+
+	MonsterInit();
+	SetUse(&CBarney::FollowerUse);
+}
+
+//=========================================================
+// HandleAnimEvent - catches the monster-specific messages
+// that occur when tagged animation frames are played.
+//=========================================================
+void CConstruction::HandleAnimEvent(MonsterEvent_t* pEvent)
+{
+	switch (pEvent->event)
+	{
+	case CNSTRCT_AE_ATTACK_RIGHT:
+	{
+		// do stuff for this event.
+//		ALERT( at_console, "Slash right!\n" );
+		CBaseEntity* pHurt = CheckTraceHullAttack(70, gSkillData.zombieDmgOneSlash, DMG_SLASH);
+		if (pHurt)
+		{
+			if (pHurt->pev->flags & (FL_MONSTER | FL_CLIENT))
+			{
+				pHurt->pev->punchangle.z = -18;
+				pHurt->pev->punchangle.x = 5;
+				pHurt->pev->velocity = pHurt->pev->velocity - gpGlobals->v_right * 100;
+			}
+			// Play a random attack hit sound
+			//EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, pAttackHitSounds[RANDOM_LONG(0, ARRAYSIZE(pAttackHitSounds) - 1)], 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5, 5));
+		}
+		//else // Play a random attack miss sound
+			//EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, pAttackMissSounds[RANDOM_LONG(0, ARRAYSIZE(pAttackMissSounds) - 1)], 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5, 5));
+
+		//if (RANDOM_LONG(0, 1))
+			//AttackSound();
+	}
+	break;
+
+	default:
+		CBaseMonster::HandleAnimEvent(pEvent);
+		break;
+	}
+}
+
+void CConstruction::Precache(void)
+{
+	PRECACHE_MODEL("models/construction.mdl");
+	CBarney::Precache();
+}
+
+//=========================================================
+// GetSchedule - Decides which type of schedule best suits
+// the monster's current state and conditions. Then calls
+// monster's member function to get a pointer to a schedule
+// of the proper type.
+//=========================================================
+Schedule_t* CConstruction::GetSchedule(void)
+{
+	if (HasConditions(bits_COND_HEAR_SOUND))
+	{
+		CSound* pSound;
+		pSound = PBestSound();
+
+		ASSERT(pSound != NULL);
+		if (pSound && (pSound->m_iType & bits_SOUND_DANGER))
+			return GetScheduleOfType(SCHED_TAKE_COVER_FROM_BEST_SOUND);
+	}
+	if (HasConditions(bits_COND_ENEMY_DEAD) && FOkToSpeak())
+	{
+		PlaySentence("BA_KILL", 4, VOL_NORM, ATTN_NORM);
+	}
+
+	switch (m_MonsterState)
+	{
+	case MONSTERSTATE_COMBAT:
+	{
+		// dead enemy
+		if (HasConditions(bits_COND_ENEMY_DEAD))
+		{
+			// call base class, all code to handle dead enemies is centralized there.
+			return CBaseMonster::GetSchedule();
+		}
+
+		// always act surprized with a new enemy
+		if (HasConditions(bits_COND_NEW_ENEMY) && HasConditions(bits_COND_LIGHT_DAMAGE))
+			return GetScheduleOfType(SCHED_SMALL_FLINCH);
+
+		if (HasConditions(bits_COND_HEAVY_DAMAGE))
+			return GetScheduleOfType(SCHED_TAKE_COVER_FROM_ENEMY);
+
+		if (HasConditions(bits_COND_CAN_MELEE_ATTACK1))
+			return GetScheduleOfType(SCHED_MELEE_ATTACK1);
+
+		return GetScheduleOfType(SCHED_CHASE_ENEMY);
+	}
+	break;
+
+	case MONSTERSTATE_ALERT:
+	case MONSTERSTATE_IDLE:
+		if (HasConditions(bits_COND_LIGHT_DAMAGE | bits_COND_HEAVY_DAMAGE))
+		{
+			// flinch if hurt
+			return GetScheduleOfType(SCHED_SMALL_FLINCH);
+		}
+
+		if (m_hEnemy == NULL && IsFollowing())
+		{
+			if (!m_hTargetEnt->IsAlive())
+			{
+				// UNDONE: Comment about the recently dead player here?
+				StopFollowing(FALSE);
+				break;
+			}
+			else
+			{
+				if (HasConditions(bits_COND_CLIENT_PUSH))
+				{
+					return GetScheduleOfType(SCHED_MOVE_AWAY_FOLLOW);
+				}
+				return GetScheduleOfType(SCHED_TARGET_FACE);
+			}
+		}
+
+		if (HasConditions(bits_COND_CLIENT_PUSH))
+		{
+			return GetScheduleOfType(SCHED_MOVE_AWAY);
+		}
+
+		// try to say something about smells
+		TrySmellTalk();
+		break;
+	}
+
+	return CTalkMonster::GetSchedule();
+}

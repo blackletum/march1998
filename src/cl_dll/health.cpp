@@ -204,6 +204,7 @@ int CHudHealth::Draw(float flTime)
 
 		x = gHUD.DrawBHudNumber(x, y, DHN_3DIGITS | DHN_DRAWZERO, m_iHealth, r, g, b);
 
+	return DrawPain(flTime);
 	return 1;
 }
 
@@ -275,9 +276,11 @@ int CHudHealth::DrawPain(float flTime)
 	int x, y, a, shade;
 
 	// TODO:  get the shift value of the health
-	a = 255;	// max brightness until then
+	a = 128;	// max brightness until then
 
-	float fFade = gHUD.m_flTimeDelta * 2;
+	float fFade = gHUD.m_flTimeDelta;
+
+	GetPainColor(r,g,b);
 	
 	// SPR_Draw top
 	if (m_fAttackFront > 0.4)

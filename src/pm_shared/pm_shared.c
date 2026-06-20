@@ -422,10 +422,10 @@ void PM_PlayStepSound( int step, float fvol )
 		{
 		// right foot
 		case 0:	pmove->PM_PlaySound( CHAN_BODY, "player/pl_ladder1.wav", fvol, ATTN_NORM, 0, PITCH_NORM );	break;
-		case 1:	pmove->PM_PlaySound( CHAN_BODY, "player/pl_ladder3.wav", fvol, ATTN_NORM, 0, PITCH_NORM );	break;
+		case 1:	pmove->PM_PlaySound( CHAN_BODY, "player/pl_pain2.wav", fvol, ATTN_NORM, 0, PITCH_NORM );	break;
 		// left foot
 		case 2:	pmove->PM_PlaySound( CHAN_BODY, "player/pl_ladder2.wav", fvol, ATTN_NORM, 0, PITCH_NORM );	break;
-		case 3:	pmove->PM_PlaySound( CHAN_BODY, "player/pl_ladder4.wav", fvol, ATTN_NORM, 0, PITCH_NORM );	break;
+		case 3:	pmove->PM_PlaySound( CHAN_BODY, "player/pl_pain5.wav", fvol, ATTN_NORM, 0, PITCH_NORM );	break;
 		}
 		break;
 	}
@@ -2642,17 +2642,10 @@ void PM_Jump (void)
 	//pmove->PM_PlaySound( CHAN_BODY, "player/plyrjmp8.wav", 0.5, ATTN_NORM, 0, PITCH_NORM );
 	PM_PlayStepSound( PM_MapTextureTypeStepType( pmove->chtexturetype ), 1.0 );
 
-	if (pmove->bindeep)
-	{
-		if (pmove->RandomLong(0, 1) == 1)
-			pmove->PM_PlaySound(CHAN_BODY, "player/pl_jump1.wav", 1.0, ATTN_NORM, 0, PITCH_NORM);
-		else
-			pmove->PM_PlaySound(CHAN_BODY, "player/pl_jump2.wav", 1.0, ATTN_NORM, 0, PITCH_NORM);
-	}
+	if (pmove->RandomLong(0, 1) == 1)
+		pmove->PM_PlaySound(CHAN_BODY, "player/pl_jump1.wav", 1.0, ATTN_NORM, 0, PITCH_NORM);
 	else
-	{
-		PM_PlayStepSound(PM_MapTextureTypeStepType(pmove->chtexturetype), 1.0);
-	}
+		pmove->PM_PlaySound(CHAN_BODY, "player/pl_jump2.wav", 1.0, ATTN_NORM, 0, PITCH_NORM);
 
 	// See if user can super long jump?
 	cansuperjump = atoi( pmove->PM_Info_ValueForKey( pmove->physinfo, "slj" ) ) == 1 ? true : false;
@@ -2791,8 +2784,7 @@ void PM_CheckFalling( void )
 			fvol = 1.0;
 
 			// Knock the screen around a little bit, temporary effect
-			if (!pmove->bindeep)
-				pmove->punchangle[2] = pmove->flFallVelocity * 0.013;	// punch z axis
+			pmove->punchangle[2] = pmove->flFallVelocity * 0.013;	// punch z axis
 		}
 		else if ( pmove->flFallVelocity > PLAYER_MAX_SAFE_FALL_SPEED / 2 )
 		{
@@ -2810,13 +2802,11 @@ void PM_CheckFalling( void )
 			
 			PM_UpdateStepSound();
 
-			if (!pmove->bindeep)
-			{
-				// play step sound for current texture
-				PM_PlayStepSound(PM_MapTextureTypeStepType(pmove->chtexturetype), fvol);
-				if (!pmove->bindeep)
-					pmove->punchangle[0] = pmove->flFallVelocity * 0.013;
-			}
+			// play step sound for current texture
+			PM_PlayStepSound(PM_MapTextureTypeStepType(pmove->chtexturetype), fvol);
+
+			pmove->punchangle[0] = pmove->flFallVelocity * 0.013;
+			
 
 			if ( pmove->punchangle[ 0 ] > 8 )
 			{
@@ -2827,25 +2817,18 @@ void PM_CheckFalling( void )
 
 	if ( pmove->onground != -1 ) 
 	{
-		if (pmove->bindeep)
+	
+		
+		if ( (pmove->flFallVelocity >= 305) || ((pmove->flags & FL_DUCKING) && (pmove->flFallVelocity >= 300)) )
 		{
-			if ( (pmove->flFallVelocity >= 305) || ((pmove->flags & FL_DUCKING) && (pmove->flFallVelocity >= 300)) )
-			{
-				pmove->flTimeStepSound = 300;
-				pmove->PM_PlaySound(CHAN_BODY, "player/pl_jumpland2.wav", 1.0, ATTN_NORM, 0, PITCH_NORM);
-
-				// Knock the screen around a little bit, temporary effect
-				pmove->punchanglejit[0] = pmove->flFallVelocity * 0.013;	// punch z axis
-				pmove->punchanglejit[2] = pmove->flFallVelocity * 0.005;	// punch z axis
-			}
+			pmove->flTimeStepSound = 300;
+			pmove->PM_PlaySound(CHAN_BODY, "player/pl_jumpland2.wav", 1.0, ATTN_NORM, 0, PITCH_NORM);
+			
+			// Knock the screen around a little bit, temporary effect
+			pmove->punchanglejit[0] = pmove->flFallVelocity * 0.013;	// punch z axis
+			pmove->punchanglejit[2] = pmove->flFallVelocity * 0.005;	// punch z axis
 		}
-		//magic nipples - day one-ish falling punch code. also seen in e3 offices video.
-		else
-		{
-			if (pmove->flFallVelocity >= 10)
-				pmove->punchangle[0] = pmove->flFallVelocity * 0.013;
-		}
-
+		
 		pmove->flFallVelocity = 0;
 	}
 }
@@ -2943,8 +2926,6 @@ void PM_CheckParamters( void )
 	float spd;
 	float maxspeed;
 	vec3_t	v_angle;
-
-	pmove->bindeep = atoi(pmove->PM_Info_ValueForKey(pmove->physinfo, "indp")) == 1 ? true : false;
 
 	spd = ( pmove->cmd.forwardmove * pmove->cmd.forwardmove ) +
 		  ( pmove->cmd.sidemove * pmove->cmd.sidemove ) +
@@ -3143,10 +3124,7 @@ void PM_PlayerMove ( qboolean server )
 	{
 		if ( pLadder )
 		{
-			if(pmove->bindeep)
-				PM_AlphaLadderMove(pLadder);
-			else
-				PM_LadderMove( pLadder );
+			PM_AlphaLadderMove(pLadder);
 		}
 		else if ( pmove->movetype != MOVETYPE_WALK &&
 			      pmove->movetype != MOVETYPE_NOCLIP )
