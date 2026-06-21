@@ -56,10 +56,10 @@ extern byte	*r_temppool;
 #define RP_LOCALCLIENT( e )	((e) != NULL && (e)->index == ( cl.playernum + 1 ) && e->player )
 #define RP_NORMALPASS()	( FBitSet( RI.params, RP_NONVIEWERREF ) == 0 )
 
-#define TF_SKY		(TF_SKYSIDE|TF_NOMIPMAP)
-#define TF_SKY_NEAREST	(TF_NEAREST) //magic nipples - nearest skybox
-#define TF_FONT		(TF_NOMIPMAP|TF_CLAMP)
-#define TF_IMAGE		(TF_NOMIPMAP|TF_CLAMP)
+#define TF_SKY		(TF_SKYSIDE|TF_NOMIPMAP|TF_NOROUND)
+#define TF_SKY_NEAREST	(TF_NEAREST|TF_NOROUND) //magic nipples - nearest skybox
+#define TF_FONT		(TF_NOMIPMAP|TF_CLAMP|TF_NOROUND)
+#define TF_IMAGE		(TF_NOMIPMAP|TF_CLAMP|TF_NOROUND)
 #define TF_DECAL		(TF_CLAMP)
 
 #define CULL_VISIBLE	0		// not culled
@@ -190,6 +190,9 @@ typedef struct
 	int		dlightTexture;	// custom dlight texture
 	int		skyboxTextures[6];	// skybox sides
 	int		cinTexture;      	// cinematic texture
+
+	int		r_initsampletexture; //magic nipples - down sampling
+	int		r_sampleeffecttexture;
 
 	int		mirrorTextures[MAX_MIRRORS]; //Magic Nipples - readding mirrors
 	int		num_mirrors_used;	// used mirror textures
@@ -499,7 +502,7 @@ void R_Shutdown( void );
 //
 // gl_downsample.c //magic nipples - down sampling
 //
-void R_InitDownSampleTextures(void);
+void R_Sampling_InitTextures(void); 
 void R_DownSampling(void);
 
 //

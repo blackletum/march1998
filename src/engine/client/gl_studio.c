@@ -24,6 +24,9 @@ GNU General Public License for more details.
 #include "gl_local.h"
 #include "cl_tent.h"
 
+#pragma warning( disable:4047 ) //fixes texas
+#pragma warning( disable:4024 )
+
 #define EVENT_CLIENT	5000	// less than this value it's a server-side studio events
 #define MAX_LOCALLIGHTS	4
 
@@ -118,6 +121,7 @@ convar_t* r_shadow_alpha;
 
 convar_t* r_viewmodelfov; //magic nipples - weapon fov
 convar_t* r_warp; //magic nipples - vertex warp
+convar_t* r_aliaslerp; //magic nipples - shadows
 
 static r_studio_interface_t* pStudioDraw;
 static studio_draw_state_t	g_studio;		// global studio state
@@ -154,6 +158,8 @@ void R_StudioInit( void )
 	r_viewmodelfov = Cvar_Get("cl_viewmodel_fov", "90", FCVAR_ARCHIVE, "fov of view models"); //magic nipples - weapon fov
 
 	r_warp = Cvar_Get("r_studiowarp", "0", FCVAR_ARCHIVE, "ps1 vertex jiggle"); //magic nipples - weapon fov
+	r_aliaslerp = Cvar_Get("r_lerpmodels", "0", FCVAR_ARCHIVE, "interpolate quake model animations");
+
 
 	Matrix3x4_LoadIdentity( g_studio.rotationmatrix );
 	Cvar_RegisterVariable( &r_glowshellfreq );

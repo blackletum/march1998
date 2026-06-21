@@ -294,6 +294,7 @@ typedef struct
 	short		decal_index[MAX_DECALS];
 
 	model_t		*worldmodel;			// pointer to world
+	double frametime_remainder;
 } client_t;
 
 /*
