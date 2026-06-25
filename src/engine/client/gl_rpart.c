@@ -1702,6 +1702,70 @@ void R_Implosion( const vec3_t end, float radius, int count, float life )
 		p->type = pt_explode;
 	}
 }
+//	modified quake 2 railgun effect.
+//	(serecky June-25-26)
+void R_GenericSineBeam(float *start, float *end, float *angles, byte baseColor, int colorRange, float timeMod, float modScale, float beamScale)
+{
+	vec3_t		move, vec;
+	float		len, scale;
+	int			i, j;
+
+	vec3_t		right, up, newOrg;
+	float		rightScale, upScale;
+	particle_t	*p;
+
+	VectorCopy (start, move);
+	VectorSubtract (end, start, vec);
+	len = VectorNormalizeLength(vec);
+	AngleVectors(angles, NULL, right, up);
+
+	for (i=0 ; i<len ; i++)
+	{
+		p = R_AllocParticle(NULL);
+		if (!p) return;
+
+		//	Add movement to the otherwise static beams..
+		//	(serecky June-25-26)
+		scale = i * 0.1f - (fmod(cl.time * 2.0f, timeMod) * modScale);
+		rightScale = cos(scale);
+		upScale = sin(scale);
+
+		VectorScale (right, rightScale, newOrg);
+		VectorMA (newOrg, upScale, up, newOrg);
+
+		p->color = baseColor + (rand()&colorRange);
+		for (j=0 ; j<3 ; j++)
+		{
+			p->org[j] = move[j] + newOrg[j] * beamScale;
+		}
+		p->die = cl.time + 0.001;
+		VectorAdd (move, vec, move);
+	}
+}
+
+//typedef struct
+//{
+//	int				beamtype;
+//	cl_entity_t		*attachEnt;
+//} beamEmitter_t;
+
+void R_EgonBeam(float *start, float *end, float *angles)
+{
+	vec3_t	right, up;
+	AngleVectors(angles, NULL, right, up);
+	VectorMA(start, 16.0f, right, start);
+	VectorMA(start, -8.0f, up, start);
+
+	// powerful beam
+	R_GenericSineBeam(start, end, angles, (byte)208, 7, 16.0f, M_PI, 6.0f);
+	R_GenericSineBeam(start, end, angles, (byte)40, 7, 2.0f, -M_PI, 1.0f);
+
+	VectorMA(start, -32.0f, right, start);
+
+	// 
+	R_GenericSineBeam(start, end, angles, (byte)40, 7, 64.0f, -M_PI, 0.25f);
+	R_GenericSineBeam(start, end, angles, (byte)176, 7, 64.0f, M_PI, 1.5f);
+}
 
 /*
 ===============

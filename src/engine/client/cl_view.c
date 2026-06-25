@@ -20,7 +20,7 @@ GNU General Public License for more details.
 #include "gl_local.h"
 #include "vgui_draw.h"
 #include "sound.h"
-
+extern void R_EgonBeam(float* start, float* end);
 /*
 ===============
 V_CalcViewRect
@@ -313,6 +313,7 @@ void V_RenderView( void )
 	ref_params_t	rp;
 	ref_viewpass_t	rvp;
 	int		viewnum = 0;
+	//vec3_t			start, end, forward;
 
 	if( !cl.video_prepped || ( UI_IsVisible() && !cl.background ))
 		return; // still loading
@@ -329,6 +330,13 @@ void V_RenderView( void )
 		clgame.dllFuncs.pfnCalcRefdef( &rp );
 		V_GetRefParams( &rp, &rvp );
 		V_RefApplyOverview( &rvp );
+
+		//AngleVectors(rp.cl_viewangles, forward, NULL, NULL);
+		//VectorCopy(rp.simorg, start);
+		//VectorAdd(start, rp.viewheight, start);
+		//VectorCopy(start, end);
+		//VectorMA(end, 512.0f, forward, end);
+		//R_EgonBeam(start, end, rp.cl_viewangles);
 
 		if( viewnum == 0 && FBitSet( rvp.flags, RF_ONLY_CLIENTDRAW ))
 		{
