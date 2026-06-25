@@ -2553,6 +2553,19 @@ void CL_ParseTempEntity( sizebuf_t *msg )
 		scale = (float)(MSG_ReadByte( &buf ) * 0.1f);
 		R_UserTracerParticle( pos, pos2, life, color, scale, 0, NULL );
 		break;
+
+	case TE_ATTACHEGONBEAM:
+		pos[0] = MSG_ReadCoord(&buf);
+		pos[1] = MSG_ReadCoord(&buf);
+		pos[2] = MSG_ReadCoord(&buf);
+		pos2[0] = MSG_ReadCoord(&buf) * 0.1f;
+		pos2[1] = MSG_ReadCoord(&buf) * 0.1f;
+		pos2[2] = MSG_ReadCoord(&buf) * 0.1f;
+		ang[0] = MSG_ReadCoord(&buf) * 0.01f;
+		ang[1] = MSG_ReadCoord(&buf) * 0.01f;
+		ang[2] = 0.0f;
+		R_EgonBeam(pos, pos, ang);
+		break;
 	default:
 		Con_DPrintf( S_ERROR "ParseTempEntity: illegible TE message %i\n", type );
 		break;

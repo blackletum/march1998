@@ -573,6 +573,11 @@
 // byte ( color ) this is an index into an array of color vectors in the engine. (0 - )
 // byte ( length * 10 )
 
+#define TE_EGONBEAM	128
+//cord (origin)
+//cord (origin)
+//angle (initial yaw)
+
 #define MSG_BROADCAST		0	// unreliable to all
 #define MSG_ONE			1	// reliable to one (msg_entity)
 #define MSG_ALL			2	// reliable to all

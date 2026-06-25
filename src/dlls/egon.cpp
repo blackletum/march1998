@@ -35,6 +35,7 @@
 #define EGON_SWITCH_NARROW_TIME			0.75			// Time it takes to switch fire modes
 #define EGON_SWITCH_WIDE_TIME			1.5
 
+extern void R_EgonBeam(float* start, float* end, float* angles);
 
 enum egon_e {
 	EGON_IDLE1 = 0,
@@ -523,8 +524,25 @@ void CEgon::UpdateEffect( const Vector &startPoint, const Vector &endPoint, floa
 
 void CEgon::CreateEffect( void )
 {
+	Vector vecOrigin, vecVelocity;
+	float rotation;
+
 	DestroyEffect();
 
+	MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY, vecOrigin);
+	WRITE_BYTE(TE_EGONBEAM);
+	WRITE_COORD(vecOrigin.x);
+	WRITE_COORD(vecOrigin.y);
+	WRITE_COORD(vecOrigin.z);
+	WRITE_COORD(vecVelocity.x);
+	WRITE_COORD(vecVelocity.y);
+	WRITE_COORD(vecVelocity.z);
+	WRITE_ANGLE(rotation);
+	MESSAGE_END();
+
+	//p1llowguy - add this as a cvar! Smth like cl_m98_egonbeam
+	
+	/*
 	m_pBeam = CBeam::BeamCreate( EGON_BEAM_SPRITE, 40 );
 	m_pBeam->PointEntInit( pev->origin, m_pPlayer->entindex() );
 	m_pBeam->SetFlags( BEAM_FSINE );
@@ -557,6 +575,7 @@ void CEgon::CreateEffect( void )
 		m_pNoise->SetColor( 80, 120, 255 );
 		m_pNoise->SetNoise( 2 );
 	}
+	*/
 }
 
 
