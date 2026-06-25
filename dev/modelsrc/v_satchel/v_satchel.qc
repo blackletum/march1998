@@ -8,7 +8,7 @@ $origin -1 1.25 63 3
 
 // whole body
 $body body "satchel_hand_fix" reverse
-$body body "satchel_charge"
+$body body "satchel_charge-1"
 
 $sequence idle1 "satchel_idle1(simple)" loop fps 20
 $sequence fidget1 "satchel_fidget1(gripshift)" fps 30

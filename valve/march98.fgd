@@ -3230,3 +3230,37 @@
 @PointClass base(Targetname) iconsprite("sprites/env.spr") = env_sky : "Unreal-Tournament style sky view"
 [
 ]
+
+//
+// Rope System
+//
+
+@PointClass base(Targetname) size(-16 -16 -16, 16 16 16) = env_electrified_wire : "Electrified Wire"
+[
+  segments(integer) : "Segments" : 16
+  sparkfrequency(integer) : "Spark Frequency" : 3
+  bodysparkfrequency(integer) : "Body Spark Frequency" : 3
+  lightningfrequency(integer) : "Lightning Frequency" : 3
+  xforce(integer) : "X Force" : 80000
+  yforce(integer) : "Y Force" : 80000
+  zforce(integer) : "Z Force" : 80000
+  disable(choices) :"Disable Use" : 0 =
+  [
+    0: "Not Disabled"
+    1: "Disabled"
+  ]
+  endingmodel(studio) : "Ending Model" : "models/wire_copper16.mdl"
+  bodymodel(studio) : "Body Model" : "models/wire_black16.mdl"
+]
+
+@PointClass base(Targetname) size(-16 -16 -16, 16 16 16) = env_rope : "Rope"
+[
+  segments(integer) : "Segments" : 16
+  disable(choices) :"Disable Use" : 0 =
+  [
+    0: "Not Disabled"
+    1: "Disabled"
+  ]
+  endingmodel(studio) : "Ending Model" : "models/rope16.mdl"
+  bodymodel(studio) : "Body Model" : "models/rope16.mdl"
+]

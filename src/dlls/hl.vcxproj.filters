@@ -28,6 +28,9 @@
     <Filter Include="Header Files\Monsters">
       <UniqueIdentifier>{ff8e152b-9647-4eb4-a289-85f80fd2ba8d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Rope">
+      <UniqueIdentifier>{9824f7d8-7608-4c53-829f-76cd8a08e4a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animating.cpp">
@@ -384,6 +387,18 @@
     <ClCompile Include="rain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rope\CElectrifiedWire.cpp">
+      <Filter>Source Files\Rope</Filter>
+    </ClCompile>
+    <ClCompile Include="rope\CRope.cpp">
+      <Filter>Source Files\Rope</Filter>
+    </ClCompile>
+    <ClCompile Include="rope\CRopeSample.cpp">
+      <Filter>Source Files\Rope</Filter>
+    </ClCompile>
+    <ClCompile Include="rope\CRopeSegment.cpp">
+      <Filter>Source Files\Rope</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="activitymap.h">
@@ -526,6 +541,18 @@
     </ClInclude>
     <ClInclude Include="rain.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rope\CElectrifiedWire.h">
+      <Filter>Source Files\Rope</Filter>
+    </ClInclude>
+    <ClInclude Include="rope\CRope.h">
+      <Filter>Source Files\Rope</Filter>
+    </ClInclude>
+    <ClInclude Include="rope\CRopeSample.h">
+      <Filter>Source Files\Rope</Filter>
+    </ClInclude>
+    <ClInclude Include="rope\CRopeSegment.h">
+      <Filter>Source Files\Rope</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
