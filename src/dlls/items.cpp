@@ -371,7 +371,7 @@ class CItemLongJump : public CItem
 };
 LINK_ENTITY_TO_CLASS(item_longjump, CItemLongJump);
 
-//INVENTORY
+//	Antidote - syringe which will protect you from poisons
 class CItemAntidote : public CItem
 {
 	void Spawn(void)
@@ -415,7 +415,7 @@ class CItemAntidote : public CItem
 
 LINK_ENTITY_TO_CLASS(item_antidote, CItemAntidote);
 
-
+//	Radiation - syringe which will protect you from radiation
 class CItemRadiation : public CItem
 {
 	void Precache(void)
@@ -458,6 +458,7 @@ class CItemRadiation : public CItem
 LINK_ENTITY_TO_CLASS(item_rad, CItemRadiation);
 LINK_ENTITY_TO_CLASS(item_radiation, CItemRadiation);
 
+// airtank - item which will able to be underwater for 2 mins
 class CItemOxygen : public CItem
 {
 	void Spawn(void)
@@ -490,6 +491,7 @@ class CItemOxygen : public CItem
 
 LINK_ENTITY_TO_CLASS(item_airtank, CItemOxygen);
 
+// Adrenaline - syringe which will revive you after death
 class CItemAdrenaline : public CItem
 {
 	void Spawn(void)
@@ -523,6 +525,7 @@ class CItemAdrenaline : public CItem
 LINK_ENTITY_TO_CLASS(item_adrenaline, CItemAdrenaline);
 
 
+// Scope - item which will able to put Scope on crossbow
 class CItemScope : public CItem
 {
 	void Spawn(void)
@@ -544,6 +547,7 @@ class CItemScope : public CItem
 
 LINK_ENTITY_TO_CLASS(item_scope, CItemScope);
 
+// Silencer - item which will able to put silencer on glock
 class CItemSilencer : public CItem
 {
 	void Spawn(void)
@@ -565,6 +569,7 @@ class CItemSilencer : public CItem
 
 LINK_ENTITY_TO_CLASS(item_silencer, CItemSilencer);
 
+//	Alien shield - Reduces incoming damage if you have armor.
 class CItemShield : public CItem
 {
 	void Spawn(void)
@@ -597,3 +602,29 @@ class CItemShield : public CItem
 };
 
 LINK_ENTITY_TO_CLASS(item_shield, CItemShield);
+
+
+//	Tourniquet, item which will stop bleeding
+class CItemTourniquet : public CItem
+{
+	void Spawn(void)
+	{
+		Precache();
+		SET_MODEL(ENT(pev), "models/w_tourniquet.mdl");
+		CItem::Spawn();
+	}
+	void Precache(void)
+	{
+		PRECACHE_MODEL("models/w_tourniquet.mdl");
+	}
+	BOOL MyTouch(CBasePlayer* pPlayer)
+	{
+		if (pPlayer->m_rgItems[ITEM_TOURNIQUET] >= 1)
+			return FALSE;
+
+		pPlayer->m_rgItems[ITEM_TOURNIQUET] += 1;
+		return TRUE;
+	}
+};
+
+LINK_ENTITY_TO_CLASS(item_tourniquet, CItemTourniquet);

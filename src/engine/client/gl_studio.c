@@ -155,7 +155,7 @@ void R_StudioInit( void )
 	r_shadow_y = Cvar_Get("r_shadow_y", "0", FCVAR_ARCHIVE, "shadow distance y-axis");
 	r_shadow_alpha = Cvar_Get("r_shadow_alpha", "0.5", FCVAR_ARCHIVE, "shadow opacity");
 
-	r_viewmodelfov = Cvar_Get("cl_viewmodel_fov", "90", FCVAR_ARCHIVE, "fov of view models"); //magic nipples - weapon fov
+	r_viewmodelfov = Cvar_Get("cl_viewmodel_fov", "91", FCVAR_ARCHIVE | FCVAR_USERINFO, "fov of view models"); //magic nipples - weapon fov
 
 	r_warp = Cvar_Get("r_studiowarp", "0", FCVAR_ARCHIVE, "ps1 vertex jiggle"); //magic nipples - weapon fov
 	r_aliaslerp = Cvar_Get("r_lerpmodels", "0", FCVAR_ARCHIVE, "interpolate quake model animations");

@@ -314,7 +314,10 @@ void W_Precache(void)
 	UTIL_PrecacheOther("item_longjump");
 	UTIL_PrecacheOther("item_radiation");
 	UTIL_PrecacheOther("item_adrenaline");
-
+	UTIL_PrecacheOther("item_scope");
+	UTIL_PrecacheOther("item_silencer");
+	UTIL_PrecacheOther("item_shield");
+	UTIL_PrecacheOther("item_tourniquet");
 
 	// shotgun
 	UTIL_PrecacheOtherWeapon( "weapon_shotgun" );

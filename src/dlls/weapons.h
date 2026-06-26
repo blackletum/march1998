@@ -67,6 +67,7 @@ public:
 #define ITEM_OXYGEN			7
 #define ITEM_ADRENALINE		8
 #define ITEM_SHIELD			9
+#define ITEM_TOURNIQUET		10
 
 
 #define WEAPON_NONE				0
