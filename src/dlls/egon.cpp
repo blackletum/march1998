@@ -113,6 +113,7 @@ private:
 	EGON_FIRESTATE		m_fireState;
 	EGON_FIREMODE		m_fireMode;
 	float				m_shakeTime;
+	int m_modelIndexSprite;
 };
 
 LINK_ENTITY_TO_CLASS( weapon_egon, CEgon );
@@ -160,7 +161,7 @@ void CEgon::Precache( void )
 	PRECACHE_SOUND( EGON_SOUND_RUN );
 	PRECACHE_SOUND( EGON_SOUND_STARTUP );
 
-	PRECACHE_MODEL( EGON_BEAM_SPRITE );
+	m_modelIndexSprite = PRECACHE_MODEL( EGON_BEAM_SPRITE );
 	PRECACHE_MODEL( EGON_FLARE_SPRITE );
 
 	PRECACHE_SOUND ("weapons/357_cock1.wav");
@@ -501,7 +502,7 @@ void CEgon::UpdateEffect( const Vector &startPoint, const Vector &endPoint, floa
 	MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY);
 	WRITE_BYTE(TE_EGONBEAM);
 	WRITE_SHORT(m_pPlayer->entindex());
-	WRITE_SHORT(PRECACHE_MODEL(EGON_FLARE_SPRITE));
+	WRITE_SHORT(m_modelIndexSprite);
 	WRITE_BYTE(m_fireMode);
 	WRITE_BYTE((int)(timeBlend * 100));
 	WRITE_COORD(startPoint[0]);
@@ -510,6 +511,7 @@ void CEgon::UpdateEffect( const Vector &startPoint, const Vector &endPoint, floa
 	WRITE_COORD(endPoint[0]);
 	WRITE_COORD(endPoint[1]);
 	WRITE_COORD(endPoint[2]);
+	MESSAGE_END();
 
 	if (m_pSprite)
 	{
@@ -534,16 +536,12 @@ void CEgon::CreateEffect( void )
 
 void CEgon::DestroyEffect( void )
 {
-	if ( m_pBeam )
-	{
-		UTIL_Remove( m_pBeam );
-		m_pBeam = NULL;
-	}
-	if ( m_pNoise )
-	{
-		UTIL_Remove( m_pNoise );
-		m_pNoise = NULL;
-	}
+	MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY);
+	WRITE_BYTE(TE_KILLBEAM);
+	WRITE_SHORT(m_pPlayer->entindex());
+	MESSAGE_END();
+
+
 	if ( m_pSprite )
 	{
 		if ( m_fireMode == FIRE_WIDE )

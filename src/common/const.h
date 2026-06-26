@@ -155,6 +155,9 @@
 // byte (brightness)
 // byte (scroll speed in 0.1's)
 
+#define EGON_BEAM_VAR_NARROW	1
+#define EGON_BEAM_VAR_WIDE		2
+
 #define	TE_GUNSHOT		2	// particle effect plus ricochet sound
 // coord coord coord (position) 
 

@@ -63,6 +63,7 @@ convar_t		*traceralpha;
 convar_t		*tracerspeed;
 convar_t		*tracerlength;
 convar_t		*traceroffset;
+convar_t		*egon_style;
 
 particle_t	*cl_active_particles;
 particle_t	*cl_active_tracers;
@@ -142,14 +143,14 @@ void CL_InitParticles( void )
 		cl_avelocities[i][2] = COM_RandomFloat( 0.0f, 2.55f );
 	}
 
-		tracerred = Cvar_Get("tracerred", "0.6", 0, "tracer red component weight ( 0 - 1.0 )");
-		tracergreen = Cvar_Get("tracergreen", "0.8", 0, "tracer green component weight ( 0 - 1.0 )");
-		tracerblue = Cvar_Get("tracerblue", "0.1", 0, "tracer blue component weight ( 0 - 1.0 )");
-		traceralpha = Cvar_Get("traceralpha", "0.2", 0, "tracer alpha amount ( 0 - 1.0 )"); //0.5
-		tracerspeed = Cvar_Get("tracerspeed", "3000", 0, "tracer speed");
-		tracerlength = Cvar_Get("tracerlength", "1.0", 0, "tracer length factor");
-		traceroffset = Cvar_Get("traceroffset", "35", 0, "tracer starting offset"); //30
-	
+	tracerred = Cvar_Get("tracerred", "0.6", 0, "tracer red component weight ( 0 - 1.0 )");
+	tracergreen = Cvar_Get("tracergreen", "0.8", 0, "tracer green component weight ( 0 - 1.0 )");
+	tracerblue = Cvar_Get("tracerblue", "0.1", 0, "tracer blue component weight ( 0 - 1.0 )");
+	traceralpha = Cvar_Get("traceralpha", "0.2", 0, "tracer alpha amount ( 0 - 1.0 )"); //0.5
+	tracerspeed = Cvar_Get("tracerspeed", "3000", 0, "tracer speed");
+	tracerlength = Cvar_Get("tracerlength", "1.0", 0, "tracer length factor");
+	traceroffset = Cvar_Get("traceroffset", "35", 0, "tracer starting offset"); //30
+	egon_style = Cvar_Get("egon_style", "1", 0, "EGON STYLE PARTICLE");
 }
 
 /*
@@ -1705,8 +1706,19 @@ void R_Implosion( const vec3_t end, float radius, int count, float life )
 		p->type = pt_explode;
 	}
 }
+
+/*
+===============
+R_GenericSineBeam
+
+Generic Q-Particle sine wave function that animates. Must be called
+every frame in order to create convincing movement.
+===============
+*/
+
 //	modified quake 2 railgun effect.
 //	(serecky June-25-26)
+
 void R_GenericSineBeam(float *start, float *end, float *angles, byte baseColor, int colorRange, float timeMod, float modScale, float beamScale)
 {
 	vec3_t		move, vec;
@@ -1746,69 +1758,127 @@ void R_GenericSineBeam(float *start, float *end, float *angles, byte baseColor, 
 	}
 }
 
-void R_EgonBeam(float *start, float *end, float *angles)
+void R_EgonBeam(float *start, float *end, float *angles, int type)
 {
-	vec3_t	right, up;
-	AngleVectors(angles, NULL, right, up);
-	VectorMA(start, 16.0f, right, start);
-	VectorMA(start, -8.0f, up, start);
-
-	// powerful beam
-	R_GenericSineBeam(start, end, angles, (byte)208, 7, 16.0f, M_PI, 6.0f);
-	R_GenericSineBeam(start, end, angles, (byte)40, 7, 2.0f, -M_PI, 1.0f);
-
-	VectorMA(start, -32.0f, right, start);
-
-	// 
-	R_GenericSineBeam(start, end, angles, (byte)40, 7, 64.0f, -M_PI, 0.25f);
-	R_GenericSineBeam(start, end, angles, (byte)176, 7, 64.0f, M_PI, 1.5f);
-}
-
-//	(serecky June-26-26)
-void R_EgonBeamTempEnt(int entIndex, int modelIndex, int fireMode, float timeBlend, float* start, float* end)
-{
-	cl_entity_t		*localPlayer;
-
-	pBeam = R_BeamEntPoint(entIndex, end, modelIndex, 99999, 40, 0, 0, 0, 0, 0, 0, 0, 0);
-	pNoise = R_BeamEntPoint(entIndex, end, modelIndex, 99999, 55, 0, 0, 0, 0, 0, 0, 0, 0);
-
-	if (pBeam == NULL || pNoise == NULL)
+	if (type == EGON_BEAM_VAR_WIDE)
 	{
-		return;
-	}
-
-	pNoise->speed = 25;
-	pNoise->brightness = 100;
-
-	pBeam->brightness = 255 - (timeBlend * 180);
-	pBeam->width = 40 - (timeBlend * 20);
-	pBeam->flags |= FBEAM_SINENOISE;
-
-	if (fireMode == 1) // if (m_fireMode == FIRE_WIDE)
-	{
-		pBeam->speed = 50;
-		pBeam->amplitude = 20;
-		pBeam->r = 30 + (25 * timeBlend);
-		pBeam->g = 30 + (30 * timeBlend);
-		pBeam->b = 64 + 80 * fabs(sin(cl.time * 10));
-
-		pNoise->r = 50;
-		pNoise->g = 50;
-		pNoise->b = 255;
-		pNoise->amplitude = 8;
+		// powerful beam
+		R_GenericSineBeam(start, end, angles, (byte)208, 7, 16.0f, M_PI, 6.0f);
+		R_GenericSineBeam(start, end, angles, (byte)40, 7, 2.0f, -M_PI, 1.0f);
 	}
 	else
 	{
-		pBeam->speed = 110;
-		pBeam->amplitude = 5;
-		pBeam->r = 60 + (25 * timeBlend);
-		pBeam->g = 120 + (30 * timeBlend);
-		pBeam->b = 64 + 80 * fabs(sin(cl.time * 10));
+		R_GenericSineBeam(start, end, angles, (byte)40, 7, 64.0f, -M_PI, 0.25f);
+		R_GenericSineBeam(start, end, angles, (byte)176, 7, 64.0f, M_PI, 1.5f);
+	}
+}
 
-		pNoise->r = 80;
-		pNoise->g = 120;
-		pNoise->b = 255;
-		pNoise->amplitude = 2;
+/*
+===============
+R_CreateNormalEgon
+
+===============
+*/
+
+static void R_CreateNormalEgon(int entIndex, int modelIndex, int fireMode, float timeBlend, float* start, float* end)
+{
+	pBeam = R_BeamEntPoint(entIndex | 0x1000, end, modelIndex, 99999, 40.0f, 0, 0, 0, 0, 0, 0, 0, 0);
+	pNoise = R_BeamEntPoint(entIndex | 0x1000, end, modelIndex, 99999, 55.0f, 0, 0, 0, 0, 0, 0, 0, 0);
+
+	if (pBeam != NULL && pNoise != NULL)
+	{
+		pNoise->speed = 25;
+		pNoise->brightness = 100;
+
+		pBeam->brightness = 255 - (timeBlend * 180);
+		pBeam->width = 40 - (timeBlend * 20);
+		pBeam->flags |= FBEAM_SINENOISE;
+
+		if (fireMode == 1) // if (m_fireMode == FIRE_WIDE)
+		{
+			pBeam->speed = 50;
+			pBeam->amplitude = 20;
+			pBeam->r = 30 + (25 * timeBlend);
+			pBeam->g = 30 + (30 * timeBlend);
+			pBeam->b = 64 + 80 * fabs(sin(cl.time * 10));
+
+			pNoise->r = 50;
+			pNoise->g = 50;
+			pNoise->b = 255;
+			pNoise->amplitude = 8;
+		}
+		else
+		{
+			pBeam->speed = 110;
+			pBeam->amplitude = 5;
+			pBeam->r = 60 + (25 * timeBlend);
+			pBeam->g = 120 + (30 * timeBlend);
+			pBeam->b = 64 + 80 * fabs(sin(cl.time * 10));
+
+			pNoise->r = 80;
+			pNoise->g = 120;
+			pNoise->b = 255;
+			pNoise->amplitude = 2;
+		}
+
+		pBeam->width /= 10.0f;
+		pBeam->amplitude /= 100.0f;
+		pBeam->brightness /= 255.0f;
+		pBeam->r /= 255.0f;
+		pBeam->g /= 255.0f;
+		pBeam->b /= 255.0f;
+
+		pNoise->width /= 10.0f;
+		pNoise->amplitude /= 100.0f;
+		pNoise->brightness /= 255.0f;
+		pNoise->r /= 255.0f;
+		pNoise->g /= 255.0f;
+		pNoise->b /= 255.0f;
+	}
+}
+
+/*
+===============
+R_CreateQuakeEgon
+
+===============
+*/
+
+static void R_CreateQuakeEgon(int entIndex, int fireMode, float* start, float* end)
+{
+	pBeam = R_BeamEntPoint(entIndex | 0x1000, end, 0, 99999, 0.0f, 0, 0, 0, 0, 0, 0, 0, 0);
+
+	if (pBeam)
+	{
+		if (fireMode == 1) // if (m_fireMode == FIRE_WIDE)
+		{
+			//pBeam->override_quake = EGON_BEAM_VAR_WIDE;
+		}
+		else
+		{
+			//pBeam->override_quake = EGON_BEAM_VAR_NARROW;
+		}
+	}
+}
+
+/*
+===============
+R_EgonBeamTempEnt
+
+===============
+*/
+
+void R_EgonBeamTempEnt(int entIndex, int modelIndex, int fireMode, float timeBlend, float* start, float* end)
+{
+	R_BeamKill(entIndex | 0x1000);
+
+	if (egon_style->value == 1)
+	{
+		R_CreateQuakeEgon(entIndex, fireMode, start, end);
+	}
+	else
+	{
+		R_CreateNormalEgon(entIndex, modelIndex, fireMode, timeBlend, start, end);
 	}
 }
 

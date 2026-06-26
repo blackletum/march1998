@@ -36,6 +36,7 @@ struct beam_s
 	BEAM		*next;
 	int		type;
 	int		flags;
+	int		override_quake;
 	vec3_t		source;
 	vec3_t		target;
 	vec3_t		delta;

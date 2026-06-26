@@ -20,7 +20,7 @@ GNU General Public License for more details.
 #include "gl_local.h"
 #include "vgui_draw.h"
 #include "sound.h"
-extern void R_EgonBeam(float* start, float* end);
+
 /*
 ===============
 V_CalcViewRect
