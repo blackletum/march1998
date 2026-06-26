@@ -522,7 +522,7 @@ int CBasePlayer :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, 
 	UTIL_ScreenFade(this, Vector(255, dmgfadeamt, dmgfadeamt), 0.75, /*(m_iDamagePool * 0.001)*/ 0.05, m_iDamagePool, 0/*FFADE_MODULATE*/);
 
 	// Armor. 
-	if (pev->armorvalue && !(bitsDamageType & (DMG_FALL | DMG_DROWN)))// armor doesn't protect against fall or drown damage!
+	if (pev->armorvalue && !(bitsDamageType & (DMG_FALL | DMG_DROWN | DMG_BLEEDING)))// armor doesn't protect against fall or drown damage!
 	{
 		float flNew = flDamage * flRatio;
 
@@ -715,6 +715,12 @@ int CBasePlayer :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, 
 		{
 			SetSuitUpdate("!HEV_FIRE", FALSE, SUIT_NEXT_IN_1MIN);
 			bitsDamage &= ~DMG_BURN;
+			ffound = TRUE;
+		}
+		if (bitsDamage & DMG_BLEEDING)
+		{
+			SetSuitUpdate("!HEV_DET1", FALSE, SUIT_NEXT_IN_1MIN);	// hazardous chemicals detected
+			bitsDamage &= ~DMG_BLEEDING;
 			ffound = TRUE;
 		}
 	}
@@ -2405,6 +2411,10 @@ void CBasePlayer::CheckTimeBasedDamage()
 			case itbd_SlowFreeze:
 				TakeDamage(pev, pev, SLOWFREEZE_DAMAGE, DMG_GENERIC);
 				bDuration = SLOWFREEZE_DURATION;
+				break;
+			case itbd_Bleeding:
+				TakeDamage(pev, pev, BLEEDING_DAMAGE, DMG_GENERIC);
+				bDuration = BLEEDING_DURATION;
 				break;
 			default:
 				bDuration = 0;

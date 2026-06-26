@@ -618,12 +618,13 @@ public:
 #define DMG_SLOWBURN		(1 << 21)	// in an oven
 #define DMG_SLOWFREEZE		(1 << 22)	// in a subzero freezer
 #define DMG_MORTAR			(1 << 23)	// Hit by air raid (done to distinguish grenade from mortar)
+#define DMG_BLEEDING		(1 << 24)	// Bleeding
 
 // these are the damage types that are allowed to gib corpses
 #define DMG_GIB_CORPSE		( DMG_CRUSH | DMG_FALL | DMG_BLAST | DMG_SONIC | DMG_CLUB )
 
 // these are the damage types that have client hud art
-#define DMG_SHOWNHUD		(DMG_POISON | DMG_ACID | DMG_FREEZE | DMG_SLOWFREEZE | DMG_DROWN | DMG_BURN | DMG_SLOWBURN | DMG_NERVEGAS | DMG_RADIATION | DMG_SHOCK)
+#define DMG_SHOWNHUD		(DMG_POISON | DMG_ACID | DMG_FREEZE | DMG_SLOWFREEZE | DMG_DROWN | DMG_BURN | DMG_SLOWBURN | DMG_NERVEGAS | DMG_RADIATION | DMG_SHOCK | DMG_BLEEDING)
 
 // NOTE: tweak these values based on gameplay feedback:
 
@@ -648,6 +649,8 @@ public:
 #define SLOWFREEZE_DURATION	2
 #define SLOWFREEZE_DAMAGE	1.0
 
+#define BLEEDING_DURATION	30
+#define BLEEDING_DAMAGE		3.0
 
 #define	itbd_Paralyze		0		
 #define	itbd_NerveGas		1
@@ -657,7 +660,8 @@ public:
 #define	itbd_Acid			5
 #define	itbd_SlowBurn		6
 #define	itbd_SlowFreeze		7
-#define CDMG_TIMEBASED		8
+#define	itbd_Bleeding		8
+#define CDMG_TIMEBASED		9
 
 // when calling KILLED(), a value that governs gib behavior is expected to be 
 // one of these three values

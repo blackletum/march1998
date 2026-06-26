@@ -18,6 +18,7 @@ dmg_heat		640 640hud3	170	128	64	64
 dmg_gas			640 640hud3	170	0	64	64
 dmg_rad			640 640hud3	170 192	64	64
 dmg_shock		640 640hud2	170 192	64	64
+dmg_bleeding	640 640hud2	170 192	64	64
 
 number_0		640 640hud1	0	225	20	24
 number_1		640 640hud1	24	225	20	24

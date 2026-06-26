@@ -1683,7 +1683,7 @@ void CBaseEntity::TraceBleed(float flDamage, Vector vecDir, TraceResult* ptr, in
 	if (flDamage == 0)
 		return;
 
-	if (!(bitsDamageType & (DMG_CRUSH | DMG_BULLET | DMG_SLASH | DMG_BLAST | DMG_CLUB | DMG_MORTAR)))
+	if (!(bitsDamageType & (DMG_CRUSH | DMG_BULLET | DMG_SLASH | DMG_BLAST | DMG_CLUB | DMG_MORTAR | DMG_BLEEDING)))
 		return;
 
 	// make blood decal on the wall! 

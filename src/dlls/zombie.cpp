@@ -215,7 +215,9 @@ void CZombie :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			// do stuff for this event.
 			if (pev->body == 3)
 				ZombieDamage = DMG_POISON;
-			else
+			else if (pev->body == 2)
+				ZombieDamage = DMG_BLEEDING;
+			else 
 				ZombieDamage = DMG_SLASH;
 			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.zombieDmgOneSlash, ZombieDamage);
 			if ( pHurt )
@@ -242,6 +244,8 @@ void CZombie :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			// do stuff for this event.
 			if (pev->body == 3)
 				ZombieDamage = DMG_POISON;
+			else if (pev->body == 2)
+				ZombieDamage = DMG_BLEEDING;
 			else
 				ZombieDamage = DMG_SLASH;
 			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.zombieDmgOneSlash, ZombieDamage);
@@ -268,6 +272,8 @@ void CZombie :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			// do stuff for this event.
 			if (pev->body == 3)
 				ZombieDamage = DMG_POISON;
+			else if (pev->body == 2)
+				ZombieDamage = DMG_BLEEDING;
 			else
 				ZombieDamage = DMG_SLASH;
 			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.zombieDmgBothSlash, ZombieDamage);

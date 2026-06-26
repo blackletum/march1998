@@ -28,7 +28,7 @@
 #define DMG_IMAGE_TRANQ		9
 #define DMG_IMAGE_CONCUSS	10
 #define DMG_IMAGE_HALLUC	11
-#define NUM_DMG_TYPES		12
+#define NUM_DMG_TYPES		13
 // instant damage
 
 #define DMG_GENERIC			0			// generic damage was done
@@ -73,8 +73,9 @@
 #define DMG_AIMED			(1 << 28)   // Does Hit location damage
 #define DMG_WALLPIERCING	(1 << 29)	// Blast Damages ents through walls
 
-#define DMG_CALTROP				(1<<30)
-#define DMG_HALLUC				(1<<31)
+#define DMG_CALTROP			(1<<30)
+#define DMG_HALLUC			(1<<31)
+#define DMG_BLEEDING		(1<<32)	// bleeding
 
 // TF Healing Additions for TakeHealth
 #define DMG_IGNORE_MAXHEALTH	DMG_IGNITE

@@ -535,6 +535,7 @@ HEV_EGONPOWER fvox/blip get_egonpower acquired
 HEV_ANTIDOTE fvox/blip blip blip, antitoxin_shot(e50), acquired
 HEV_ANTIRAD fvox/blip blip blip, antitoxin_shot(e25) radiation_detected(e50), acquired
 HEV_ADRENALINE fvox/blip blip blip, (p103) adrenaline_shot(e50)(v80) (p100) acquired
+HEV_TORNIQUETE fvox/(p140) boop, boop, boop, (p103) torniquette_applied(e50)(v80) (p100) acquired
 
 HEV_TOX0P fvox/blip blip blip, antitoxin_shot(e50), twenty percent
 HEV_TOX1P fvox/blip blip blip, antitoxin_shot(e50), fourty percent
@@ -763,7 +764,7 @@ BA_SHOT3 barney/ba_whatyou
 BA_SHOT4 barney/ba_friends
 BA_SHOT5 barney/ba_pissme
 
-//When Barney’s really pissed at you:
+//When Barneyï¿½s really pissed at you:
 BA_MAD0 barney/ba_stepoff
 BA_MAD1 barney/ba_iwish
 BA_MAD2 barney/ba_uwish
@@ -772,7 +773,7 @@ BA_MAD4 barney/ba_endline
 BA_MAD5 barney/ba_dontmake
 BA_MAD6 barney/ba_tomb
 
-//When Barney’s killed something
+//When Barneyï¿½s killed something
 BA_KILL0 barney/ba_gotone
 BA_KILL1 barney/ba_another
 BA_KILL2 barney/ba_buttugly

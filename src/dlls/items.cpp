@@ -619,11 +619,18 @@ class CItemTourniquet : public CItem
 	}
 	BOOL MyTouch(CBasePlayer* pPlayer)
 	{
-		if (pPlayer->m_rgItems[ITEM_TOURNIQUET] >= 1)
-			return FALSE;
+		if (!pPlayer->m_rgItems[ITEM_TOURNIQUET])
+		{
+			pPlayer->SetSuitUpdate("!HEV_TOURNIQUETTE", FALSE, SUIT_REPEAT_OK);
+			EMIT_SOUND(pPlayer->edict(), CHAN_ITEM, "items/gunpickup2.wav", 1, ATTN_NORM);
+			pPlayer->m_rgItems[ITEM_TOURNIQUET] = 1;
 
-		pPlayer->m_rgItems[ITEM_TOURNIQUET] += 1;
-		return TRUE;
+			MESSAGE_BEGIN(MSG_ONE, gmsgItemPickup, NULL, pPlayer->pev);
+			WRITE_STRING(STRING(pev->netname));
+			MESSAGE_END();
+
+			return TRUE;
+		}
 	}
 };
 

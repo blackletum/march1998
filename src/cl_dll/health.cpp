@@ -49,7 +49,8 @@ int giDmgFlags[NUM_DMG_TYPES] =
 	DMG_CALTROP,
 	DMG_TRANQ,
 	DMG_CONCUSS,
-	DMG_HALLUC
+	DMG_HALLUC,
+	DMG_BLEEDING
 };
 
 int CHudHealth::Init(void)
