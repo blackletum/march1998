@@ -63,7 +63,6 @@ convar_t		*traceralpha;
 convar_t		*tracerspeed;
 convar_t		*tracerlength;
 convar_t		*traceroffset;
-convar_t		*egon_style;
 
 particle_t	*cl_active_particles;
 particle_t	*cl_active_tracers;
@@ -150,7 +149,6 @@ void CL_InitParticles( void )
 	tracerspeed = Cvar_Get("tracerspeed", "3000", 0, "tracer speed");
 	tracerlength = Cvar_Get("tracerlength", "1.0", 0, "tracer length factor");
 	traceroffset = Cvar_Get("traceroffset", "35", 0, "tracer starting offset"); //30
-	egon_style = Cvar_Get("egon_style", "1", 0, "EGON STYLE PARTICLE");
 }
 
 /*
@@ -1847,16 +1845,29 @@ R_CreateQuakeEgon
 static void R_CreateQuakeEgon(int entIndex, int fireMode, float* start, float* end)
 {
 	pBeam = R_BeamEntPoint(entIndex | 0x1000, end, 0, 99999, 0.0f, 0, 0, 0, 0, 0, 0, 0, 0);
+	vec3_t		angles, forward;
 
+	//p1llowguy - delete it later pls
+	/*
+	vec3_t			start, end, forward;
+	AngleVectors(rp.cl_viewangles, forward, NULL, NULL);
+	VectorCopy(rp.simorg, start);
+	VectorAdd(start, rp.viewheight, start);
+	VectorCopy(start, end);
+	VectorMA(end, 512.0f, forward, end);
+	R_EgonBeam(start, end, rp.cl_viewangles, 2);
+	*/
+
+	//partially working egon beam!
 	if (pBeam)
 	{
 		if (fireMode == 1) // if (m_fireMode == FIRE_WIDE)
 		{
-			//pBeam->override_quake = EGON_BEAM_VAR_WIDE;
+			R_EgonBeam(start, end, pBeam, 2);
 		}
 		else
 		{
-			//pBeam->override_quake = EGON_BEAM_VAR_NARROW;
+			R_EgonBeam(start, end, pBeam, 1);
 		}
 	}
 }
@@ -1872,14 +1883,8 @@ void R_EgonBeamTempEnt(int entIndex, int modelIndex, int fireMode, float timeBle
 {
 	R_BeamKill(entIndex | 0x1000);
 
-	if (egon_style->value == 1)
-	{
-		R_CreateQuakeEgon(entIndex, fireMode, start, end);
-	}
-	else
-	{
-		R_CreateNormalEgon(entIndex, modelIndex, fireMode, timeBlend, start, end);
-	}
+	R_CreateQuakeEgon(entIndex, fireMode, start, end);
+	//R_CreateNormalEgon(entIndex, modelIndex, fireMode, timeBlend, start, end);
 }
 
 /*
