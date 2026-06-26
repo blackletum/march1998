@@ -24,6 +24,7 @@ void R_ParticleExplosion2( const vec3_t org, int colorStart, int colorLength );
 void R_Implosion( const vec3_t end, float radius, int count, float life );
 //	(serecky June-25-26)
 void R_EgonBeam(float* start, float* end, float* angles);
+void R_EgonBeamTempEnt(int entIndex, int modelIndex, int fireMode, float timeBlend, float* start, float* end);
 void R_Blood( const vec3_t org, const vec3_t dir, int pcolor, int speed );
 void R_BloodStream(const vec3_t org, const vec3_t dir, int pcolor, float speed);	// jay - vasia's accurate bloodstreams
 void R_BlobExplosion( const vec3_t org );

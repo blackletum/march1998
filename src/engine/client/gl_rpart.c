@@ -71,6 +71,9 @@ particle_t	*cl_particles = NULL;	// particle pool
 static vec3_t	cl_avelocities[NUMVERTEXNORMALS];
 static float	cl_lasttimewarn = 0.0f;
 
+BEAM *pBeam;
+BEAM *pNoise;
+
 /*
 ================
 R_LookupColor
@@ -1743,12 +1746,6 @@ void R_GenericSineBeam(float *start, float *end, float *angles, byte baseColor, 
 	}
 }
 
-//typedef struct
-//{
-//	int				beamtype;
-//	cl_entity_t		*attachEnt;
-//} beamEmitter_t;
-
 void R_EgonBeam(float *start, float *end, float *angles)
 {
 	vec3_t	right, up;
@@ -1765,6 +1762,54 @@ void R_EgonBeam(float *start, float *end, float *angles)
 	// 
 	R_GenericSineBeam(start, end, angles, (byte)40, 7, 64.0f, -M_PI, 0.25f);
 	R_GenericSineBeam(start, end, angles, (byte)176, 7, 64.0f, M_PI, 1.5f);
+}
+
+//	(serecky June-26-26)
+void R_EgonBeamTempEnt(int entIndex, int modelIndex, int fireMode, float timeBlend, float* start, float* end)
+{
+	cl_entity_t		*localPlayer;
+
+	pBeam = R_BeamEntPoint(entIndex, end, modelIndex, 99999, 40, 0, 0, 0, 0, 0, 0, 0, 0);
+	pNoise = R_BeamEntPoint(entIndex, end, modelIndex, 99999, 55, 0, 0, 0, 0, 0, 0, 0, 0);
+
+	if (pBeam == NULL || pNoise == NULL)
+	{
+		return;
+	}
+
+	pNoise->speed = 25;
+	pNoise->brightness = 100;
+
+	pBeam->brightness = 255 - (timeBlend * 180);
+	pBeam->width = 40 - (timeBlend * 20);
+	pBeam->flags |= FBEAM_SINENOISE;
+
+	if (fireMode == 1) // if (m_fireMode == FIRE_WIDE)
+	{
+		pBeam->speed = 50;
+		pBeam->amplitude = 20;
+		pBeam->r = 30 + (25 * timeBlend);
+		pBeam->g = 30 + (30 * timeBlend);
+		pBeam->b = 64 + 80 * fabs(sin(cl.time * 10));
+
+		pNoise->r = 50;
+		pNoise->g = 50;
+		pNoise->b = 255;
+		pNoise->amplitude = 8;
+	}
+	else
+	{
+		pBeam->speed = 110;
+		pBeam->amplitude = 5;
+		pBeam->r = 60 + (25 * timeBlend);
+		pBeam->g = 120 + (30 * timeBlend);
+		pBeam->b = 64 + 80 * fabs(sin(cl.time * 10));
+
+		pNoise->r = 80;
+		pNoise->g = 120;
+		pNoise->b = 255;
+		pNoise->amplitude = 2;
+	}
 }
 
 /*

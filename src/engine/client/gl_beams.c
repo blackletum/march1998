@@ -34,6 +34,9 @@ typedef struct
 	float	width;
 } beamseg_t;
 
+extern BEAM *pBeam;
+extern BEAM *pNoise;
+
 /*
 ==============================================================
 
@@ -1335,6 +1338,8 @@ CL_ClearViewBeams
 void CL_ClearViewBeams( void )
 {
 	int	i;
+
+	pBeam = pNoise = NULL;
 
 	if( !cl_viewbeams ) return;
 

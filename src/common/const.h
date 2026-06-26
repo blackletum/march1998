@@ -574,9 +574,12 @@
 // byte ( length * 10 )
 
 #define TE_EGONBEAM	128
-//cord (origin)
-//cord (origin)
-//angle (initial yaw)
+//	short (entity index of player)
+//	short (sprite index)
+//  byte (firemode)
+//	byte (timedist)
+//	coord coord coord (starting pos)
+//	coord coord coord (ending pos)
 
 #define MSG_BROADCAST		0	// unreliable to all
 #define MSG_ONE			1	// reliable to one (msg_entity)

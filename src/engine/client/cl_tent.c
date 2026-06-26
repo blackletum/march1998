@@ -2555,16 +2555,17 @@ void CL_ParseTempEntity( sizebuf_t *msg )
 		break;
 
 	case TE_EGONBEAM:
+		entityIndex = MSG_ReadShort(&buf);
+		modelIndex = MSG_ReadShort(&buf);
+		color = MSG_ReadByte(&buf);
+		life = (float)MSG_ReadByte(&buf) / (float)100.0f;
 		pos[0] = MSG_ReadCoord(&buf);
 		pos[1] = MSG_ReadCoord(&buf);
 		pos[2] = MSG_ReadCoord(&buf);
-		pos2[0] = MSG_ReadCoord(&buf) * 0.1f;
-		pos2[1] = MSG_ReadCoord(&buf) * 0.1f;
-		pos2[2] = MSG_ReadCoord(&buf) * 0.1f;
-		ang[0] = MSG_ReadCoord(&buf) * 0.01f;
-		ang[1] = MSG_ReadCoord(&buf) * 0.01f;
-		ang[2] = 0.0f;
-		R_EgonBeam(pos, pos, ang);
+		pos2[0] = MSG_ReadCoord(&buf);
+		pos2[1] = MSG_ReadCoord(&buf);
+		pos2[2] = MSG_ReadCoord(&buf);
+		R_EgonBeamTempEnt(entityIndex, modelIndex, color, life, pos, pos2);
 		break;
 	default:
 		Con_DPrintf( S_ERROR "ParseTempEntity: illegible TE message %i\n", type );

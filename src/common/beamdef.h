@@ -24,6 +24,7 @@
 #define FBEAM_SOLID			0x00000020
 #define FBEAM_SHADEIN		0x00000040
 #define FBEAM_SHADEOUT		0x00000080
+#define FBEAM_QPARTICLE		0x00000100
 #define FBEAM_STARTVISIBLE		0x10000000 // Has this client actually seen this beam's start entity yet?
 #define FBEAM_ENDVISIBLE		0x20000000 // Has this client actually seen this beam's end entity yet?
 #define FBEAM_ISACTIVE		0x40000000
