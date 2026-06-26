@@ -1,1 +1,0 @@
-Valve.exe +developer 1 +sv_cheats 1 +map tr1a2

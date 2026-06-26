@@ -890,8 +890,6 @@ void CChubGrenade::PrimaryAttack()
 	{
 		// player "shoot" animation
 		//m_pPlayer->SetAnimation(PLAYER_ATTACK1);
-
-		PLAYBACK_EVENT_FULL(flags, m_pPlayer->edict(), m_usChubFire, 0.0, (float*)&g_vecZero, (float*)&g_vecZero, 0.0, 0.0, 0, 0, 0, 0);
 		SendWeaponAnim( CHUB_THROW | 0 );
 
 		m_flAttackDelay = gpGlobals->time + CHUBGRENADE_THROW_DELAY;

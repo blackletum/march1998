@@ -528,54 +528,56 @@ void CEgon::CreateEffect( void )
 	float rotation;
 
 	DestroyEffect();
-
-	MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY, vecOrigin);
-	WRITE_BYTE(TE_EGONBEAM);
-	WRITE_COORD(vecOrigin.x);
-	WRITE_COORD(vecOrigin.y);
-	WRITE_COORD(vecOrigin.z);
-	WRITE_COORD(vecVelocity.x);
-	WRITE_COORD(vecVelocity.y);
-	WRITE_COORD(vecVelocity.z);
-	WRITE_ANGLE(rotation);
-	MESSAGE_END();
-
-	//p1llowguy - add this as a cvar! Smth like cl_m98_egonbeam
 	
-	/*
-	m_pBeam = CBeam::BeamCreate( EGON_BEAM_SPRITE, 40 );
-	m_pBeam->PointEntInit( pev->origin, m_pPlayer->entindex() );
-	m_pBeam->SetFlags( BEAM_FSINE );
-	m_pBeam->SetEndAttachment( 1 );
-	m_pBeam->pev->spawnflags |= SF_BEAM_TEMPORARY;	// Flag these to be destroyed on save/restore or level transition
-
-	m_pNoise = CBeam::BeamCreate( EGON_BEAM_SPRITE, 55 );
-	m_pNoise->PointEntInit( pev->origin, m_pPlayer->entindex() );
-	m_pNoise->SetScrollRate( 25 );
-	m_pNoise->SetBrightness( 100 );
-	m_pNoise->SetEndAttachment( 1 );
-	m_pNoise->pev->spawnflags |= SF_BEAM_TEMPORARY;
-
-	m_pSprite = CSprite::SpriteCreate( EGON_FLARE_SPRITE, pev->origin, FALSE );
-	m_pSprite->pev->scale = 1.0;
-	m_pSprite->SetTransparency( kRenderGlow, 255, 255, 255, 255, kRenderFxNoDissipation );
-	m_pSprite->pev->spawnflags |= SF_SPRITE_TEMPORARY;
-
-	if ( m_fireMode == FIRE_WIDE )
+	if (CVAR_GET_FLOAT("cl_m98_egonbeamclassic") != 1)
 	{
-		m_pBeam->SetScrollRate( 50 );
-		m_pBeam->SetNoise( 20 );
-		m_pNoise->SetColor( 50, 50, 255 );
-		m_pNoise->SetNoise( 8 );
+		//p1llowguy - temporary non-working bullshit
+		MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY, vecOrigin);
+		WRITE_BYTE(TE_EGONBEAM);
+		WRITE_COORD(vecOrigin.x);
+		WRITE_COORD(vecOrigin.y);
+		WRITE_COORD(vecOrigin.z);
+		WRITE_COORD(vecVelocity.x);
+		WRITE_COORD(vecVelocity.y);
+		WRITE_COORD(vecVelocity.z);
+		WRITE_ANGLE(rotation);
+		MESSAGE_END();
 	}
 	else
 	{
-		m_pBeam->SetScrollRate( 110 );
-		m_pBeam->SetNoise( 5 );
-		m_pNoise->SetColor( 80, 120, 255 );
-		m_pNoise->SetNoise( 2 );
+		m_pBeam = CBeam::BeamCreate(EGON_BEAM_SPRITE, 40);
+		m_pBeam->PointEntInit(pev->origin, m_pPlayer->entindex());
+		m_pBeam->SetFlags(BEAM_FSINE);
+		m_pBeam->SetEndAttachment(1);
+		m_pBeam->pev->spawnflags |= SF_BEAM_TEMPORARY;	// Flag these to be destroyed on save/restore or level transition
+
+		m_pNoise = CBeam::BeamCreate(EGON_BEAM_SPRITE, 55);
+		m_pNoise->PointEntInit(pev->origin, m_pPlayer->entindex());
+		m_pNoise->SetScrollRate(25);
+		m_pNoise->SetBrightness(100);
+		m_pNoise->SetEndAttachment(1);
+		m_pNoise->pev->spawnflags |= SF_BEAM_TEMPORARY;
+
+		m_pSprite = CSprite::SpriteCreate(EGON_FLARE_SPRITE, pev->origin, FALSE);
+		m_pSprite->pev->scale = 1.0;
+		m_pSprite->SetTransparency(kRenderGlow, 255, 255, 255, 255, kRenderFxNoDissipation);
+		m_pSprite->pev->spawnflags |= SF_SPRITE_TEMPORARY;
+
+		if (m_fireMode == FIRE_WIDE)
+		{
+			m_pBeam->SetScrollRate(50);
+			m_pBeam->SetNoise(20);
+			m_pNoise->SetColor(50, 50, 255);
+			m_pNoise->SetNoise(8);
+		}
+		else
+		{
+			m_pBeam->SetScrollRate(110);
+			m_pBeam->SetNoise(5);
+			m_pNoise->SetColor(80, 120, 255);
+			m_pNoise->SetNoise(2);
+		}
 	}
-	*/
 }
 
 

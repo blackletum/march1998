@@ -2554,7 +2554,7 @@ void CL_ParseTempEntity( sizebuf_t *msg )
 		R_UserTracerParticle( pos, pos2, life, color, scale, 0, NULL );
 		break;
 
-	case TE_ATTACHEGONBEAM:
+	case TE_EGONBEAM:
 		pos[0] = MSG_ReadCoord(&buf);
 		pos[1] = MSG_ReadCoord(&buf);
 		pos[2] = MSG_ReadCoord(&buf);
