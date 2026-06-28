@@ -247,6 +247,8 @@ DECLARE_MESSAGE(m_Ammo, OxygenV);
 DECLARE_MESSAGE(m_Ammo, FlashlightV);
 DECLARE_MESSAGE(m_Ammo, AdrenalineV);
 DECLARE_MESSAGE(m_Ammo, LonJumBat);
+DECLARE_MESSAGE(m_Ammo, IvanSuitV);
+DECLARE_MESSAGE(m_Ammo, DefaultSuitV);
 
 DECLARE_COMMAND(m_Ammo, Slot1);
 DECLARE_COMMAND(m_Ammo, Slot2);
@@ -288,6 +290,10 @@ int CHudAmmo::Init(void)
 	HOOK_MESSAGE(FlashlightV);
 	HOOK_MESSAGE(AdrenalineV);
 
+	// Suit variants
+	HOOK_MESSAGE(IvanSuitV);
+	HOOK_MESSAGE(DefaultSuitV);
+
 	HOOK_COMMAND("slot1", Slot1);
 	HOOK_COMMAND("slot2", Slot2);
 	HOOK_COMMAND("slot3", Slot3);
@@ -324,7 +330,7 @@ void CHudAmmo::Reset(void)
 	m_iOxygen = 0;
 	m_flashOn = 0;
 	m_iAdrenaline = 0;
-	m_bAlphaSuit = 0;
+	gHUD.m_bAlphaSuit = 0;
 
 	m_fFade = 0;
 	m_iFlags |= HUD_ACTIVE; //!!!
@@ -607,21 +613,35 @@ int CHudAmmo::MsgFunc_AdrenalineV(const char* pszName, int iSize, void* pbuf)
 	return 1;
 }
 
-int CHudAmmo::MsgFunc_AlphaSuitV(const char* pszName, int iSize, void* pbuf)
+int CHudAmmo::MsgFunc_IvanSuitV(const char* pszName, int iSize, void* pbuf)
 {
 	BEGIN_READ(pbuf, iSize);
 
 	int x = READ_BYTE();
 
-	if (x != m_bAlphaSuit)
+	if (x != gHUD.m_bAlphaSuit)
 	{
 		m_fFade = FADE_TIME;
-		m_bAlphaSuit = x;
+		gHUD.m_bAlphaSuit = x;
 	}
 
 	return 1;
 }
 
+int CHudAmmo::MsgFunc_DefaultSuitV(const char* pszName, int iSize, void* pbuf)
+{
+	BEGIN_READ(pbuf, iSize);
+
+	int x = READ_BYTE();
+
+	if (x != gHUD.m_bDefaultSuit)
+	{
+		m_fFade = FADE_TIME;
+		gHUD.m_bDefaultSuit = x;
+	}
+
+	return 1;
+}
 
 //
 // AmmoX  -- Update the count of a known type of ammo
@@ -712,6 +732,7 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 	int iState = READ_BYTE();
 	int iId = READ_CHAR();
 	int iClip = READ_CHAR();
+	int iMaxClip = READ_BYTE();
 
 	// detect if we're also on target
 	if ( iState > 1 )
@@ -800,6 +821,7 @@ int CHudAmmo::MsgFunc_WeaponList(const char *pszName, int iSize, void *pbuf )
 	Weapon.iSlotPos = READ_CHAR();
 	Weapon.iId = READ_CHAR();
 	Weapon.iFlags = READ_BYTE();
+	Weapon.iMaxClip = READ_BYTE();
 	Weapon.iClip = 0;
 
 	gWR.AddWeapon( &Weapon );
@@ -979,10 +1001,39 @@ int CHudAmmo::Draw(float flTime)
 
 	if (gpActiveSel)
 		DrawInventory(flTime);
-		
-		// Draw Weapon Menu
-		DrawWList(flTime);
 
+	// Draw Weapon Menu
+	DrawWList(flTime);
+
+	if (gHUD.m_bAlphaSuit == TRUE)
+	{
+		// darkkrysteq: 0.52 HUD
+
+		int hud_ammo = gHUD.GetSpriteIndex("alpha_ammo");
+		int noweapon = gHUD.GetSpriteIndex("alpha_nowep");
+
+		// Draw Weapon Menu
+
+		WEAPON* w = m_pWeapon;
+
+		SPR_Set(gHUD.GetSprite(hud_ammo), 255, 255, 255);
+		SPR_DrawHoles(0, ScreenWidth - 280, ScreenHeight - 327, &gHUD.GetSpriteRect(hud_ammo));
+
+		if (!m_pWeapon || w->iAmmoType == NULL && w->iAmmo2Type == NULL && w->iClip == NULL) 
+		{
+			return 1;
+		}
+
+		FillRGBA(ScreenWidth - 44, ScreenHeight - 61, 10, gWR.CountAmmo(w->iAmmoType) * -244 / w->iMax1, 200, 0, 255, 255); // primarys
+
+		FillRGBA(ScreenWidth - 55, ScreenHeight - 61, 10, w->iClip * -244 / w->iMaxClip, 0, 255, 0, 255); // clip 
+
+		// p1llowguy - game crashes here
+		FillRGBA(ScreenWidth - 33, ScreenHeight - 61, 10, gWR.CountAmmo(w->iAmmo2Type) * -244 / w->iMax2, 255, 0, 0, 255); // secondarys
+
+	}
+	else
+	{
 		int iFlags = DHN_DRAWZERO; // draw 0 values
 
 		UnpackRGB(r, g, b, RGB_GREENISH);
@@ -1046,6 +1097,7 @@ int CHudAmmo::Draw(float flTime)
 			x += iWidth * 4;
 			x = gHUD.DrawSHudNumber(x, y, iFlags | DHN_3DIGITS, 255, r, g, b);
 		}
+	}	
 	return 1;
 }
 

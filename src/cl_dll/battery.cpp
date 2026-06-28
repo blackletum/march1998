@@ -80,6 +80,21 @@ int CHudBattery::Draw(float flTime)
 	if (!(gHUD.m_iWeaponBits & (1 << (WEAPON_SUIT))))
 		return 1;
 
+	if (gHUD.m_bAlphaSuit == TRUE)
+	{
+		int hud_bat = gHUD.GetSpriteIndex("alpha_bat");
+
+		wrect_t alrc = gHUD.GetSpriteRect(gHUD.GetSpriteIndex("alpha_batbar"));
+		alrc.right = 20; //because of how wrects work you need to start with the offset from hud.txt
+		alrc.right += m_iBat * 240 / 100;
+
+		SPR_Set(gHUD.GetSprite(gHUD.GetSpriteIndex("alpha_batbar")), 255, 255, 255);
+		SPR_DrawHoles(0, ScreenWidth - 262, ScreenHeight - 55, &alrc);
+
+		gHUD.DrawSHudNumber(ScreenWidth - 86, ScreenHeight - 42, DHN_3DIGITS | DHN_DRAWZERO, m_iBat, 15, 111, 231);
+	}
+	else
+	{
 		gHUD.m_Health.GetPainColor(r, g, b);
 
 		// Has health changed? Flash the health #
@@ -121,5 +136,6 @@ int CHudBattery::Draw(float flTime)
 
 		SPR_Set(gHUD.GetSprite(gHUD.GetSpriteIndex("powerz")), r, g, b);
 		SPR_DrawAdditiveHud(0, x, y, &rc);
+	}
 	return 1;
 }

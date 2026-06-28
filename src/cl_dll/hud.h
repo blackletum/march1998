@@ -124,9 +124,7 @@ public:
 	int MsgFunc_OxygenV(const char* pszName, int iSize, void* pbuf);
 	int MsgFunc_AdrenalineV(const char* pszName, int iSize, void* pbuf);
 	int MsgFunc_FlashlightV(const char* pszName, int iSize, void* pbuf);
-
-	// SUIT VARIATION
-	int MsgFunc_AlphaSuitV(const char* pszName, int iSize, void* pbuf);
+	int MsgFunc_IvanSuitV(const char* pszName, int iSize, void* pbuf);
 	int MsgFunc_DefaultSuitV(const char* pszName, int iSize, void* pbuf);
 
 	void SlotInput( int iSlot );
@@ -152,10 +150,6 @@ public:
 	int m_flashOn; // does flashlight is activated?
 	int m_iAdrenaline; //does we have adrenaline
 	int m_iLongJumpBat; //how much we have long jump battery?
-
-	// suit 
-	int m_bAlphaSuit;
-	int m_bDefaultSuit;
 
 private:
 	float m_fFade;
@@ -442,8 +436,8 @@ public:
 	int Init( void );
 	int VidInit( void );
 	int Draw(float flTime);
-	int MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf );
-	
+	int MsgFunc_Battery(const char *pszName, int iSize, void* pbuf);
+
 private:
 	HLSPRITE m_HLSPRITE1;
 	HLSPRITE m_HLSPRITE2;
@@ -670,6 +664,12 @@ public:
 	int _cdecl MsgFunc_SetFOV(const char *pszName,  int iSize, void *pbuf);
 	int  _cdecl MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf );
 	int _cdecl MsgFunc_PunchAngle(const char* pszName, int iSize, void* pbuf);
+
+
+	// Suit variation
+
+	int _cdecl m_bAlphaSuit;
+	int _cdecl m_bDefaultSuit;
 
 	// ENVIROMENT
 	void _cdecl MsgFunc_SetSky(const char* pszName, int iSize, void* pbuf);		//LRC

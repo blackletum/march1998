@@ -176,7 +176,22 @@ int CHudHealth::Draw(float flTime)
 	if (!m_HLSPRITE)
 		m_HLSPRITE = LoadSprite(PAIN_NAME);
 
+	if (gHUD.m_bAlphaSuit == TRUE)
+	{
+		SPR_Set(gHUD.GetSprite(gHUD.GetSpriteIndex("alpha_health")), 255, 255, 255);
+		SPR_DrawHoles(0, 0, ScreenHeight - 128, &gHUD.GetSpriteRect(gHUD.GetSpriteIndex("alpha_health")));
 
+		wrect_t alrc = gHUD.GetSpriteRect(gHUD.GetSpriteIndex("alpha_hpbar"));
+		alrc.right = 20; //because of how wrects work you need to start with the offset from hud.txt
+		alrc.right += m_iHealth * 240 / 100;
+
+		SPR_Set(gHUD.GetSprite(gHUD.GetSpriteIndex("alpha_hpbar")), 255, 255, 255);
+		SPR_DrawHoles(0, 20, ScreenHeight - 55, &alrc);
+
+		gHUD.DrawSHudNumber(30, ScreenHeight - 42, DHN_3DIGITS | DHN_DRAWZERO, m_iHealth, 240, 144, 24);
+	}
+	else
+	{
 		// Has health changed? Flash the health #
 		if (m_fFade)
 		{
@@ -204,9 +219,9 @@ int CHudHealth::Draw(float flTime)
 		y = ScreenHeight - 60; //height of big numbers and spacing between bottom of screen
 
 		x = gHUD.DrawBHudNumber(x, y, DHN_3DIGITS | DHN_DRAWZERO, m_iHealth, r, g, b);
+	}
 
 	return DrawPain(flTime);
-	return 1;
 }
 
 void CHudHealth::CalcDamageDirection(vec3_t vecFrom)

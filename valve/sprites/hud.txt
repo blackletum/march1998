@@ -1,4 +1,4 @@
-110
+89
 
 selection		640 640hud3	0	180	170	45
 
@@ -108,3 +108,9 @@ flash_off		640 flash_off		0	0	48	48
 
 shield_on		640 shield_on		0	0	48	48
 shield_off		640 shield_off		0	0	48	48
+
+alpha_health	640	640hud0		0 0 280 128
+alpha_bat	640	640hud0		0 132 200 64
+alpha_ammo	640	640hud0		360 0 280 320
+alpha_hpbar	640	640hud0		20 202 240 9
+alpha_batbar	640	640hud0		20 222 240 9

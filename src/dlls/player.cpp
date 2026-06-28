@@ -296,6 +296,7 @@ void LinkUserMessages( void )
 	gmsgOxygen = REG_USER_MSG("OxygenV", -1);
 	gmsgFlashlight = REG_USER_MSG("FlashlightV", 2);
 	gmsgAdrenaline = REG_USER_MSG("AdrenalineV", -1);
+
 	gmsgIvanSuit = REG_USER_MSG("IvanSuitV", -1);
 	gmsgDefaultSuit = REG_USER_MSG("DefaultSuitV", -1);
 
@@ -3322,6 +3323,14 @@ void CBasePlayer :: Precache( void )
 	m_iClientBattery = -1;
 
 	m_fCanRevive = FALSE;
+
+	m_bDefaultSuit = FALSE;
+	m_bAlphaSuit = FALSE;
+
+	m_fHasCrossbowScope = FALSE;
+	m_fHasSilencer = FALSE;
+
+	SetBodygroup(0, 0);
 
 	m_iTrain = TRAIN_NEW;
 
