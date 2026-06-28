@@ -1842,32 +1842,31 @@ R_CreateQuakeEgon
 ===============
 */
 
-static void R_CreateQuakeEgon(int entIndex, int fireMode, float* start, float* end)
+static void R_CreateQuakeEgon(int entIndex, int modelIndex, int fireMode, float* start, float* end)
 {
-	pBeam = R_BeamEntPoint(entIndex | 0x1000, end, 0, 99999, 0.0f, 0, 0, 0, 0, 0, 0, 0, 0);
-	vec3_t		angles, forward;
+	pBeam = R_BeamEntPoint(entIndex | 0x1000, end, modelIndex, 99999, 0.0f, 0, 0, 0, 0, 0, 0, 0, 0);
+	vec3_t		forward;
+	AngleVectors(cl.viewangles, forward, NULL, NULL);
+	
+	VectorCopy(clgame.viewent.attachment[0], start); //darkkrysteq: My Attachment Based Positioning Codes
+	//VectorCopy(cl.simorg, start);
 
-	//p1llowguy - delete it later pls
-	/*
-	vec3_t			start, end, forward;
-	AngleVectors(rp.cl_viewangles, forward, NULL, NULL);
-	VectorCopy(rp.simorg, start);
-	VectorAdd(start, rp.viewheight, start);
+	//VectorAdd(start, cl.viewheight, start); 
+
 	VectorCopy(start, end);
 	VectorMA(end, 512.0f, forward, end);
-	R_EgonBeam(start, end, rp.cl_viewangles, 2);
-	*/
+	//R_EgonBeam(start, end, cl.viewangles, 2);
 
 	//partially working egon beam!
 	if (pBeam)
 	{
 		if (fireMode == 1) // if (m_fireMode == FIRE_WIDE)
 		{
-			R_EgonBeam(start, end, pBeam, 2);
+			R_EgonBeam(start, end, cl.viewangles, 2);
 		}
 		else
 		{
-			R_EgonBeam(start, end, pBeam, 1);
+			R_EgonBeam(start, end, cl.viewangles, 1);
 		}
 	}
 }
@@ -1883,7 +1882,7 @@ void R_EgonBeamTempEnt(int entIndex, int modelIndex, int fireMode, float timeBle
 {
 	R_BeamKill(entIndex | 0x1000);
 
-	R_CreateQuakeEgon(entIndex, fireMode, start, end);
+	R_CreateQuakeEgon(entIndex, modelIndex, fireMode, start, end);
 	//R_CreateNormalEgon(entIndex, modelIndex, fireMode, timeBlend, start, end);
 }
 
