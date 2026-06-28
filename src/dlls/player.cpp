@@ -124,6 +124,10 @@ TYPEDESCRIPTION	CBasePlayer::m_playerSaveData[] =
 	DEFINE_FIELD(CBasePlayer, m_fHasSilencer, FIELD_INTEGER),
 	DEFINE_FIELD(CBasePlayer, m_iLongJumpBattery, FIELD_INTEGER),
 
+	//alpha suit
+	DEFINE_FIELD(CBasePlayer, m_bAlphaSuit, FIELD_INTEGER),
+	DEFINE_FIELD(CBasePlayer, m_bDefaultSuit, FIELD_INTEGER),
+
 	DEFINE_FIELD( CBasePlayer, m_pTank, FIELD_EHANDLE ),
 	DEFINE_FIELD( CBasePlayer, m_iHideHUD, FIELD_INTEGER ),
 	DEFINE_FIELD( CBasePlayer, m_iFOV, FIELD_INTEGER ),
@@ -225,6 +229,10 @@ int gmsgLongJumpBat = 0;
 int gmsgOxygen = 0;
 int gmsgAdrenaline = 0;
 
+// Suit Variation
+int gmsgDefaultSuit = 0;
+int gmsgIvanSuit = 0;
+
 // Enviroment
 int gmsgSetSky = 0;		//LRC
 int gmsgSetFog = 0;
@@ -288,6 +296,8 @@ void LinkUserMessages( void )
 	gmsgOxygen = REG_USER_MSG("OxygenV", -1);
 	gmsgFlashlight = REG_USER_MSG("FlashlightV", 2);
 	gmsgAdrenaline = REG_USER_MSG("AdrenalineV", -1);
+	gmsgIvanSuit = REG_USER_MSG("IvanSuitV", -1);
+	gmsgDefaultSuit = REG_USER_MSG("DefaultSuitV", -1);
 
 	// ENVIROMENT
 	gmsgSetSky = REG_USER_MSG("SetSky", 7);	//LRC
@@ -3032,6 +3042,14 @@ void CBasePlayer::PostThink()
 	else
 		SetBodygroup(1, 0);
 
+	// if we have alpha suit, then gordon will be in ivan suit
+	if (m_bAlphaSuit == TRUE)
+		SetBodygroup(0, 2);
+	else if (m_bDefaultSuit == TRUE)
+		SetBodygroup(0, 1);
+	else
+		SetBodygroup(0, 0);
+
 	StudioFrameAdvance( );
 	CheckPowerups(pev);
 
@@ -3192,6 +3210,8 @@ void CBasePlayer::Spawn( void )
 	m_iDamagePool		= 0;
 	m_iDamagePoolTimer	= -1;
 
+	SetBodygroup(0, 0);
+
 	g_engfuncs.pfnSetPhysicsKeyValue( edict(), "slj", "0" );
 	g_engfuncs.pfnSetPhysicsKeyValue( edict(), "hl", "1" );
 
@@ -3249,7 +3269,10 @@ void CBasePlayer::Spawn( void )
 	m_fWeapon = FALSE;
 	m_pClientActiveItem = NULL;
 	m_iClientBattery = -1;
-	m_fCanRevive = TRUE;
+	m_fCanRevive = FALSE;
+
+	m_bDefaultSuit = FALSE;
+	m_bAlphaSuit = FALSE;
 
 	// reset all ammo values to 0
 	for ( int i = 0; i < MAX_AMMO_SLOTS; i++ )
@@ -3298,7 +3321,7 @@ void CBasePlayer :: Precache( void )
 
 	m_iClientBattery = -1;
 
-	m_fCanRevive = TRUE;
+	m_fCanRevive = FALSE;
 
 	m_iTrain = TRAIN_NEW;
 
@@ -4588,6 +4611,16 @@ void CBasePlayer :: UpdateClientData( void )
 	MESSAGE_BEGIN(MSG_ONE, gmsgOxygen, NULL, pev);
 	WRITE_BYTE(m_rgItems[ITEM_OXYGEN]);
 	WRITE_SHORT(m_fOxygen);
+	MESSAGE_END();
+
+	//update Ivan suit
+	MESSAGE_BEGIN(MSG_ONE, gmsgIvanSuit, NULL, pev);
+	WRITE_SHORT(m_bAlphaSuit);
+	MESSAGE_END();
+
+	//update default suit
+	MESSAGE_BEGIN(MSG_ONE, gmsgDefaultSuit, NULL, pev);
+	WRITE_SHORT(m_bDefaultSuit);
 	MESSAGE_END();
 
 	if (gmsgLongJumpBat)

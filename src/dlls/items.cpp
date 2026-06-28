@@ -249,6 +249,8 @@ class CItemSuit : public CItem
 		else
 			EMIT_SOUND_SUIT(pPlayer->edict(), "!HEV_AAx");	// long version of suit logon
 
+		pPlayer->m_bDefaultSuit = TRUE;
+
 		pPlayer->pev->weapons |= (1<<WEAPON_SUIT);
 		return TRUE;
 	}
@@ -256,7 +258,39 @@ class CItemSuit : public CItem
 
 LINK_ENTITY_TO_CLASS(item_suit, CItemSuit);
 
+class CItemAlphaSuit: public CItem
+{
+	void Spawn(void)
+	{
+		Precache();
+		SET_MODEL(ENT(pev), "models/w_suit.mdl");
+		pev->body = 1;
+		CItem::Spawn();
+	}
+	void Precache(void)
+	{
+		PRECACHE_MODEL("models/w_suit.mdl");
+	}
+	BOOL MyTouch(CBasePlayer* pPlayer)
+	{
+		if (pPlayer->pev->weapons & (1 << WEAPON_SUIT))
+			return FALSE;
 
+		if (pev->spawnflags & SF_SUIT_SHORTLOGON)
+			EMIT_SOUND_SUIT(pPlayer->edict(), "!HEV_A0");		// short version of suit logon,
+		else
+			EMIT_SOUND_SUIT(pPlayer->edict(), "!HEV_AAx");	// long version of suit logon
+
+		pPlayer->m_bAlphaSuit = TRUE;
+
+		ALERT(at_console, "picked up alpha suit");
+
+		pPlayer->pev->weapons |= (1 << WEAPON_SUIT);
+		return TRUE;
+	}
+};
+
+LINK_ENTITY_TO_CLASS(item_ivansuit, CItemAlphaSuit);
 
 class CItemBattery : public CItem
 {
@@ -392,13 +426,13 @@ class CItemAntidote : public CItem
 	BOOL MyTouch(CBasePlayer* pPlayer)
 	{
 
-		if (g_iSkillLevel == SKILL_EASY && pPlayer->m_rgItems[ITEM_ANTIDOTE] >= 5)
+		if (g_iSkillLevel == SKILL_EASY && pPlayer->m_rgItems[ITEM_ANTIDOTE] >= 5 && pPlayer->pev->weapons & (1 << WEAPON_SUIT))
 			return FALSE;
 
-		if (g_iSkillLevel == SKILL_MEDIUM && pPlayer->m_rgItems[ITEM_ANTIDOTE] >= 3)
+		if (g_iSkillLevel == SKILL_MEDIUM && pPlayer->m_rgItems[ITEM_ANTIDOTE] >= 3 && pPlayer->pev->weapons & (1 << WEAPON_SUIT))
 			return FALSE;
 
-		if (g_iSkillLevel == SKILL_HARD && pPlayer->m_rgItems[ITEM_ANTIDOTE] >= 1)
+		if (g_iSkillLevel == SKILL_HARD && pPlayer->m_rgItems[ITEM_ANTIDOTE] >= 1 && pPlayer->pev->weapons & (1 << WEAPON_SUIT))
 			return FALSE;
 
 		pPlayer->m_rgItems[ITEM_ANTIDOTE]++;
@@ -433,13 +467,13 @@ class CItemRadiation : public CItem
 
 	BOOL MyTouch(CBasePlayer* pPlayer)
 	{
-		if (g_iSkillLevel == SKILL_EASY && pPlayer->m_rgItems[ITEM_RADIATION] >= 5)
+		if (g_iSkillLevel == SKILL_EASY && pPlayer->m_rgItems[ITEM_RADIATION] >= 5 && pPlayer->pev->weapons & (1 << WEAPON_SUIT))
 			return FALSE;
 
-		if (g_iSkillLevel == SKILL_MEDIUM && pPlayer->m_rgItems[ITEM_RADIATION] >= 3)
+		if (g_iSkillLevel == SKILL_MEDIUM && pPlayer->m_rgItems[ITEM_RADIATION] >= 3 && pPlayer->pev->weapons & (1 << WEAPON_SUIT))
 			return FALSE;
 
-		if (g_iSkillLevel == SKILL_HARD && pPlayer->m_rgItems[ITEM_RADIATION] >= 1)
+		if (g_iSkillLevel == SKILL_HARD && pPlayer->m_rgItems[ITEM_RADIATION] >= 1 && pPlayer->pev->weapons & (1 << WEAPON_SUIT))
 			return FALSE;
 
 		pPlayer->m_rgItems[ITEM_RADIATION]++;
@@ -508,7 +542,7 @@ class CItemAdrenaline : public CItem
 	}
 	BOOL MyTouch(CBasePlayer* pPlayer)
 	{
-		if (pPlayer->m_rgItems[ITEM_ADRENALINE] <= 0)
+		if (pPlayer->m_rgItems[ITEM_ADRENALINE] <= 0 && pPlayer->pev->weapons & (1 << WEAPON_SUIT))
 		{
 			switch (RANDOM_LONG(0, 1))
 			{
@@ -585,7 +619,7 @@ class CItemShield : public CItem
 	}
 	BOOL MyTouch(CBasePlayer* pPlayer)
 	{
-		if (!pPlayer->m_rgItems[ITEM_SHIELD])
+		if (!pPlayer->m_rgItems[ITEM_SHIELD] && pPlayer->pev->weapons & (1 << WEAPON_SUIT))
 		{
 			pPlayer->SetSuitUpdate("!HEV_A2", FALSE, SUIT_REPEAT_OK);
 			EMIT_SOUND(pPlayer->edict(), CHAN_ITEM, "items/gunpickup2.wav", 1, ATTN_NORM);

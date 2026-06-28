@@ -3,13 +3,15 @@
 // Stored modelname (without quotes): ".\MDL\CTF_Helmet.mdl"
 $modelname "player.mdl"
 $cd "."
-$cdtexture "."
+$cdtexture "./maps_8bit"
 $cliptotextures
 $scale 1.0
 
 $bodygroup "studio"
 {
-	studio "player_template_biped(Helmet)1"
+	studio "player_template_biped(suitless)"
+	studio "player_template_biped(Helmet)"
+	studio "player_template_biped(alphasuit)"
 }
 
 $bodygroup "airtank"
@@ -19,13 +21,6 @@ $bodygroup "airtank"
 }
 
 $flags 0
-
-$texturegroup "skinfamilies"
-{
-	{ "PLAYER_Back1.bmp"      "PLAYER_Legs1.bmp"      "PLAYER_LegBck1.bmp"      "PLAYER_Chest1.bmp"      "PLAYER_Bicep1.bmp"      "PLAYER_ForeArm1.bmp"      "PLAYER_Knee-Bck1.bmp"      "PLAYER_Calf1.bmp"      "PLAYER_Boots.bmp"      "PLAYER_FootTop1.bmp"      "PLAYER_Shldr-Joint.bmp"      "PLAYER_Helm(Fnt)1.bmp"      "PLAYER_Helm(Sde1.bmp"      }
-	{ "PLAYER_Back1_blue.bmp" "PLAYER_Legs1_blue.bmp" "PLAYER_LegBck1_blue.bmp" "PLAYER_Chest1_blue.bmp" "PLAYER_Bicep1_blue.bmp" "PLAYER_ForeArm1_blue.bmp" "PLAYER_Knee-Bck1_blue.bmp" "PLAYER_Calf1_blue.bmp" "PLAYER_Boots_blue.bmp" "PLAYER_FootTop1_blue.bmp" "PLAYER_Shldr-Joint_blue.bmp" "PLAYER_Helm(Fnt)1_blue.bmp" "PLAYER_Helm(Sde1_blue.bmp" }
-}
-
 
 $attachment 0 "Bip01 R Hand" 20 2 5
 $attachment 1 "Bip01 R Hand" 15 1.5 3.75

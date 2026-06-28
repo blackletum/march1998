@@ -125,6 +125,10 @@ public:
 	int MsgFunc_AdrenalineV(const char* pszName, int iSize, void* pbuf);
 	int MsgFunc_FlashlightV(const char* pszName, int iSize, void* pbuf);
 
+	// SUIT VARIATION
+	int MsgFunc_AlphaSuitV(const char* pszName, int iSize, void* pbuf);
+	int MsgFunc_DefaultSuitV(const char* pszName, int iSize, void* pbuf);
+
 	void SlotInput( int iSlot );
 	void _cdecl UserCmd_Slot1( void );
 	void _cdecl UserCmd_Slot2( void );
@@ -148,6 +152,10 @@ public:
 	int m_flashOn; // does flashlight is activated?
 	int m_iAdrenaline; //does we have adrenaline
 	int m_iLongJumpBat; //how much we have long jump battery?
+
+	// suit 
+	int m_bAlphaSuit;
+	int m_bDefaultSuit;
 
 private:
 	float m_fFade;

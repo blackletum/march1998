@@ -203,6 +203,10 @@ public:
 	int					m_fHasSilencer; //does we have silencer for glock?
 	int					m_fOxygen; // how many breaths are in the airtank?
 
+	// SUIT VARIATION
+	BOOL				m_bAlphaSuit;
+	BOOL				m_bDefaultSuit;
+
 	virtual void Spawn( void );
 	void Pain( void );
 

@@ -324,6 +324,7 @@ void CHudAmmo::Reset(void)
 	m_iOxygen = 0;
 	m_flashOn = 0;
 	m_iAdrenaline = 0;
+	m_bAlphaSuit = 0;
 
 	m_fFade = 0;
 	m_iFlags |= HUD_ACTIVE; //!!!
@@ -605,6 +606,22 @@ int CHudAmmo::MsgFunc_AdrenalineV(const char* pszName, int iSize, void* pbuf)
 
 	return 1;
 }
+
+int CHudAmmo::MsgFunc_AlphaSuitV(const char* pszName, int iSize, void* pbuf)
+{
+	BEGIN_READ(pbuf, iSize);
+
+	int x = READ_BYTE();
+
+	if (x != m_bAlphaSuit)
+	{
+		m_fFade = FADE_TIME;
+		m_bAlphaSuit = x;
+	}
+
+	return 1;
+}
+
 
 //
 // AmmoX  -- Update the count of a known type of ammo
