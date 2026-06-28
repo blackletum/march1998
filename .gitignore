@@ -46,6 +46,7 @@
 [Vv]alve/levelshots
 [Vv]alve/save
 [Vv]alve/demoheader.*
+*.bmp
 
 # Node graphs
 [Vv]alve/maps/graphs
