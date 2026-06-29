@@ -488,12 +488,15 @@ int CRpg::AddToPlayer(CBasePlayer* pPlayer)
 
 BOOL CRpg::Deploy()
 {
+	if (m_pPlayer->m_rgItems[ITEM_IVANSUIT])
+		pev->body = 1;
+	else
+		pev->body = 0;
+
 	if (m_iClip == 0)
 		return DefaultDeploy("models/v_rpg.mdl", "models/p_rpg.mdl", RPG_DRAW_UL, "rpg");
 	else
 		return DefaultDeploy("models/v_rpg.mdl", "models/p_rpg.mdl", RPG_DRAW1, "rpg");
-
-	
 }
 
 

@@ -138,6 +138,12 @@ BOOL CMINIGUN::Deploy( )
 	m_fInAttack = 0;
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.5;
 
+	if (m_pPlayer->m_rgItems[ITEM_IVANSUIT])
+		pev->body = 1;
+	else
+		pev->body = 0;
+
+
 	return DefaultDeploy("models/v_minigun.mdl", "models/p_9mmAR.mdl", MINIGUN_DRAW, "egon");
 }
 

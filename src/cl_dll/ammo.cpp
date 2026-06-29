@@ -330,7 +330,7 @@ void CHudAmmo::Reset(void)
 	m_iOxygen = 0;
 	m_flashOn = 0;
 	m_iAdrenaline = 0;
-	gHUD.m_bAlphaSuit = 0;
+	gHUD.m_fAlphaSuit = 0;
 
 	m_fFade = 0;
 	m_iFlags |= HUD_ACTIVE; //!!!
@@ -619,10 +619,10 @@ int CHudAmmo::MsgFunc_IvanSuitV(const char* pszName, int iSize, void* pbuf)
 
 	int x = READ_BYTE();
 
-	if (x != gHUD.m_bAlphaSuit)
+	if (x != gHUD.m_fAlphaSuit)
 	{
 		m_fFade = FADE_TIME;
-		gHUD.m_bAlphaSuit = x;
+		gHUD.m_fAlphaSuit = x;
 	}
 
 	return 1;
@@ -634,10 +634,10 @@ int CHudAmmo::MsgFunc_DefaultSuitV(const char* pszName, int iSize, void* pbuf)
 
 	int x = READ_BYTE();
 
-	if (x != gHUD.m_bDefaultSuit)
+	if (x != gHUD.m_fDefaultSuit)
 	{
 		m_fFade = FADE_TIME;
-		gHUD.m_bDefaultSuit = x;
+		gHUD.m_fDefaultSuit = x;
 	}
 
 	return 1;
@@ -1009,7 +1009,7 @@ int CHudAmmo::Draw(float flTime)
 	// Draw Weapon Menu
 	DrawWList(flTime);
 
-	if (gHUD.m_bAlphaSuit == TRUE)
+	if (gHUD.m_fAlphaSuit == TRUE)
 	{
 		// darkkrysteq: 0.52 HUD
 

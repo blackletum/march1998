@@ -170,6 +170,11 @@ void CEgon::Precache( void )
 
 BOOL CEgon::Deploy( void )
 {
+	if (m_pPlayer->m_rgItems[ITEM_IVANSUIT])
+		pev->body = 1;
+	else
+		pev->body = 0;
+
 	return DefaultDeploy( "models/v_egon.mdl", "models/p_egon.mdl", EGON_DRAW, "egon" );
 }
 

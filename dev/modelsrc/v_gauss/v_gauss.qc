@@ -27,8 +27,11 @@ $eyeposition 0.000000 0.000000 0.000000
 //reference mesh(es)
 $body "body" "gauss_gunfihxer"
 
-$body "body" "gauss_hand"
-
+$bodygroup "hands"
+{
+studio "gauss_hand_beta"
+studio "gauss_hand_ivan"
+}
 
 // 1 attachment(s)
 $attachment 0 "Gauss Master" 17.000000 -1.000000 0.000000

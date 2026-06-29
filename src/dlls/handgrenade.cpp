@@ -108,6 +108,11 @@ int CHandGrenade::GetItemInfo(ItemInfo *p)
 
 BOOL CHandGrenade::Deploy( )
 {
+	if (m_pPlayer->m_rgItems[ITEM_IVANSUIT])
+		pev->body = 1;
+	else
+		pev->body = 0;
+
 	m_flReleaseThrow = -1;
 	return DefaultDeploy( "models/v_grenade.mdl", "models/p_grenade.mdl", HANDGRENADE_DRAW, "crowbar" );
 }

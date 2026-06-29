@@ -22,8 +22,13 @@ $hbox 0 "Bip02 Head" 0.080000 -1.140000 -2.010000 1.610000 0.380000 2.120000
 
 
 // whole body
-$body body "vchub_Template(Hands)1" 
-$body body "vchub_Template(toad)1" 
+$body body "vchub_Template(toad)" 
+
+$bodygroup "hands"
+{
+    studio "vchub_Template(beta_hands)"
+    studio "vchub_Template(ivan_hands)"
+}
 
 $texturegroup skinfamilies 
 {

@@ -68,6 +68,8 @@ public:
 #define ITEM_ADRENALINE		8
 #define ITEM_SHIELD			9
 #define ITEM_TOURNIQUET		10
+#define ITEM_SUIT			11
+#define ITEM_IVANSUIT		12
 
 
 #define WEAPON_NONE				0

@@ -204,8 +204,8 @@ public:
 	int					m_fOxygen; // how many breaths are in the airtank?
 
 	// SUIT VARIATION
-	BOOL				m_bAlphaSuit;
-	BOOL				m_bDefaultSuit;
+	int					m_fAlphaSuit;
+	int					m_fDefaultSuit;
 
 	virtual void Spawn( void );
 	void Pain( void );

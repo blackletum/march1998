@@ -668,8 +668,8 @@ public:
 
 	// Suit variation
 
-	int _cdecl m_bAlphaSuit;
-	int _cdecl m_bDefaultSuit;
+	int _cdecl m_fAlphaSuit;
+	int _cdecl m_fDefaultSuit;
 
 	// ENVIROMENT
 	void _cdecl MsgFunc_SetSky(const char* pszName, int iSize, void* pbuf);		//LRC

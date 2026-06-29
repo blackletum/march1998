@@ -132,11 +132,15 @@ int CCrossbow::GetItemInfo(ItemInfo *p)
 
 BOOL CCrossbow::Deploy( )
 {
+	if (m_pPlayer->m_rgItems[ITEM_IVANSUIT])
+		SetBodygroup(0, 1);
+	else
+		SetBodygroup(0, 0);
 
 	if (m_pPlayer->m_fHasCrossbowScope == TRUE)
-		pev->body = 0;
+		SetBodygroup(1, 1);
 	else
-		pev->body = 1;
+		SetBodygroup(1, 0);
 
 	if (m_iClip)
 		return DefaultDeploy( "models/v_crossbow.mdl", "models/p_crossbow.mdl", CROSSBOW_DRAW1, "bow" );

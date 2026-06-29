@@ -176,7 +176,7 @@ int CHudHealth::Draw(float flTime)
 	if (!m_HLSPRITE)
 		m_HLSPRITE = LoadSprite(PAIN_NAME);
 
-	if (gHUD.m_bAlphaSuit == TRUE)
+	if (gHUD.m_fAlphaSuit == TRUE)
 	{
 		SPR_Set(gHUD.GetSprite(gHUD.GetSpriteIndex("alpha_health")), 255, 255, 255);
 		SPR_DrawHoles(0, 0, ScreenHeight - 128, &gHUD.GetSpriteRect(gHUD.GetSpriteIndex("alpha_health")));

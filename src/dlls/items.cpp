@@ -233,6 +233,7 @@ class CItemSuit : public CItem
 	{ 
 		Precache( );
 		SET_MODEL(ENT(pev), "models/w_suit.mdl");
+		pev->body = 0;
 		CItem::Spawn( );
 	}
 	void Precache( void )
@@ -249,7 +250,9 @@ class CItemSuit : public CItem
 		else
 			EMIT_SOUND_SUIT(pPlayer->edict(), "!HEV_AAx");	// long version of suit logon
 
-		pPlayer->m_bDefaultSuit = TRUE;
+		pPlayer->m_fDefaultSuit = TRUE;
+
+		pPlayer->m_rgItems[ITEM_SUIT] += 1;
 
 		pPlayer->pev->weapons |= (1<<WEAPON_SUIT);
 		return TRUE;
@@ -281,9 +284,9 @@ class CItemAlphaSuit: public CItem
 		else
 			EMIT_SOUND_SUIT(pPlayer->edict(), "!HEV_AAx");	// long version of suit logon
 
-		pPlayer->m_bAlphaSuit = TRUE;
+		pPlayer->m_fAlphaSuit = TRUE;
 
-		ALERT(at_console, "picked up alpha suit");
+		pPlayer->m_rgItems[ITEM_IVANSUIT] += 1;
 
 		pPlayer->pev->weapons |= (1 << WEAPON_SUIT);
 		return TRUE;

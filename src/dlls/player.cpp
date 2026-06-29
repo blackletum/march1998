@@ -125,8 +125,8 @@ TYPEDESCRIPTION	CBasePlayer::m_playerSaveData[] =
 	DEFINE_FIELD(CBasePlayer, m_iLongJumpBattery, FIELD_INTEGER),
 
 	//alpha suit
-	DEFINE_FIELD(CBasePlayer, m_bAlphaSuit, FIELD_INTEGER),
-	DEFINE_FIELD(CBasePlayer, m_bDefaultSuit, FIELD_INTEGER),
+	DEFINE_FIELD(CBasePlayer, m_fAlphaSuit, FIELD_INTEGER),
+	DEFINE_FIELD(CBasePlayer, m_fDefaultSuit, FIELD_INTEGER),
 
 	DEFINE_FIELD( CBasePlayer, m_pTank, FIELD_EHANDLE ),
 	DEFINE_FIELD( CBasePlayer, m_iHideHUD, FIELD_INTEGER ),
@@ -3044,9 +3044,9 @@ void CBasePlayer::PostThink()
 		SetBodygroup(1, 0);
 
 	// if we have alpha suit, then gordon will be in ivan suit
-	if (m_bAlphaSuit == TRUE)
+	if (m_rgItems[ITEM_IVANSUIT])
 		SetBodygroup(0, 2);
-	else if (m_bDefaultSuit == TRUE)
+	else if (m_rgItems[ITEM_SUIT])
 		SetBodygroup(0, 1);
 	else
 		SetBodygroup(0, 0);
@@ -3272,8 +3272,8 @@ void CBasePlayer::Spawn( void )
 	m_iClientBattery = -1;
 	m_fCanRevive = FALSE;
 
-	m_bDefaultSuit = FALSE;
-	m_bAlphaSuit = FALSE;
+	m_fDefaultSuit = FALSE;
+	m_fAlphaSuit = FALSE;
 
 	// reset all ammo values to 0
 	for ( int i = 0; i < MAX_AMMO_SLOTS; i++ )
@@ -3324,8 +3324,8 @@ void CBasePlayer :: Precache( void )
 
 	m_fCanRevive = FALSE;
 
-	m_bDefaultSuit = FALSE;
-	m_bAlphaSuit = FALSE;
+	m_fDefaultSuit = FALSE;
+	m_fAlphaSuit = FALSE;
 
 	m_fHasCrossbowScope = FALSE;
 	m_fHasSilencer = FALSE;
@@ -4624,12 +4624,12 @@ void CBasePlayer :: UpdateClientData( void )
 
 	//update Ivan suit
 	MESSAGE_BEGIN(MSG_ONE, gmsgIvanSuit, NULL, pev);
-	WRITE_SHORT(m_bAlphaSuit);
+	WRITE_BYTE(m_rgItems[ITEM_IVANSUIT]);
 	MESSAGE_END();
 
 	//update default suit
 	MESSAGE_BEGIN(MSG_ONE, gmsgDefaultSuit, NULL, pev);
-	WRITE_SHORT(m_bDefaultSuit);
+	WRITE_BYTE(m_rgItems[ITEM_SUIT]);
 	MESSAGE_END();
 
 	if (gmsgLongJumpBat)

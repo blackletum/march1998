@@ -149,7 +149,7 @@ int CShotgun::GetItemInfo(ItemInfo *p)
 
 BOOL CShotgun::Deploy( )
 {
-	if (m_pPlayer->m_bAlphaSuit == TRUE)
+	if (m_pPlayer->m_rgItems[ITEM_IVANSUIT])
 		pev->body = 1;
 	else
 		pev->body = 0;

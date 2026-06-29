@@ -407,6 +407,12 @@ BOOL CSatchel::Deploy()
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.0;
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + UTIL_SharedRandomFloat(m_pPlayer->random_seed, 10, 15);
 
+	if (m_pPlayer->m_rgItems[ITEM_IVANSUIT])
+		pev->body = 1;
+	else
+		pev->body = 0;
+
+
 	if (m_chargeReady)
 		return DefaultDeploy("models/v_satchel_radio.mdl", "models/p_satchel_radio.mdl", SATCHEL_RADIO_DRAW, "hive");
 	else

@@ -16,7 +16,7 @@ thank you drooga!
 
 $modelname "v_357.mdl"
 $cd ".\"
-$cdtexture ".\"
+$cdtexture ".\maps_8bit"
 $scale 1.0
 $cliptotextures
 
@@ -29,11 +29,15 @@ $eyeposition 0.000000 0.000000 0.000000
 //reference mesh(es)
 $body "gun" "python_gun"
 
-$body "hands" "python_dualhands"
-
 $body "hands" "python_bullets"
 
 $body "hands" "python_speedload"
+
+$bodygroup "hands"
+{
+    studio "python_dualhands(beta_hands)"
+    studio "python_dualhands(ivan_hands)"
+}
 
 
 // 7 hit box(es)

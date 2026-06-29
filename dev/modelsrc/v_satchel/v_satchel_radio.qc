@@ -7,8 +7,13 @@ $scale 1.0
 $origin 0 0 64
 
 // whole body
-$body body "satchel_radio_hand"
 $body body "satchel_radio_detonator"
+
+$bodygroup "hands"
+{
+studio "satchel_radio_hand_beta"
+studio "satchel_radio_hand_ivan"
+}
 
 $sequence idle1 "satchel_radio_idle1(simple)" loop fps 30
 $sequence fidget1 "satchel_radio_fidget1(lidshake)" fps 30

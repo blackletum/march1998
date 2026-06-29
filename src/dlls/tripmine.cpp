@@ -101,7 +101,8 @@ void CTripmineGrenade::Spawn(void)
 
 	SET_MODEL(ENT(pev), "models/v_tripmine.mdl");
 	pev->frame = 0;
-	pev->body = 3;
+	SetBodygroup(0, 2);
+	SetBodygroup(1, 1);
 	pev->sequence = TRIPMINE_WORLD;
 	ResetSequenceInfo();
 	pev->framerate = 0;
@@ -394,7 +395,8 @@ void CTripmine::Spawn()
 	m_iId = WEAPON_TRIPMINE;
 	SET_MODEL(ENT(pev), "models/v_tripmine.mdl");
 	pev->frame = 0;
-	pev->body = 3;
+	SetBodygroup(0, 2);
+	SetBodygroup(1, 1);
 	pev->sequence = TRIPMINE_GROUND;
 	// ResetSequenceInfo( );
 	pev->framerate = 0;
@@ -439,7 +441,13 @@ int CTripmine::GetItemInfo(ItemInfo* p)
 
 BOOL CTripmine::Deploy()
 {
-	pev->body = 0;
+	if (m_pPlayer->m_rgItems[ITEM_IVANSUIT] == TRUE)
+		SetBodygroup(0, 1);
+	else
+		SetBodygroup(0, 0);
+
+	SetBodygroup(1, 0);
+
 	return DefaultDeploy("models/v_tripmine.mdl", "models/p_tripmine.mdl", TRIPMINE_DRAW, "trip");
 }
 

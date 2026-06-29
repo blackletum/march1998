@@ -785,8 +785,10 @@ BOOL CChubGrenade::Deploy()
 	m_pPlayer->m_iWeaponVolume = QUIET_GUN_VOLUME;
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.0;
 	
-
-	ALERT(at_console, "RandomChub = %d\n", RandomChub);
+	if (m_pPlayer->m_rgItems[ITEM_IVANSUIT])
+		pev->body = 1;
+	else
+		pev->body = 0;
 
 	return DefaultDeploy("models/v_chub.mdl", "models/p_squeak.mdl", CHUB_UP, "chub");
 }

@@ -8,7 +8,12 @@ $origin -4 .5 63.25 0 // *to move it back to center, the X-offset is -6
 
 // whole body
 $body body "crossbow_bow" reverse
-$body body "crossbow_hand"
+
+$bodygroup "hands"
+{
+studio "crossbow_hand_beta"
+studio "crossbow_hand_ivan"
+}
 
 $bodygroup "scope"
 {

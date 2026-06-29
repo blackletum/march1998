@@ -166,6 +166,11 @@ int CGauss::GetItemInfo(ItemInfo* p)
 
 BOOL CGauss::Deploy()
 {
+	if (m_pPlayer->m_rgItems[ITEM_IVANSUIT])
+		pev->body = 1;
+	else
+		pev->body = 0;
+
 	return DefaultDeploy("models/v_gauss.mdl", "models/p_gauss.mdl", GAUSS_DRAW, "gauss");
 }
 

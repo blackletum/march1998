@@ -114,15 +114,10 @@ void CPython::Precache( void )
 
 BOOL CPython::Deploy( )
 {
-	//if ( g_pGameRules->IsMultiplayer() )
-	{
-		// enable laser sight geometry.
+	if (m_pPlayer->m_rgItems[ITEM_IVANSUIT])
 		pev->body = 1;
-	}
-	//else
-	{
-		//pev->body = 0;
-	}
+	else
+		pev->body = 0;
 
 	return DefaultDeploy( "models/v_357.mdl", "models/p_357.mdl", PYTHON_DRAW, "python" );
 }
