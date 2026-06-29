@@ -13,7 +13,7 @@ $scale 1
 
 // whole body
 $body studio "mp5sd(just_the_gun)"
-$body studio "mp5sd_hands"
+$body studio "Ivan_Hands"
 
 
 //$origin	SIDE-SIDE IN-OUT  UP-DOWN
