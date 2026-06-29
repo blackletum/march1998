@@ -9,7 +9,12 @@ $scale 1.0
 $bodygroup "studio"
 {
 	studio "crowbar_reference(Just_the_Crowbar)"
+}
+
+$bodygroup "hands"
+{
 	studio "crowbar_reference(beta_hands)"
+	studio "crowbar_reference(ivan_hands)"
 }
 
 $flags 0

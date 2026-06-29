@@ -4746,6 +4746,7 @@ void CBasePlayer :: UpdateClientData( void )
 				WRITE_BYTE(II.iPosition);				// byte		bucket pos
 				WRITE_BYTE(II.iId);						// byte		id (bit index into pev->weapons)
 				WRITE_BYTE(II.iFlags);					// byte		Flags
+				WRITE_BYTE(II.iMaxClip);				// byte		Flags
 			MESSAGE_END();
 		}
 	}

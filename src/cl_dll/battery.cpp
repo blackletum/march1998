@@ -81,9 +81,7 @@ int CHudBattery::Draw(float flTime)
 		return 1;
 
 	if (gHUD.m_bAlphaSuit == TRUE)
-	{
-		int hud_bat = gHUD.GetSpriteIndex("alpha_bat");
-
+	{;
 		wrect_t alrc = gHUD.GetSpriteRect(gHUD.GetSpriteIndex("alpha_batbar"));
 		alrc.right = 20; //because of how wrects work you need to start with the offset from hud.txt
 		alrc.right += m_iBat * 240 / 100;

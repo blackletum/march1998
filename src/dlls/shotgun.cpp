@@ -149,6 +149,11 @@ int CShotgun::GetItemInfo(ItemInfo *p)
 
 BOOL CShotgun::Deploy( )
 {
+	if (m_pPlayer->m_bAlphaSuit == TRUE)
+		pev->body = 1;
+	else
+		pev->body = 0;
+
 	return DefaultDeploy( "models/v_shotgun.mdl", "models/p_shotgun.mdl", SHOTGUN_DRAW, "shotgun" );
 }
 

@@ -640,8 +640,7 @@ BOOL CanAttack( float attack_time, float curtime, BOOL isPredicted )
 
 void CBasePlayerWeapon::ItemPostFrame( void )
 {
-	//magic nipples - broken reload
-	/*if ((m_fInReload) && ( m_pPlayer->m_flNextAttack <= gpGlobals->time ) )
+	if ((m_fInReload) && ( m_pPlayer->m_flNextAttack <= gpGlobals->time ) )
 	{
 		// complete the reload. 
 		int j = min( iMaxClip() - m_iClip, m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]);	
@@ -653,7 +652,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 		m_pPlayer->TabulateAmmo();
 
 		m_fInReload = FALSE;
-	}*/
+	}
 
 	if ((m_pPlayer->pev->button & IN_ATTACK2) && CanAttack( m_flNextSecondaryAttack, gpGlobals->time, UseDecrement() ) )
 	{

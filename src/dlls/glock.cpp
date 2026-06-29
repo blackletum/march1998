@@ -112,6 +112,11 @@ int CGlock::GetItemInfo(ItemInfo* p)
 
 BOOL CGlock::Deploy()
 {
+	if (m_pPlayer->m_bAlphaSuit == TRUE)
+		pev->body = 1;
+	else
+		pev->body = 0;
+
 	return DefaultDeploy("models/v_glock.mdl", "models/p_9mmhandgun.mdl", GLOCK_DRAW, "onehanded");
 }
 

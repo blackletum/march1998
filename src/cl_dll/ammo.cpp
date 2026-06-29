@@ -763,10 +763,14 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 	if ( !pWeapon )
 		return 0;
 
-	if ( iClip < -1 )
+	if (iClip < -1)
+	{
 		pWeapon->iClip = abs(iClip);
+	}
 	else
+	{
 		pWeapon->iClip = iClip;
+	}	
 
 
 	if ( iState == 0 )	// we're not the current weapon, so update no more
@@ -1024,12 +1028,12 @@ int CHudAmmo::Draw(float flTime)
 			return 1;
 		}
 
-		FillRGBA(ScreenWidth - 44, ScreenHeight - 61, 10, gWR.CountAmmo(w->iAmmoType) * -244 / w->iMax1, 200, 0, 255, 255); // primarys
+		FillRGBA(ScreenWidth - 44, ScreenHeight - 61, 10, gWR.CountAmmo(w->iAmmoType) * -244 / w->iMax1 * 2, 200, 0, 255, 255); // primarys
 
-		FillRGBA(ScreenWidth - 55, ScreenHeight - 61, 10, w->iClip * -244 / w->iMaxClip, 0, 255, 0, 255); // clip 
+		FillRGBA(ScreenWidth - 55, ScreenHeight - 61, 10, w->iClip * -244 / w->iMaxClip * 2, 0, 255, 0, 255); // clip 
 
-		// p1llowguy - game crashes here
-		FillRGBA(ScreenWidth - 33, ScreenHeight - 61, 10, gWR.CountAmmo(w->iAmmo2Type) * -244 / w->iMax2, 255, 0, 0, 255); // secondarys
+		// p1llowguy - game crashes here (Integer division by zero. (????))
+		FillRGBA(ScreenWidth - 33, ScreenHeight - 61, 10, gWR.CountAmmo(w->iAmmo2Type) * -244 / w->iMax2 * 2, 255, 0, 0, 255); // secondarys
 
 	}
 	else

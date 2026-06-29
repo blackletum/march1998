@@ -12,8 +12,6 @@ $cdtexture "./maps_8bit"
 $scale 1.0
 
 // whole body
-
-$body studio "glock_reference(hands)"
 $body studio "glock_reference(gun)"
 $body studio "glock_reference(clip)"
 
@@ -21,6 +19,12 @@ $bodygroup silencer
 {
 blank
 studio "glock_reference(silencer)"
+}
+
+$bodygroup hands
+{
+	studio "glock_reference(beta_hands)"
+	studio "glock_reference(ivan_hands)"
 }
 
 $origin 0 0 64

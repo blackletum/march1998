@@ -12,8 +12,13 @@ $cdtexture maps_8bit
 $scale 1.0 
 
 // whole body
-$body studio "v_shotgun_reference"
 $body studio "max_shell"
+
+$bodygroup hands
+{
+    studio "v_shotgun_reference"
+    studio "v_shotgun_reference_ivan"
+}
 
 //$origin       SIDE-SIDE IN-OUT  UP-DOWN
 

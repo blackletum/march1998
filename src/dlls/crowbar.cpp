@@ -106,6 +106,11 @@ int CCrowbar::GetItemInfo(ItemInfo* p)
 
 BOOL CCrowbar::Deploy()
 {
+	if (m_pPlayer->m_bAlphaSuit == TRUE)
+		pev->body = 1;
+	else
+		pev->body = 0;
+
 	return DefaultDeploy("models/v_crowbar.mdl", "models/p_crowbar.mdl", CROWBAR_DRAW, "crowbar");
 }
 

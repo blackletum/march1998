@@ -144,6 +144,11 @@ int CMP5::AddToPlayer(CBasePlayer* pPlayer)
 
 BOOL CMP5::Deploy()
 {
+	if (m_pPlayer->m_bAlphaSuit == TRUE)
+		pev->body = 1;
+	else
+		pev->body = 0;
+
 	return DefaultDeploy("models/v_mp5.mdl", "models/p_9mmAR.mdl", MP5_DEPLOY, "mp5");
 }
 
