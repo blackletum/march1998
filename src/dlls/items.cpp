@@ -28,6 +28,7 @@
 #include "skill.h"
 #include "items.h"
 #include "gamerules.h"
+#include "shake.h"
 
 extern int gmsgItemPickup;
 
@@ -631,6 +632,7 @@ class CItemShield : public CItem
 			pPlayer->SetSuitUpdate("!HEV_A2", FALSE, SUIT_REPEAT_OK);
 			EMIT_SOUND(pPlayer->edict(), CHAN_ITEM, "items/gunpickup2.wav", 1, ATTN_NORM);
 			pPlayer->m_rgItems[ITEM_SHIELD] = 1;
+			UTIL_ScreenFade(pPlayer, Vector(99, 82, 255), 1, 0.1, 50, FFADE_MODULATE);
 
 			MESSAGE_BEGIN(MSG_ONE, gmsgItemPickup, NULL, pPlayer->pev);
 			WRITE_STRING(STRING(pev->netname));

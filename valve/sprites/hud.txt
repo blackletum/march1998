@@ -1,4 +1,4 @@
-100
+102
 selection		640 640hud3	0	180	170	45
 
 bucket1			640 640hud6	0	180	20	20
@@ -112,3 +112,6 @@ alpha_bat	640	ivansuithud		0 132 200 64
 alpha_ammo	640	ivansuithud		360 0 280 320
 alpha_hpbar	640	ivansuithud		20 202 240 9
 alpha_batbar	640	ivansuithud		20 222 240 9
+
+shield_on		640 shield_on		0	0	48	48
+shield_off		640 shield_off		0	0	48	48

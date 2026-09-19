@@ -127,6 +127,7 @@ public:
 	int MsgFunc_FlashBat(const char* pszName, int iSize, void* pbuf);
 	int MsgFunc_IvanSuitV(const char* pszName, int iSize, void* pbuf);
 	int MsgFunc_DefaultSuitV(const char* pszName, int iSize, void* pbuf);
+	int MsgFunc_ShieldV(const char* pszName, int iSize, void* pbuf);
 
 	void SlotInput( int iSlot );
 	void _cdecl UserCmd_Slot1( void );
@@ -153,6 +154,7 @@ public:
 	int m_iLongJumpBat; //how much we have long jump battery?
 	float m_flBat; //flashlight battery
 	int	  m_iBat;
+	int m_iShield;
 
 private:
 	float m_fFade;

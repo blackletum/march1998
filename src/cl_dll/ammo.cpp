@@ -250,6 +250,7 @@ DECLARE_MESSAGE(m_Ammo, FlashBat)
 DECLARE_MESSAGE(m_Ammo, LonJumBat);
 DECLARE_MESSAGE(m_Ammo, IvanSuitV);
 DECLARE_MESSAGE(m_Ammo, DefaultSuitV);
+DECLARE_MESSAGE(m_Ammo, ShieldV);
 
 DECLARE_COMMAND(m_Ammo, Slot1);
 DECLARE_COMMAND(m_Ammo, Slot2);
@@ -291,6 +292,7 @@ int CHudAmmo::Init(void)
 	HOOK_MESSAGE(FlashlightV);
 	HOOK_MESSAGE(FlashBat);
 	HOOK_MESSAGE(AdrenalineV);
+	HOOK_MESSAGE(ShieldV);
 
 	// Suit variants
 	HOOK_MESSAGE(IvanSuitV);
@@ -655,6 +657,15 @@ int CHudAmmo::MsgFunc_DefaultSuitV(const char* pszName, int iSize, void* pbuf)
 		m_fFade = FADE_TIME;
 		gHUD.m_fDefaultSuit = x;
 	}
+
+	return 1;
+}
+
+int CHudAmmo::MsgFunc_ShieldV(const char* pszName, int iSize, void* pbuf)
+{
+	BEGIN_READ(pbuf, iSize);
+	m_iShield = READ_BYTE();
+	int x = READ_BYTE();
 
 	return 1;
 }
@@ -1569,6 +1580,20 @@ int CHudAmmo::DrawInventory(float flTime) //magic nipples - INVENTORY
 		SPR_Set(gHUD.GetSprite(gHUD.GetSpriteIndex("flash_off")), r, g, b);
 		SPR_DrawAdditive(0, x, y, m_prc2);
 		y += apparatusIconWidth + 8;
+	}
+
+	// SHIELD
+	y = ((ScreenHeight / ScreenHeight) - (m_iHeight * 7.12));
+
+	if (m_iShield == 1)
+	{
+		SPR_Set(gHUD.GetSprite(gHUD.GetSpriteIndex("shield_on")), r, g, b);
+		SPR_DrawAdditive(0, x, y, m_prc2);
+	}
+	else
+	{
+		SPR_Set(gHUD.GetSprite(gHUD.GetSpriteIndex("shield_off")), r, g, b);
+		SPR_DrawAdditive(0, x, y, m_prc2);
 	}
 	return 1;
 }

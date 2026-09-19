@@ -226,6 +226,7 @@ int gmsgRadiation = 0;
 int gmsgLongJumpBat = 0;
 int gmsgOxygen = 0;
 int gmsgAdrenaline = 0;
+int gmsgShield = 0;
 
 // Suit Variation
 int gmsgDefaultSuit = 0;
@@ -294,6 +295,7 @@ void LinkUserMessages( void )
 	gmsgOxygen = REG_USER_MSG("OxygenV", -1);
 	gmsgFlashlight = REG_USER_MSG("FlashlightV", 2);
 	gmsgAdrenaline = REG_USER_MSG("AdrenalineV", -1);
+	gmsgShield = REG_USER_MSG("ShieldV", -1);
 
 	gmsgIvanSuit = REG_USER_MSG("IvanSuitV", -1);
 	gmsgDefaultSuit = REG_USER_MSG("DefaultSuitV", -1);
@@ -3934,6 +3936,8 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		gEvilImpulse101 = TRUE;
 			GiveNamedItem("item_suit");
 			GiveNamedItem("item_battery");
+			GiveNamedItem("item_shield");
+			GiveNamedItem("item_healthkit");
 			GiveNamedItem("weapon_crowbar");
 			GiveNamedItem("weapon_9mmhandgun");
 			GiveNamedItem("ammo_9mmclip");
@@ -4643,6 +4647,11 @@ void CBasePlayer :: UpdateClientData( void )
 	//update adrenaline
 	MESSAGE_BEGIN(MSG_ONE, gmsgAdrenaline, NULL, pev);
 	WRITE_BYTE(m_rgItems[ITEM_ADRENALINE]);
+	MESSAGE_END();
+
+	//update shield
+	MESSAGE_BEGIN(MSG_ONE, gmsgShield, NULL, pev);
+	WRITE_BYTE(m_rgItems[ITEM_SHIELD]);
 	MESSAGE_END();
 
 	// Update Flashlight
