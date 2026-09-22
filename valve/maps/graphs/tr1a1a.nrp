@@ -879,10 +879,7 @@ Node   26:
 -------------------------------------------------------------------------------
 Node   27:
 
-NODE_SMALL_HULL step 112
-Rejected Node  52 - Unreachable by Any Hull
-NODE_SMALL_HULL step 112
-Rejected Node  53 - Unreachable by Any Hull
+NODE_LARGE_HULL step 64
 -------------------------------------------------------------------------------
 Node   28:
 
@@ -898,10 +895,6 @@ Rejected Node  32 - Unreachable by Any Hull
 -------------------------------------------------------------------------------
 Node   30:
 
-NODE_SMALL_HULL step 672
-Rejected Node  52 - Unreachable by Any Hull
-NODE_SMALL_HULL step 672
-Rejected Node  53 - Unreachable by Any Hull
 -------------------------------------------------------------------------------
 Node   31:
 
@@ -944,10 +937,6 @@ Node   39:
 -------------------------------------------------------------------------------
 Node   40:
 
-NODE_SMALL_HULL step 432
-Rejected Node  52 - Unreachable by Any Hull
-NODE_SMALL_HULL step 432
-Rejected Node  53 - Unreachable by Any Hull
 -------------------------------------------------------------------------------
 Node   41:
 
@@ -1000,27 +989,15 @@ Node   51:
 -------------------------------------------------------------------------------
 Node   52:
 
-NODE_SMALL_HULL step 336
-Rejected Node  27 - Unreachable by Any Hull
-NODE_SMALL_HULL step 336
-Rejected Node  30 - Unreachable by Any Hull
 NODE_SMALL_HULL step 96
-Rejected Node  49 - Unreachable by Any Hull
+Rejected Node  47 - Unreachable by Any Hull
 NODE_SMALL_HULL step 32
 Rejected Node  48 - Unreachable by Any Hull
 NODE_SMALL_HULL step 96
-Rejected Node  47 - Unreachable by Any Hull
-NODE_SMALL_HULL step 336
-Rejected Node  40 - Unreachable by Any Hull
+Rejected Node  49 - Unreachable by Any Hull
 -------------------------------------------------------------------------------
 Node   53:
 
-NODE_SMALL_HULL step 32
-Rejected Node  27 - Unreachable by Any Hull
-NODE_SMALL_HULL step 32
-Rejected Node  30 - Unreachable by Any Hull
-NODE_SMALL_HULL step 32
-Rejected Node  40 - Unreachable by Any Hull
 NODE_SMALL_HULL step 64
 Rejected Node  48 - Unreachable by Any Hull
 -------------------------------------------------------------------------------
@@ -1132,6 +1109,7 @@ REJECTED NODE  38 through Node  25, Dot = 1.000000
 
 Node  27:
 REJECTED NODE  30 through Node  40, Dot = 0.999933
+REJECTED NODE  52 through Node  53, Dot = 0.998452
 ----------------------------------------------------------------------------
 
 Node  28:
@@ -1142,6 +1120,8 @@ Node  29:
 
 Node  30:
 REJECTED NODE  27 through Node  40, Dot = 0.999869
+REJECTED NODE  53 through Node  40, Dot = 0.999942
+REJECTED NODE  52 through Node  40, Dot = 0.999971
 REJECTED NODE  33 through Node  26, Dot = 0.999882
 ----------------------------------------------------------------------------
 
@@ -1182,6 +1162,8 @@ REJECTED NODE  10 through Node  13, Dot = 0.998335
 ----------------------------------------------------------------------------
 
 Node  40:
+REJECTED NODE  52 through Node  27, Dot = 0.999294
+REJECTED NODE  53 through Node  27, Dot = 0.999059
 ----------------------------------------------------------------------------
 
 Node  41:
@@ -1219,9 +1201,13 @@ Node  51:
 ----------------------------------------------------------------------------
 
 Node  52:
+REJECTED NODE  27 through Node  53, Dot = 0.999404
+REJECTED NODE  30 through Node  53, Dot = 0.999971
+REJECTED NODE  40 through Node  53, Dot = 0.999952
 ----------------------------------------------------------------------------
 
 Node  53:
+REJECTED NODE  30 through Node  40, Dot = 0.999988
 ----------------------------------------------------------------------------
 
 
@@ -1229,12 +1215,13 @@ Node  53:
 -------------------------------------------------------------------------------
 Link Pairings:
 WARNING: Node  16 does not connect back to Node   8
+WARNING: Node  31 does not connect back to Node  30
 WARNING: Node  10 does not connect back to Node  53
 -------------------------------------------------------------------------------
 
 
 -------------------------------------------------------------------------------
-Total Number of Connections in Pool: 144
+Total Number of Connections in Pool: 147
 -------------------------------------------------------------------------------
-Connection Pool: 3456 bytes
+Connection Pool: 3528 bytes
 -------------------------------------------------------------------------------
