@@ -29,4 +29,5 @@ Drooga/dermoker - models.\
 Thrill-dev - base for mod.\
 Magic nipples - xash3d 2019 fork, some shaft code, quiver as a base.\
 Blooresque - zombie models (thank ya).\
-serecky - early houndeye recreation, hud icons for weapons
+serecky - early houndeye recreation, hud icons for weapons.\
+Companion Doll - germany model pack (I'M SORRY TO MENTION YA)
