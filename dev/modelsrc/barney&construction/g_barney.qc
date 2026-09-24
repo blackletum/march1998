@@ -32,6 +32,13 @@ blank
 studio "BARNEY2_Template_Biped2(WithGun)"
 }
 
+$bodygroup "Type"
+{
+studio "G_BarnHatTed"
+studio "G_BarnHatFreeze"
+studio "G_BarnHatWide"
+}
+
 $body studio "g_barney_doll_X"
 
 // 2 bone controller(s)
