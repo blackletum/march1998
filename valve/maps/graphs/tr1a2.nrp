@@ -2371,16 +2371,12 @@ Node  102:
 
 NODE_SMALL_HULL step 64
 Rejected Node  35 - Unreachable by Any Hull
-NODE_SMALL_HULL step 576
-Rejected Node 107 - Unreachable by Any Hull
 NODE_LARGE_HULL step 80
 -------------------------------------------------------------------------------
 Node  103:
 
 NODE_LARGE_HULL step 144
 NODE_HUMAN_HULL step 160
-NODE_SMALL_HULL step 176
-Rejected Node 107 - Unreachable by Any Hull
 NODE_SMALL_HULL step 80
 Rejected Node 109 - Unreachable by Any Hull
 -------------------------------------------------------------------------------
@@ -2405,10 +2401,6 @@ NODE_LARGE_HULL step 256
 -------------------------------------------------------------------------------
 Node  107:
 
-NODE_SMALL_HULL step 128
-Rejected Node 102 - Unreachable by Any Hull
-NODE_SMALL_HULL step 128
-Rejected Node 103 - Unreachable by Any Hull
 -------------------------------------------------------------------------------
 Node  108:
 
@@ -2897,8 +2889,8 @@ WARNING: Node  78 does not connect back to Node  76
 WARNING: Node  61 does not connect back to Node  80
 WARNING: Node  84 does not connect back to Node  89
 WARNING: Node  90 does not connect back to Node  89
-WARNING: Node 101 does not connect back to Node  97
-WARNING: Node 100 does not connect back to Node 101
+WARNING: Node 102 does not connect back to Node  99
+WARNING: Node 101 does not connect back to Node 102
 WARNING: Node  10 does not connect back to Node 106
 WARNING: Node  38 does not connect back to Node 109
 WARNING: Node 105 does not connect back to Node 111
@@ -2906,7 +2898,7 @@ WARNING: Node 105 does not connect back to Node 111
 
 
 -------------------------------------------------------------------------------
-Total Number of Connections in Pool: 333
+Total Number of Connections in Pool: 337
 -------------------------------------------------------------------------------
-Connection Pool: 7992 bytes
+Connection Pool: 8088 bytes
 -------------------------------------------------------------------------------
